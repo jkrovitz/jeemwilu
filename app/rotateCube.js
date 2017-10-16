@@ -1,7 +1,5 @@
 var three = THREE;
 
-
-
 var scene = new three.Scene();
 scene.background = new THREE.Color( 0x01426A );
 var camera = new three.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -9,16 +7,11 @@ var camera = new three.PerspectiveCamera(75, window.innerWidth/window.innerHeigh
 var renderer = new three.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-
 document.body.appendChild(renderer.domElement);
-
 
 
 var geometry = new three.BoxGeometry(3,3,3);
 
-//three.ImageUtils.crossOrigin = '';
-//var texture = three.ImageUtils.loadTexture('http://i.imgur.com/CEGihbB.gif');
-//texture.anisotropy = renderer.getMaxAnisotropy();
 
 var material = new three.MeshFaceMaterial([
     new three.MeshBasicMaterial({
@@ -28,8 +21,7 @@ var material = new three.MeshFaceMaterial([
         color: 0xFFB500
     }),
     new three.MeshBasicMaterial({
-        color: 0xFFB500,
-        //map: texture
+        color: 0xFFB500
     }),
     new three.MeshBasicMaterial({
         color: 0xFFB500
