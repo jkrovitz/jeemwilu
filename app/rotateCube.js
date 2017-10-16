@@ -1,7 +1,9 @@
+/*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/ and https://codepen.io/jonnyboniface/pen/ALoPbL***/
+
 var three = THREE;
 
 var scene = new three.Scene();
-scene.background = new THREE.Color( 0x01426A );
+scene.background = new THREE.Color( 0xFFFFFF );
 var camera = new three.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 
 var renderer = new three.WebGLRenderer();
@@ -15,25 +17,32 @@ var geometry = new three.BoxGeometry(3,3,3);
 
 var material = new three.MeshFaceMaterial([
     new three.MeshBasicMaterial({
-        color: 0xFFB500
+        color: 0x000000, 
+        wireframe: true 
     }),
     new three.MeshBasicMaterial({
-        color: 0xFFB500
+        color: 0x000000, 
+        wireframe: true 
     }),
     new three.MeshBasicMaterial({
-        color: 0xFFB500
+        color: 0x000000,
+        wireframe: true 
     }),
     new three.MeshBasicMaterial({
-        color: 0xFFB500
+        color: 0x000000,
+        wireframe: true 
     }),
     new three.MeshBasicMaterial({
-        color: 0xFFB500
+       color: 0x000000,
+        wireframe: true 
     }),
     new three.MeshBasicMaterial({
-        color: 0xFFB500
+        color: 0x000000,
+        wireframe: true 
     }),
         new three.MeshBasicMaterial({
-        color: 0xFFB500
+        color: 0x000000,
+        wireframe: true 
     })
     
 ]);
