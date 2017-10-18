@@ -12,51 +12,75 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 
-var geometry = new three.BoxGeometry(3,3,3);
+
+var geometry = new three.BoxGeometry(3, 3, 3);
+
 
 
 var material = new three.MeshFaceMaterial([
-    new three.MeshBasicMaterial({
-        color: 0x000000, 
-        wireframe: true 
+    new three.MeshFaceMaterial({
+        color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
     }),
-    new three.MeshBasicMaterial({
-        color: 0x000000, 
-        wireframe: true 
+    new three.MeshFaceMaterial({
+     color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
     }),
-    new three.MeshBasicMaterial({
-        color: 0x000000,
-        wireframe: true 
+    new three.MeshFaceMaterial({
+       color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
+        
     }),
-    new three.MeshBasicMaterial({
-        color: 0x000000,
-        wireframe: true 
+    new three.MeshFaceMaterial({
+         color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
     }),
-    new three.MeshBasicMaterial({
-       color: 0x000000,
-        wireframe: true 
+    new three.MeshFaceMaterial({
+       color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
     }),
-    new three.MeshBasicMaterial({
-        color: 0x000000,
-        wireframe: true 
-    }),
-        new three.MeshBasicMaterial({
-        color: 0x000000,
-        wireframe: true 
+    new three.MeshFaceMaterial({
+          color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
     })
-    
 ]);
 
+var material2 = new THREE.MeshBasicMaterial({
+    color:0x00000000, transparent:true, opacity:0.9, side: THREE.DoubleSide
+});
+
+/* */
 
 var cube = new three.Mesh(geometry, material);
 cube.rotation.x = Math.PI/4;
 cube.rotation.y = Math.PI/4;
 scene.add(cube);
 
+var geo = new THREE.EdgesGeometry( cube.geometry );
+var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 4 } );
+var wireframe = new THREE.LineSegments( geo, mat );
+wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
+
+cube.add( wireframe );
+
+var geometry2 = new THREE.SphereGeometry(5,16,20);
+geometry2.applyMatrix( new THREE.Matrix4().makeScale( .15, .10, .48 ) );
+
+
+//add embedded ellipsoid
+var ellipsoid1 = new THREE.Mesh(geometry2,material2);
+scene.add(ellipsoid1);
+
+//var geo2 = new THREE.SphereGeometry( ellipsoid1.geometry );
+//var mat2 = new THREE.MeshNormalMaterial( { color: 0x000000, linewidth: 4 } );
+//var wireframe2 = new THREE.LineSegments( geo2, mat2 );
+//wireframe2.renderOrder = 1; // make sure wireframes are rendered 2nd
+// var material = new THREE.MeshNormalMaterial( { side: THREE.DoubleSide } ) ;
+    var wirematerial = new THREE.MeshBasicMaterial( { 
+        color: 0x0000000, wireframe: true, polygonOffset: true,     
+        polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
+
+ellipsoid1.add( wirematerial)
+
+
 
 camera.position.z = 5;
 
-
+/* */
 var isDragging = false;
 var previousMousePosition = {
     x: 0,
@@ -90,6 +114,7 @@ $(renderer.domElement).on('mousedown', function(e) {
         y: e.offsetY
     };
 });
+/* */
 
 $(document).on('mouseup', function(e) {
     isDragging = false;
@@ -97,6 +122,7 @@ $(document).on('mouseup', function(e) {
 
 
 
+// shim layer with setTimeout fallback
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -109,7 +135,11 @@ window.requestAnimFrame = (function(){
 var lastFrameTime = new Date().getTime() / 1000;
 var totalGameTime = 0;
 function update(dt, t) {
-
+    //console.log(dt, t);
+    
+    //camera.position.z += 1 * dt;
+    //cube.rotation.x += 1 * dt;
+    //cube.rotation.y += 1 * dt;
     
     setTimeout(function() {
         var currTime = new Date().getTime() / 1000;
@@ -123,23 +153,33 @@ function update(dt, t) {
 }
 
 
+
+
 function render() {
     renderer.render(scene, camera);
+
     
     
     requestAnimFrame(render);
 }
 
 render();
-
 update(0, totalGameTime);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function toRadians(angle) {
 	return angle * (Math.PI / 180);
 }
-
-function toDegrees(angle) {
-	return angle * (180 / Math.PI);
-}
-
