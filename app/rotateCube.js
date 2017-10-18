@@ -4,7 +4,18 @@ var three = THREE;
 
 var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
-var camera = new three.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+var canvasWidth = 100;
+var canvasHeight = 100;
+var viewSize = 150;
+var aspectRatio=canvasWidth/canvasHeight;
+var camera = new THREE.OrthographicCamera(-aspectRatio*viewSize / 2, aspectRatio*viewSize / 2, viewSize / 2, -viewSize / 2, -1000, 1000);
+scene.add( camera );
+
+//var camera = new three.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+
+//distance zoomed out/in
+camera.position.z = 50;
+camera.position.x = 35;
 
 var renderer = new three.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -13,9 +24,18 @@ document.body.appendChild(renderer.domElement);
 
 
 
-var geometry = new three.BoxGeometry(3, 3, 3);
+var geometry = new three.BoxGeometry(25, 25, 25);
 
+//define embedded ellipse
+var geometry2 = new THREE.SphereGeometry(5,8,8);
+geometry2.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 2.0, 1.0 ) );
 
+//define freestanding ellipsoid
+var geometry3 = new three.SphereGeometry(5,8,8);
+geometry3.applyMatrix( new THREE.Matrix4().makeScale( 2.0, 4.0, 2.0 ) );
+
+//define cross section
+var geometry4 = new three.CircleGeometry(10, 60);
 
 var material = new three.MeshFaceMaterial([
     new three.MeshFaceMaterial({
@@ -57,13 +77,20 @@ wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
 
 cube.add( wireframe );
 
-var geometry2 = new THREE.SphereGeometry(5,16,20);
-geometry2.applyMatrix( new THREE.Matrix4().makeScale( .15, .10, .48 ) );
-
 
 //add embedded ellipsoid
 var ellipsoid1 = new THREE.Mesh(geometry2,material2);
 scene.add(ellipsoid1);
+
+//add free ellipsoid
+var ellipsoid2 = new three.Mesh(geometry3,material2);
+ellipsoid2.position.set(35,0,0);
+scene.add(ellipsoid2);
+
+//add cross section
+var circle = new three.Mesh(geometry4,material2);
+circle.position.set(70,0,0);
+scene.add(circle);
 
 //var geo2 = new THREE.SphereGeometry( ellipsoid1.geometry );
 //var mat2 = new THREE.MeshNormalMaterial( { color: 0x000000, linewidth: 4 } );
@@ -76,9 +103,6 @@ scene.add(ellipsoid1);
 
 ellipsoid1.add( wirematerial)
 
-
-
-camera.position.z = 5;
 
 /* */
 var isDragging = false;
