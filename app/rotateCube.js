@@ -147,7 +147,7 @@ $(renderer.domElement).on('mousedown', function(e) {
         
         ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
         
-        circle.quaternion.multiplyQuaternions(deltaRotationQuaternion, circle.quaternion);
+//        circle.quaternion.multiplyQuaternions(deltaRotationQuaternion, circle.quaternion);
         
         
     }
