@@ -60,6 +60,7 @@ var material = new three.MeshFaceMaterial([
     }),
     new three.MeshFaceMaterial({
           color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
+        
     })
 ]);
 
@@ -142,7 +143,7 @@ $(renderer.domElement).on('mousedown', function(e) {
         
         cube.quaternion.multiplyQuaternions(deltaRotationQuaternion, cube.quaternion);
         
-        ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
+        //ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
         
         ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
         
