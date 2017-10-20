@@ -23,16 +23,20 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 
+var light = new THREE.PointLight( 0xff0000, 1, 100 );
+light.position.set( 50, 50, 50 );
+scene.add( light );
+
 
 var geometry = new three.BoxGeometry(25, 25, 25);
 
 //define embedded ellipse
-var geometry2 = new THREE.SphereGeometry(5,8,8);
-geometry2.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 2.0, 1.0 ) );
+var geometry2 = new THREE.SphereGeometry(5,5,5);
+geometry2.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.0, 1.0 ) );
 
 //define freestanding ellipsoid
-var geometry3 = new three.SphereGeometry(5,8,8);
-geometry3.applyMatrix( new THREE.Matrix4().makeScale( 2.0, 4.0, 2.0 ) );
+var geometry3 = new three.SphereGeometry(6,6,6);
+geometry3.applyMatrix( new THREE.Matrix4().makeScale( 2.0, 2.0, 2.0 ) );
 
 //define cross section
 var geometry4 = new three.CircleGeometry(10, 60);
@@ -60,7 +64,7 @@ var material = new three.MeshFaceMaterial([
 ]);
 
 var material2 = new THREE.MeshBasicMaterial({
-    color:0x00000000, transparent:true, opacity:0.9, side: THREE.DoubleSide
+    color:0x000000, transparent:true, opacity:1.0, side: THREE.DoubleSide
 });
 
 /* */
@@ -80,7 +84,11 @@ cube.add( wireframe );
 
 //add embedded ellipsoid
 var ellipsoid1 = new THREE.Mesh(geometry2,material2);
+
 scene.add(ellipsoid1);
+
+//var geo1 = new THREE.SGeometry(ellipsoid1.geometry2); 
+
 
 //add free ellipsoid
 var ellipsoid2 = new three.Mesh(geometry3,material2);
@@ -92,11 +100,13 @@ var circle = new three.Mesh(geometry4,material2);
 circle.position.set(70,0,0);
 scene.add(circle);
 
-//var geo2 = new THREE.SphereGeometry( ellipsoid1.geometry );
-//var mat2 = new THREE.MeshNormalMaterial( { color: 0x000000, linewidth: 4 } );
-//var wireframe2 = new THREE.LineSegments( geo2, mat2 );
-//wireframe2.renderOrder = 1; // make sure wireframes are rendered 2nd
-// var material = new THREE.MeshNormalMaterial( { side: THREE.DoubleSide } ) ;
+var geometry5 = new three.SphereGeometry(3, 5, 5, 0, Math.PI * 2, 0, Math.PI * 2);
+var material5 = new three.MeshNormalMaterial();
+var aSphere = new three.Mesh(geometry5, material5);
+scene.add(aSphere);
+
+
+
     var wirematerial = new THREE.MeshBasicMaterial( { 
         color: 0x0000000, wireframe: true, polygonOffset: true,     
         polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
@@ -104,7 +114,7 @@ scene.add(circle);
 ellipsoid1.add( wirematerial)
 
 
-/* */
+
 var isDragging = false;
 var previousMousePosition = {
     x: 0,
@@ -131,6 +141,14 @@ $(renderer.domElement).on('mousedown', function(e) {
             ));
         
         cube.quaternion.multiplyQuaternions(deltaRotationQuaternion, cube.quaternion);
+        
+        ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
+        
+        ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
+        
+        circle.quaternion.multiplyQuaternions(deltaRotationQuaternion, circle.quaternion);
+        
+        
     }
     
     previousMousePosition = {
@@ -159,11 +177,7 @@ window.requestAnimFrame = (function(){
 var lastFrameTime = new Date().getTime() / 1000;
 var totalGameTime = 0;
 function update(dt, t) {
-    //console.log(dt, t);
-    
-    //camera.position.z += 1 * dt;
-    //cube.rotation.x += 1 * dt;
-    //cube.rotation.y += 1 * dt;
+
     
     setTimeout(function() {
         var currTime = new Date().getTime() / 1000;
@@ -189,18 +203,6 @@ function render() {
 
 render();
 update(0, totalGameTime);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
