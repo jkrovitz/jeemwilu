@@ -6,7 +6,7 @@ var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
 var canvasWidth = 100;
 var canvasHeight = 100;
-var viewSize = 150;
+var viewSize = 200;
 var aspectRatio=canvasWidth/canvasHeight;
 var camera = new THREE.OrthographicCamera(-aspectRatio*viewSize / 2, aspectRatio*viewSize / 2, viewSize / 2, -viewSize / 2, -1000, 1000);
 scene.add( camera );
@@ -182,7 +182,7 @@ $(renderer.domElement).on('mousedown', function(e) {
         
         ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
         
-        innerCrossSectionRender.quaternion.multiplyQuaternions(deltaRotationQuaternion, innerCrossSectionRender.quaternion);
+//        innerCrossSectionRender.quaternion.multiplyQuaternions(deltaRotationQuaternion, innerCrossSectionRender.quaternion);
         
 //        circle.quaternion.multiplyQuaternions(deltaRotationQuaternion, circle.quaternion);
         
