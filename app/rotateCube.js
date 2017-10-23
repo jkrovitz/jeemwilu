@@ -39,30 +39,15 @@ var innerCrossSection = new three.CircleGeometry(5,60);
 
 
 
-
-
-
-
 //define freestanding ellipsoid
 var geometry3 = new three.SphereGeometry(6,20,20);
 //geometry3.applyMatrix( new THREE.Matrix4().makeScale( 2.0, 2.0, 2.0 ) );
+//define cross-section within freestanding ellipsoid
+var innerCrossSection2 = new three.CircleGeometry(6,60);
+
 
 //define free-standing cross section
 var geometry4 = new three.CircleGeometry(10, 60);
-//cross section height
-var heightColor = new three.LineBasicMaterial({color: 0x00FF00});
-var heightLine = new three.Geometry();
-heightLine.vertices.push(new THREE.Vector3(70, 0, 0));
-heightLine.vertices.push(new THREE.Vector3(70, 10, 0));
-var heightLineRender = new THREE.Line(heightLine, heightColor);
-scene.add(heightLineRender);
-//cross section width line
-var widthColor = new three.LineBasicMaterial({color: 0xff0000});
-var widthLine = new three.Geometry();
-widthLine.vertices.push(new three.Vector3(70,0,0));
-widthLine.vertices.push(new three.Vector3(80,0,0));
-var widthLineRender = new three.Line(widthLine, widthColor);
-scene.add(widthLineRender);
 
 
 var material = new three.MeshFaceMaterial([
@@ -93,7 +78,7 @@ var material2 = new THREE.MeshBasicMaterial({
 });
 
 var material3 = new THREE.MeshBasicMaterial({
-    color:0x000000
+    color:0x333333 
 });
 
 material3.side = THREE.DoubleSide;
@@ -119,6 +104,27 @@ scene.add(ellipsoid1);
 
 //var geo1 = new THREE.SGeometry(ellipsoid1.geometry2); 
 
+//add free-standing cross section
+var circle = new three.Mesh(geometry4,material3);
+circle.position.set(70,0,0);
+scene.add(circle);
+
+//cross section height line
+var heightColor = new three.LineBasicMaterial({color: 0x00FF00});
+var heightLine = new three.Geometry();
+heightLine.vertices.push(new THREE.Vector3(70, 0, 0));
+heightLine.vertices.push(new THREE.Vector3(70, 10, 0));
+var heightLineRender = new THREE.Line(heightLine, heightColor);
+scene.add(heightLineRender);
+//cross section width line
+var widthColor = new three.LineBasicMaterial({color: 0xff0000});
+var widthLine = new three.Geometry();
+widthLine.vertices.push(new three.Vector3(70,0,0));
+widthLine.vertices.push(new three.Vector3(80,0,0));
+var widthLineRender = new three.Line(widthLine, widthColor);
+scene.add(widthLineRender);
+
+
 
 //add free ellipsoid
 var ellipsoid2 = new three.Mesh(geometry3,material2);
@@ -128,11 +134,17 @@ scene.add(ellipsoid2);
 //add inner-ellipsoid cross section
 var innerCrossSectionRender = new three.Mesh(innerCrossSection,material3);
 scene.add(innerCrossSectionRender);
+//rotate 250 deg = 4.36332 radians
+innerCrossSectionRender.rotation.x = 4.36332;
 
-//add free-standing cross section
-var circle = new three.Mesh(geometry4,material2);
-circle.position.set(70,0,0);
-scene.add(circle);
+//add inner-ellipsoid cross-section for freestanding ellipse
+var innerCrossSectionRender2 = new three.Mesh(innerCrossSection2,material3);
+innerCrossSectionRender2.position.set(35,0,0);
+scene.add(innerCrossSectionRender2);
+//rotate 250 deg = 4.36332 radians
+innerCrossSectionRender2.rotation.x = 4.36332;
+
+
 
 
 
