@@ -1,7 +1,13 @@
 /*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/ and https://codepen.io/jonnyboniface/pen/ALoPbL***/
 
+//*******COMMENT INFO*********
+// // + *** = section heading
+// // = explanation of subsection code line
+
 var three = THREE;
 
+
+//***Camera Settings
 var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
 var canvasWidth = 100;
@@ -11,23 +17,24 @@ var aspectRatio=canvasWidth/canvasHeight;
 var camera = new THREE.OrthographicCamera(-aspectRatio*viewSize / 2, aspectRatio*viewSize / 2, viewSize / 2, -viewSize / 2, -1000, 1000);
 scene.add( camera );
 
-//var camera = new three.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-
 //distance zoomed out/in
 camera.position.z = 50;
 camera.position.x = 35;
 
+//rendering
 var renderer = new three.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
 
-
+//light
 var light = new THREE.PointLight( 0xff0000, 1, 100 );
 light.position.set( 50, 50, 50 );
 scene.add( light );
 
 
+
+//***object definitions
 var geometry = new three.BoxGeometry(25, 25, 25);
 
 //define embedded ellipse
