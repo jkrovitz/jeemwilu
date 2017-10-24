@@ -37,32 +37,51 @@ scene.add( light );
 //***object definitions
 
 //Cube
-var geometry = new three.BoxGeometry(25, 25, 25);
+//var geometry = new three.BoxGeometry(25, 25, 25);
 
 //Hexagonal prism
-//var geometry = new THREE.Geometry();
-//
-//geometry.vertices.push(
-//    new THREE.Vector3( 0, 0, 0 ),
-//	new THREE.Vector3( -10,  0, 0 ),
-//	new THREE.Vector3( -5, 8.66, 0 ),
-//	new THREE.Vector3(  5, 8.66, 0 ),
-//    new THREE.Vector3(  10, 0, 0 ),
-//	new THREE.Vector3( -5, -8.66, 0 ),
-//	new THREE.Vector3(  5, -8.66, 0 ),
-//    
-//);
-//
-//geometry.faces.push( 
-//    new THREE.Face3( 0, 1, 2 ), 
-//    new THREE.Face3( 0, 2, 3 ),
-//    new THREE.Face3( 0, 3, 4 ),
-//    new THREE.Face3( 0, 1, 5 ),
-//    new THREE.Face3( 0, 5, 6 ),
-//    new THREE.Face3( 0, 4, 6 )
-//
-//);
-//
+var geometry = new THREE.Geometry();
+
+geometry.vertices.push( //Make all of the vertices!
+    new THREE.Vector3( 0, 0, 15 ),
+	new THREE.Vector3( 10,  0, 15 ),
+	new THREE.Vector3( 5, 8.66, 15 ),
+	new THREE.Vector3( -5, 8.66, 15 ),
+    new THREE.Vector3( -10, 0, 15 ),
+	new THREE.Vector3( -5, -8.66, 15 ),
+	new THREE.Vector3(  5, -8.66, 15 ),
+    new THREE.Vector3( 0, 0, -15 ),
+	new THREE.Vector3( 10,  0, -15 ),
+	new THREE.Vector3( 5, 8.66, -15 ),
+	new THREE.Vector3( -5, 8.66, -15 ),
+    new THREE.Vector3( -10, 0, -15 ),
+	new THREE.Vector3( -5, -8.66, -15 ),
+	new THREE.Vector3(  5, -8.66, -15 )
+    
+    
+);
+
+geometry.faces.push( 
+    new THREE.Face3( 0, 1, 2 ), //Top hex
+    new THREE.Face3( 0, 2, 3 ),
+    new THREE.Face3( 0, 3, 4 ),
+    new THREE.Face3( 0, 4, 5 ),
+    new THREE.Face3( 0, 5, 6 ),
+    new THREE.Face3( 0, 6, 1 ),
+    new THREE.Face3( 7, 8, 9 ), //Bottom hex 
+    new THREE.Face3( 7, 9, 10 ),
+    new THREE.Face3( 7, 10, 11 ),
+    new THREE.Face3( 7, 11, 12 ),
+    new THREE.Face3( 7, 12, 13 ),
+    new THREE.Face3( 7, 13, 8 ),
+    new THREE.Face4( 1, 2, 9, 8 ),//Siding. Dunno how face 4 works
+    new THREE.Face4( 2, 3, 10, 9 ),
+    new THREE.Face4( 3, 4, 11, 10 ),
+    new THREE.Face4( 4, 5, 12, 11 ),
+    new THREE.Face4( 5, 6, 13, 12 ),
+    new THREE.Face4( 6, 1, 8, 13)
+);
+
 //geometry.computeBoundingSphere();
 
 //define embedded ellipse
