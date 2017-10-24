@@ -35,7 +35,35 @@ scene.add( light );
 
 
 //***object definitions
+
+//Cube
 var geometry = new three.BoxGeometry(25, 25, 25);
+
+//Hexagonal prism
+//var geometry = new THREE.Geometry();
+//
+//geometry.vertices.push(
+//    new THREE.Vector3( 0, 0, 0 ),
+//	new THREE.Vector3( -10,  0, 0 ),
+//	new THREE.Vector3( -5, 8.66, 0 ),
+//	new THREE.Vector3(  5, 8.66, 0 ),
+//    new THREE.Vector3(  10, 0, 0 ),
+//	new THREE.Vector3( -5, -8.66, 0 ),
+//	new THREE.Vector3(  5, -8.66, 0 ),
+//    
+//);
+//
+//geometry.faces.push( 
+//    new THREE.Face3( 0, 1, 2 ), 
+//    new THREE.Face3( 0, 2, 3 ),
+//    new THREE.Face3( 0, 3, 4 ),
+//    new THREE.Face3( 0, 1, 5 ),
+//    new THREE.Face3( 0, 5, 6 ),
+//    new THREE.Face3( 0, 4, 6 )
+//
+//);
+//
+//geometry.computeBoundingSphere();
 
 //define embedded ellipse
 var geometry2 = new THREE.SphereGeometry(5,20,20);
@@ -92,17 +120,17 @@ material3.side = THREE.DoubleSide;
 
 /* */
 
-var cube = new three.Mesh(geometry, material);
-cube.rotation.x = Math.PI/4;
-cube.rotation.y = Math.PI/4;
-scene.add(cube);
+var crystal_shape = new three.Mesh(geometry, material);
+crystal_shape.rotation.x = Math.PI/4;
+crystal_shape.rotation.y = Math.PI/4;
+scene.add(crystal_shape);
 
-var geo = new THREE.EdgesGeometry( cube.geometry );
+var geo = new THREE.EdgesGeometry( crystal_shape.geometry );
 var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 4 } );
 var wireframe = new THREE.LineSegments( geo, mat );
 wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
 
-cube.add( wireframe );
+crystal_shape.add( wireframe );
 
 
 //add embedded ellipsoid
@@ -195,7 +223,7 @@ $(renderer.domElement).on('mousedown', function(e) {
                 'XYZ'
             ));
         
-        cube.quaternion.multiplyQuaternions(deltaRotationQuaternion, cube.quaternion);
+        crystal_shape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystal_shape.quaternion);
         
         ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
         
