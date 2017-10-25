@@ -10,9 +10,10 @@ var three = THREE;
 //***Camera Settings
 var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
-var canvasWidth = 100;
-var canvasHeight = 100;
-var viewSize = 200;
+//Aspect Ratio can be resised, this ratio or objects will look strange
+var canvasWidth = 1700; 
+var canvasHeight = 900;
+var viewSize = 100;
 var aspectRatio=canvasWidth/canvasHeight;
 var camera = new THREE.OrthographicCamera(-aspectRatio*viewSize / 2, aspectRatio*viewSize / 2, viewSize / 2, -viewSize / 2, -1000, 1000);
 scene.add( camera );
@@ -29,12 +30,12 @@ document.body.appendChild(renderer.domElement);
 
 //light
 var light = new THREE.PointLight( 0xff0000, 1, 100 );
-light.position.set( 50, 50, 50 );
+light.position.set( 0, -500, 0 );
 scene.add( light );
 
 
 
-//***object definitions
+//***object definitions!
 
 //Cube
 //var geometry = new three.BoxGeometry(25, 25, 25);
@@ -42,7 +43,7 @@ scene.add( light );
 //Hexagonal prism
 var geometry = new THREE.Geometry();
 
-geometry.vertices.push( //Make all of the vertices!
+geometry.vertices.push( //Make all of the vertices! Triangles from center, with bases rotating counterclockwise
     new THREE.Vector3( 0, 0, 15 ),
 	new THREE.Vector3( 10,  0, 15 ),
 	new THREE.Vector3( 5, 8.66, 15 ),
@@ -56,11 +57,8 @@ geometry.vertices.push( //Make all of the vertices!
 	new THREE.Vector3( -5, 8.66, -15 ),
     new THREE.Vector3( -10, 0, -15 ),
 	new THREE.Vector3( -5, -8.66, -15 ),
-	new THREE.Vector3(  5, -8.66, -15 )
-    
-    
+	new THREE.Vector3(  5, -8.66, -15 )  
 );
-
 geometry.faces.push( 
     new THREE.Face3( 0, 1, 2 ), //Top hex
     new THREE.Face3( 0, 2, 3 ),
@@ -74,18 +72,24 @@ geometry.faces.push(
     new THREE.Face3( 7, 11, 12 ),
     new THREE.Face3( 7, 12, 13 ),
     new THREE.Face3( 7, 13, 8 ),
-    new THREE.Face4( 1, 2, 9, 8 ),//Siding. Dunno how face 4 works
-    new THREE.Face4( 2, 3, 10, 9 ),
-    new THREE.Face4( 3, 4, 11, 10 ),
-    new THREE.Face4( 4, 5, 12, 11 ),
-    new THREE.Face4( 5, 6, 13, 12 ),
-    new THREE.Face4( 6, 1, 8, 13)
+    new THREE.Face3(1,2,9), //siding
+    new THREE.Face3(9,8,1),
+    new THREE.Face3(2,3,10),
+    new THREE.Face3(10,9,2),
+    new THREE.Face3(3,4,11),
+    new THREE.Face3(11,10,3),
+    new THREE.Face3(4,5,12),
+    new THREE.Face3(12,11,4),
+    new THREE.Face3(5,6,13),
+    new THREE.Face3(13,12,5),
+    new THREE.Face3(6,1,8),
+    new THREE.Face3(8,13,6),
 );
 
-//geometry.computeBoundingSphere();
+/* define embedded ellipses */
+//normal sphere
+var geometry2 = new THREE.SphereGeometry(5,20,20); 
 
-//define embedded ellipse
-var geometry2 = new THREE.SphereGeometry(5,20,20);
 //geometry2.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.0, 1.0 ) );
 
 //define cross-section within embedded ellipse
@@ -93,7 +97,7 @@ var innerCrossSection = new three.CircleGeometry(5,60);
 
 
 
-//define freestanding ellipsoid
+/*define freestanding ellipsoid */ 
 var geometry3 = new three.SphereGeometry(6,20,20);
 //geometry3.applyMatrix( new THREE.Matrix4().makeScale( 2.0, 2.0, 2.0 ) );
 //define cross-section within freestanding ellipsoid
@@ -108,23 +112,6 @@ var material = new three.MeshFaceMaterial([
     new three.MeshFaceMaterial({
         color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
     }),
-    new three.MeshFaceMaterial({
-     color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
-    }),
-    new three.MeshFaceMaterial({
-       color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
-        
-    }),
-    new three.MeshFaceMaterial({
-         color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
-    }),
-    new three.MeshFaceMaterial({
-       color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
-    }),
-    new three.MeshFaceMaterial({
-          color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
-        
-    })
 ]);
 
 var material2 = new THREE.MeshBasicMaterial({
@@ -137,7 +124,7 @@ var material3 = new THREE.MeshBasicMaterial({
 
 material3.side = THREE.DoubleSide;
 
-/* */
+/* Now we draw all of these relevant shapes*/
 
 var crystal_shape = new three.Mesh(geometry, material);
 crystal_shape.rotation.x = Math.PI/4;
@@ -198,24 +185,13 @@ scene.add(innerCrossSectionRender2);
 //rotate 250 deg = 4.36332 radians
 innerCrossSectionRender2.rotation.x = 4.36332;
 
-
-
-
-
-//var geometry5 = new three.SphereGeometry(3, 5, 5, 0, Math.PI * 2, 0, Math.PI * 2);
-//var material5 = new three.MeshNormalMaterial();
-//var aSphere = new three.Mesh(geometry5, material5);
-//scene.add(aSphere);
-
-
-
-    var wirematerial = new THREE.MeshBasicMaterial( { 
-        color: 0x0000000, wireframe: true, polygonOffset: true,     
-        polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
+var wirematerial = new THREE.MeshBasicMaterial( { 
+    color: 0x0000000, wireframe: true, polygonOffset: true,     
+    polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
 
 ellipsoid1.add( wirematerial)
 
-
+/*Now we regester user input */
 
 var isDragging = false;
 var previousMousePosition = {
@@ -243,16 +219,10 @@ $(renderer.domElement).on('mousedown', function(e) {
             ));
         
         crystal_shape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystal_shape.quaternion);
-        
         ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
-        
         ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
-        
 //        innerCrossSectionRender.quaternion.multiplyQuaternions(deltaRotationQuaternion, innerCrossSectionRender.quaternion);
-        
 //        circle.quaternion.multiplyQuaternions(deltaRotationQuaternion, circle.quaternion);
-        
-        
     }
     
     previousMousePosition = {
@@ -265,8 +235,6 @@ $(renderer.domElement).on('mousedown', function(e) {
 $(document).on('mouseup', function(e) {
     isDragging = false;
 });
-
-
 
 // shim layer with setTimeout fallback
 window.requestAnimFrame = (function(){
@@ -294,21 +262,13 @@ function update(dt, t) {
     }, 0);
 }
 
-
-
-
 function render() {
-    renderer.render(scene, camera);
-
-    
-    
+    renderer.render(scene, camera);   
     requestAnimFrame(render);
 }
 
 render();
 update(0, totalGameTime);
-
-
 
 function toRadians(angle) {
 	return angle * (Math.PI / 180);
