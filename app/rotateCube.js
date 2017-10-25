@@ -91,16 +91,16 @@ geometry.faces.push(
 //normal sphere
 var geometry2 = new THREE.SphereGeometry(5,20,20); 
 
-//geometry2.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.0, 1.0 ) );
+geometry2.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
 
 //define cross-section within embedded ellipse
 var innerCrossSection = new three.CircleGeometry(5,60);
 
 /*define freestanding ellipsoid */ 
-var geometry3 = new three.SphereGeometry(6,20,20);
-//geometry3.applyMatrix( new THREE.Matrix4().makeScale( 2.0, 2.0, 2.0 ) );
+var geometry3 = new three.SphereGeometry(5,20,20);
+geometry3.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 2.0 ) );
 //define cross-section within freestanding ellipsoid
-var innerCrossSection2 = new three.CircleGeometry(6,60);
+var innerCrossSection2 = new three.CircleGeometry(5,60);
 
 //define free-standing cross section
 var geometry4 = new three.CircleGeometry(10, 60);
