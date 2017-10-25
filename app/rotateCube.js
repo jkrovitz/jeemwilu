@@ -86,6 +86,7 @@ geometry.faces.push(
     new THREE.Face3(8,13,6),
 );
 
+
 /* define embedded ellipses */
 //normal sphere
 var geometry2 = new THREE.SphereGeometry(5,20,20); 
@@ -95,17 +96,15 @@ var geometry2 = new THREE.SphereGeometry(5,20,20);
 //define cross-section within embedded ellipse
 var innerCrossSection = new three.CircleGeometry(5,60);
 
-
-
 /*define freestanding ellipsoid */ 
 var geometry3 = new three.SphereGeometry(6,20,20);
 //geometry3.applyMatrix( new THREE.Matrix4().makeScale( 2.0, 2.0, 2.0 ) );
 //define cross-section within freestanding ellipsoid
 var innerCrossSection2 = new three.CircleGeometry(6,60);
 
-
 //define free-standing cross section
 var geometry4 = new three.CircleGeometry(10, 60);
+
 
 
 var material = new three.MeshFaceMaterial([
@@ -124,7 +123,11 @@ var material3 = new THREE.MeshBasicMaterial({
 
 material3.side = THREE.DoubleSide;
 
+
+
+
 /* Now we draw all of these relevant shapes*/
+
 
 var crystal_shape = new three.Mesh(geometry, material);
 crystal_shape.rotation.x = Math.PI/4;
@@ -191,7 +194,10 @@ var wirematerial = new THREE.MeshBasicMaterial( {
 
 ellipsoid1.add( wirematerial)
 
+
+
 /*Now we regester user input */
+
 
 var isDragging = false;
 var previousMousePosition = {
@@ -217,7 +223,7 @@ $(renderer.domElement).on('mousedown', function(e) {
                 0,
                 'XYZ'
             ));
-        
+        //And now we tell the shapes which things move        
         crystal_shape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystal_shape.quaternion);
         ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
         ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
@@ -230,8 +236,8 @@ $(renderer.domElement).on('mousedown', function(e) {
         y: e.offsetY
     };
 });
-/* */
 
+//How to tell when the movement is done
 $(document).on('mouseup', function(e) {
     isDragging = false;
 });
@@ -250,7 +256,7 @@ var lastFrameTime = new Date().getTime() / 1000;
 var totalGameTime = 0;
 function update(dt, t) {
 
-    
+    //Given a certain length of time after the user stops dragging, we turn off input
     setTimeout(function() {
         var currTime = new Date().getTime() / 1000;
         var dt = currTime - (lastFrameTime || currTime);
@@ -270,6 +276,7 @@ function render() {
 render();
 update(0, totalGameTime);
 
+//Cute lil helper function
 function toRadians(angle) {
 	return angle * (Math.PI / 180);
 }
