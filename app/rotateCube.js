@@ -98,7 +98,7 @@ var innerCrossSection = new three.CircleGeometry(5,60);
 
 /*define freestanding ellipsoid */ 
 var geometry3 = new three.SphereGeometry(5,20,20);
-geometry3.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 2.0 ) );
+geometry3.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
 //define cross-section within freestanding ellipsoid
 var innerCrossSection2 = new three.CircleGeometry(5,60);
 
