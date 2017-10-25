@@ -229,6 +229,7 @@ $(renderer.domElement).on('mousedown', function(e) {
         ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
 //        innerCrossSectionRender.quaternion.multiplyQuaternions(deltaRotationQuaternion, innerCrossSectionRender.quaternion);
 //        circle.quaternion.multiplyQuaternions(deltaRotationQuaternion, circle.quaternion);
+//        innerCrossSection.applyMatrix( new THREE.Matrix4().makeScale( 1.0 + (deltaMove.x/10), 1.0 + (deltaMove.y/10), 1.0 ) );
     }
     
     previousMousePosition = {
