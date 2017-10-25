@@ -130,8 +130,7 @@ material3.side = THREE.DoubleSide;
 
 
 var crystal_shape = new three.Mesh(geometry, material);
-crystal_shape.rotation.x = Math.PI/4;
-crystal_shape.rotation.y = Math.PI/4;
+crystal_shape.rotation.x = 4.36332;
 scene.add(crystal_shape);
 
 var geo = new THREE.EdgesGeometry( crystal_shape.geometry );
