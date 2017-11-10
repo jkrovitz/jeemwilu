@@ -87,13 +87,13 @@ geometry.faces.push(
 );
 
 
-/* define embedded ellipses */
+/* define embedded ellipsoid */
 //normal sphere
 var geometry2 = new THREE.SphereGeometry(5,20,20); 
 
 geometry2.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
 
-//define cross-section within embedded ellipse
+//define cross-section within embedded ellipsoid
 var innerCrossSection = new three.CircleGeometry(5,60);
 
 /*define freestanding ellipsoid */ 
@@ -106,7 +106,7 @@ var innerCrossSection2 = new three.CircleGeometry(5,60);
 var geometry4 = new three.CircleGeometry(10, 60);
 
 
-
+//Surface materials for our shapes
 var material = new three.MeshFaceMaterial([
     new three.MeshFaceMaterial({
         color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
@@ -149,9 +149,26 @@ scene.add(ellipsoid1);
 //var geo1 = new THREE.SGeometry(ellipsoid1.geometry2); 
 
 //add free-standing cross section
-var circle = new three.Mesh(geometry4,material3);
-circle.position.set(70,0,0);
-scene.add(circle);
+//var the_cross_section = new three.Mesh(geometry4,material3);
+//the_cross_section.position.set(70,0,0);
+//scene.add(the_cross_section);
+
+var mycurve = new THREE.EllipseCurve(
+	0,  0,            // ax, aY
+	10, 10,           // xRadius, yRadius
+	0,  2 * Math.PI,  // aStartAngle, aEndAngle
+	false,            // aClockwise
+	0                 // aRotation
+);
+
+var mypoints = mycurve.getPoints();
+//alert(mypoints);
+//?? THIS LINE IS BREAKING STUFF AND I DON'T KNOW WHY
+//var geometry5 = new THREE.Geometry().setFromPoints ( mypoints );
+var mynewmaterial = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+
+// Create the final object to add to the scene
+var ellipse = new THREE.Line( geometry, material );
 
 //cross section height line
 var heightColor = new three.LineBasicMaterial({color: 0x00FF00});
