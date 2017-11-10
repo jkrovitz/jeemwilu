@@ -141,35 +141,17 @@ wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
 
 crystal_shape.add( wireframe );
 
-
 //add embedded ellipsoid
 var ellipsoid1 = new THREE.Mesh(geometry2,material2)
 scene.add(ellipsoid1);
-
 //var geo1 = new THREE.SGeometry(ellipsoid1.geometry2); 
 
 //add free-standing cross section
-//var the_cross_section = new three.Mesh(geometry4,material3);
-//the_cross_section.position.set(70,0,0);
-//scene.add(the_cross_section);
-
-var mycurve = new THREE.EllipseCurve(
-	0,  0,            // ax, aY
-	10, 10,           // xRadius, yRadius
-	0,  2 * Math.PI,  // aStartAngle, aEndAngle
-	false,            // aClockwise
-	0                 // aRotation
-);
-
-var mypoints = mycurve.getPoints();
-//alert(mypoints);
-//?? THIS LINE IS BREAKING STUFF AND I DON'T KNOW WHY
-//var geometry5 = new THREE.Geometry().setFromPoints ( mypoints );
-var mynewmaterial = new THREE.LineBasicMaterial( { color : 0xff0000 } );
-
-// Create the final object to add to the scene
-var ellipse = new THREE.Line( geometry, material );
-
+var geometry5 = new THREE.SphereGeometry(10,20,20); 
+geometry5.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.0, 0 ) );
+var the_cross_section = new three.Mesh(geometry5,material3);
+the_cross_section.position.set(70,0,0);
+scene.add(the_cross_section);
 //cross section height line
 var heightColor = new three.LineBasicMaterial({color: 0x00FF00});
 var heightLine = new three.Geometry();
@@ -244,6 +226,10 @@ $(renderer.domElement).on('mousedown', function(e) {
         crystal_shape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystal_shape.quaternion);
         ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
         ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
+        
+//         console.log(the_cross_section.geometry.vertices);
+        
+        
 //        innerCrossSectionRender.quaternion.multiplyQuaternions(deltaRotationQuaternion, innerCrossSectionRender.quaternion);
 //        circle.quaternion.multiplyQuaternions(deltaRotationQuaternion, circle.quaternion);
 //        innerCrossSection.applyMatrix( new THREE.Matrix4().makeScale( 1.0 + (deltaMove.x/10), 1.0 + (deltaMove.y/10), 1.0 ) );
