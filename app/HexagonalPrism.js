@@ -152,20 +152,26 @@ geometry5.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.0, 0 ) );
 var the_cross_section = new three.Mesh(geometry5,material3);
 the_cross_section.position.set(70,0,0);
 scene.add(the_cross_section);
+
 //cross section height line
+var current_cross_section_height = 10;
 var heightColor = new three.LineBasicMaterial({color: 0x00FF00});
 var heightLine = new three.Geometry();
 heightLine.vertices.push(new THREE.Vector3(70, 0, 0));
-heightLine.vertices.push(new THREE.Vector3(70, 10, 0));
+heightLine.vertices.push(new THREE.Vector3(70, current_cross_section_height, 0));
 var heightLineRender = new THREE.Line(heightLine, heightColor);
 scene.add(heightLineRender);
+
 //cross section width line
+var current_cross_section_width = 10;
 var widthColor = new three.LineBasicMaterial({color: 0xff0000});
 var widthLine = new three.Geometry();
 widthLine.vertices.push(new three.Vector3(70,0,0));
-widthLine.vertices.push(new three.Vector3(80,0,0));
+widthLine.vertices.push(new three.Vector3(70+current_cross_section_height,0,0));
 var widthLineRender = new three.Line(widthLine, widthColor);
 scene.add(widthLineRender);
+
+
 
 
 
@@ -227,12 +233,20 @@ $(renderer.domElement).on('mousedown', function(e) {
         ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
         ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
         
-//         console.log(the_cross_section.geometry.vertices);
+//      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
+//      We Need to get the proper math to move them correctly, now, they just grow for every quarter turn
+        
+        current_cross_section_height = (current_cross_section_height + deltaMove.x) % 90;
+        current_cross_section_width = (current_cross_section_width + deltaMove.y) % 90;
+        
+        widthLine.vertices[1].x = 70+current_cross_section_width;
+        widthLineRender.geometry.verticesNeedUpdate = true;
+        heightLine.vertices[1].y = current_cross_section_height;
+        heightLineRender.geometry.verticesNeedUpdate = true;
+
+
         
         
-//        innerCrossSectionRender.quaternion.multiplyQuaternions(deltaRotationQuaternion, innerCrossSectionRender.quaternion);
-//        circle.quaternion.multiplyQuaternions(deltaRotationQuaternion, circle.quaternion);
-//        innerCrossSection.applyMatrix( new THREE.Matrix4().makeScale( 1.0 + (deltaMove.x/10), 1.0 + (deltaMove.y/10), 1.0 ) );
     }
     
     previousMousePosition = {
