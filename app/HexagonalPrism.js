@@ -35,12 +35,10 @@ scene.add( light );
 
 
 
-//***object definitions!
+//***Object Declarations***//
 
-//Cube
-//var geometry = new three.BoxGeometry(25, 25, 25);
 
-//Hexagonal prism
+//***Hexagonal Prism***//
 var geometry = new THREE.Geometry();
 
 geometry.vertices.push( //Make all of the vertices! Triangles from center, with bases rotating counterclockwise
@@ -203,7 +201,6 @@ ellipsoid1.add( wirematerial)
 
 /*Now we regester user input */
 
-
 var isDragging = false;
 var previousMousePosition = {
     x: 0,
@@ -212,53 +209,50 @@ var previousMousePosition = {
 $(renderer.domElement).on('mousedown', function(e) {
     isDragging = true;
 })
-.on('mousemove', function(e) {
+//How to tell when the movement is done
+$(document).on('mouseup', function(e) {
+    isDragging = false;
+});
+$(renderer.domElement).on('mousemove', function(e) {
     //console.log(e);
     var deltaMove = {
         x: e.offsetX-previousMousePosition.x,
         y: e.offsetY-previousMousePosition.y
     };
-
-    if(isDragging) {
-            
-        var deltaRotationQuaternion = new three.Quaternion()
-            .setFromEuler(new three.Euler(
-                toRadians(deltaMove.y * 1),
-                toRadians(deltaMove.x * 1),
-                0,
-                'XYZ'
-            ));
-        //And now we tell the shapes which things move        
-        crystal_shape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystal_shape.quaternion);
-        ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
-        ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
-        
-//      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
-//      We Need to get the proper math to move them correctly, now, they just grow for every quarter turn
-        
-        current_cross_section_height = (current_cross_section_height + deltaMove.x) % 90;
-        current_cross_section_width = (current_cross_section_width + deltaMove.y) % 90;
-        
-        widthLine.vertices[1].x = 70+current_cross_section_width;
-        widthLineRender.geometry.verticesNeedUpdate = true;
-        heightLine.vertices[1].y = current_cross_section_height;
-        heightLineRender.geometry.verticesNeedUpdate = true;
-
-
-        
-        
-    }
-    
     previousMousePosition = {
         x: e.offsetX,
         y: e.offsetY
     };
+
+    if(isDragging) {
+        rotateCrystal(deltaMove);
+    }
 });
 
-//How to tell when the movement is done
-$(document).on('mouseup', function(e) {
-    isDragging = false;
-});
+function rotateCrystal(deltaMove) {
+    var deltaRotationQuaternion = new three.Quaternion()
+        .setFromEuler(new three.Euler(
+            toRadians(deltaMove.y),
+            toRadians(deltaMove.x),
+            0,
+            'XYZ'
+        ));
+    //And now we tell the shapes which things move        
+    crystal_shape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystal_shape.quaternion);
+    ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
+    ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
+
+//      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
+//      We Need to get the proper math to move them correctly, now, they just grow for every quarter turn
+
+    current_cross_section_height = (current_cross_section_height + deltaMove.x) % 90;
+    current_cross_section_width = (current_cross_section_width + deltaMove.y) % 90;
+
+    widthLine.vertices[1].x = 70+current_cross_section_width;
+    widthLineRender.geometry.verticesNeedUpdate = true;
+    heightLine.vertices[1].y = current_cross_section_height;
+    heightLineRender.geometry.verticesNeedUpdate = true;
+}
 
 // shim layer with setTimeout fallback
 window.requestAnimFrame = (function(){
