@@ -1,16 +1,13 @@
+<!--Some of the code for orientationDropdowns was obtainted and modified from 
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_orientationDropdown_navbar_click-->
+      
 <html>
    <head>
       <title>Optical Cyrstallography</title>
-      <!--Some of the code for dropdowns was obtainted and modified from 
-https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_click-->
-       
-       
-       
        <style>
-           body { margin: 0; background-color: white; }
-          canvas { width: 100%; height: 100%; background-color: white; }
           .navbar {
-    overflow: hidden;
+                      
+            overflow: hidden;/*Background color for header space behind checks.*/
     background-color: #666;
     font-family: Times;
               color: white
@@ -28,12 +25,12 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_cl
     padding: 14px 16px;
     text-decoration: none;
 }       
-.dropdown {
+.orientationDropdown {
     float: left;
     overflow: hidden;
     font-family: Times;
 }                   
-.dropdown .dropbtn {
+.orientationDropdown .dropbtn {
     cursor: pointer;
     font-size: 16px;    
     border: none;
@@ -43,12 +40,12 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_cl
     background-color: #666;
     font-family: Times;
 }
-.dropdowntwo{
+.crystalSign{
     float: left;  
     overflow: hidden; 
     font-family: Times;            
 }            
-.dropdowntwo .newdropbut {
+.crystalSign .newdropbut {
     cursor: pointer;
     font-size: 16px;    
     border: none;
@@ -72,11 +69,11 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_cl
     background-color: #666;
     font-family: Times;
 }           
-.navbar a:hover, .dropdown:hover .dropbtn, b:hover, .dropdowntwo:hover .newdropbut, c:hover, .crystalStructureDropdown:hover, .crystalStructureButton  {
+.navbar a:hover, .orientationDropdown:hover .dropbtn, b:hover, .crystalSign:hover .newdropbut, c:hover, .crystalStructureDropdown:hover, .crystalStructureButton  {
     background-color: orange;
 }
            
-.dropdown-content {
+.orientationDropdown-content {
     display: none;
     position: absolute;
     background-color: #666; 
@@ -85,7 +82,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_cl
 
 }
 
-.dropdown-content a {
+.orientationDropdown-content a {
     float: none;
     color: white;
     padding: 12px ;
@@ -94,12 +91,12 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_cl
     text-align: left;
     font-family: Times;
 }
-.dropdown-content a:hover {
+.orientationDropdown-content a:hover {
     background-color: #orange;   
 }
            
            
-.dropdowntwo-content {
+.crystalSign-content {
     display: none;
     position: absolute;
     background-color: #666;
@@ -107,7 +104,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_cl
     z-index: 1;
 }
 
-.dropdowntwo-content b {
+.crystalSign-content b {
     float: none;
     color: white;
     padding: 12px 12px;
@@ -116,7 +113,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_cl
     text-align: left;
 }
 
-.dropdowntwo-content b:hover {
+.crystalSign-content b:hover {
     background-color: #orange;   
 }
            
@@ -161,27 +158,28 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar_cl
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="crystalStructureDropdown-content" id="crystalStructureDropdown">
-      <c href="#">Link 1</c>
+      <div><ul><a href="hexagonalprism.html">Hexagonal</a> </ul></div>
+		
       <c href="#">Link 2</c>
       <c href="#">Link 3</c>
     </div>
     </div>
-      <div class="dropdown">
+      <div class="orientationDropdown">
     <button class="dropbtn" onclick="myFunction()">Orientation
       <i class="fa fa-caret-down"></i>
     </button>
-    <div class="dropdown-content" id="myDropdown">
+    <div class="orientationDropdown-content" id="myDropdown">
       <a href="#">Link 4</a>
       <a href="#">Link 5</a>
       <a href="#">Link 6</a>
       </div>      
   </div> 
     
-        <div class="dropdowntwo">
+        <div class="crystalSign">
             <button class="newdropbut" onclick="aNewFunction()">Crystal Sign
       <i class="fa fa-caret-down"></i>
     </button>
-    <div class="dropdowntwo-content" id="newDropdown">
+    <div class="crystalSign-content" id="newDropdown">
       <b href="#">Link 7</b>
       <b href="#">Link 8</b>
       <b href="#">Link 9</b>
@@ -197,18 +195,17 @@ Optic Axis <input type="checkbox" id="opticCheck">
          
 
 </div>
-
-      <script src="lib/three.js"></script>
-
-       <script src="lib/jquery.slim.js"></script>
-      
-       <script src="app/HexagonalPrism.js"></script>
+	   
+	   
+<div > Click crystal structure dropdown to select your desired crystal structure.  </div>
        
+  
+
        
 
 <script>
 /* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
+toggle between hiding and showing the orientationDropdown content */
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -222,7 +219,7 @@ function crystalStructureFunction(){
     document.getElementById("crystalStructureDropdown").classList.toggle("show");
 }
 
-// Close the dropdown if the user clicks outside of it
+// Close the orientationDropdown if the user clicks outside of it
 window.onclick = function(e) {
   if (!e.target.matches('.dropbtn')) {
     var myDropdown = document.getElementById("myDropdown");
@@ -252,17 +249,15 @@ window.onclick = function(e) {
 }
 
 
-function check() {
-    document.getElementById("crystallographicCheck").checked = true;
-}
+//        function check() {
+//            document.getElementById("crystallographicCheck").checked = true;
+//        }
+//        function uncheck() {
+//            document.getElementById("crystallographicCheck").checked = false;
+//        }
 
-function uncheck() {
-    document.getElementById("crystallographicCheck").checked = false;
-}
 
-
-</script>
-  
-
-   </body>
+       </script>
+       
+    </body>
 </html>
