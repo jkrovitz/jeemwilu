@@ -1,263 +1,40 @@
 <!--Some of the code for orientationDropdowns was obtainted and modified from 
-https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_orientationDropdown_navbar_click-->
+https://stackoverflow.com/questions/33573703/changing-iframe-src-via-drop-down-menu-doesnt-load-new-iframe-->
       
 <html>
-   <head>
-      <title>Optical Cyrstallography</title>
-       <style>
-          .navbar {
-                      
-            overflow: hidden;/*Background color for header space behind checks.*/
-    background-color: #666;
-    font-family: Times;
-              color: white
-}
-           
-           
-           
-        
-/* Buttons!*/          
-.navbar a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}       
-.orientationDropdown {
-    float: left;
-    overflow: hidden;
-    font-family: Times;
-}                   
-.orientationDropdown .dropbtn {
-    cursor: pointer;
-    font-size: 16px;    
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 14px;
-    background-color: #666;
-    font-family: Times;
-}
-.crystalSign{
-    float: left;  
-    overflow: hidden; 
-    font-family: Times;            
-}            
-.crystalSign .newdropbut {
-    cursor: pointer;
-    font-size: 16px;    
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 14px;
-    background-color: #666;
-    font-family: Times;
-}       
- .crystalStructureDropdown {
-    float: left;
-    overflow: hidden;
-}                  
-.crystalStructureDropdown .crystalStructureButton {
-    cursor: pointer;
-    font-size: 16px;    
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 14px;
-    background-color: #666;
-    font-family: Times;
-}           
-.navbar a:hover, .orientationDropdown:hover .dropbtn, b:hover, .crystalSign:hover .newdropbut, c:hover, .crystalStructureDropdown:hover, .crystalStructureButton  {
-    background-color: orange;
-}
-           
-.orientationDropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #666; 
-    min-width: 100px;
-    z-index: 1;
-
-}
-
-.orientationDropdown-content a {
-    float: none;
-    color: white;
-    padding: 12px ;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-family: Times;
-}
-.orientationDropdown-content a:hover {
-    background-color: #orange;   
-}
-           
-           
-.crystalSign-content {
-    display: none;
-    position: absolute;
-    background-color: #666;
-    min-width: 130px;
-    z-index: 1;
-}
-
-.crystalSign-content b {
-    float: none;
-    color: white;
-    padding: 12px 12px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.crystalSign-content b:hover {
-    background-color: #orange;   
-}
-           
-           
-.crystalStructureDropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #666; 
-    min-width: 100px;
-    box-shadow: px 8px 8px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    font-family: Times;
-}
-
-.crystalStructureDropdown-content c {
-    float: none;
-    color: white;
-    padding: 12px 12px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-family: Times;
-}           
-
-
-.crystalStructureDropdown-content c:hover {
-    background-color: #orange;
-    
-}
-
-.show {
-    display: block;
-}
-          
-       </style>
-   </head>
    <body>
-<div class="navbar">
-    <div class="crystalStructureDropdown">
-            <button class="crystalStructureButton" 
-                    onclick="crystalStructureFunction()">Crystal Structure
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="crystalStructureDropdown-content" id="crystalStructureDropdown">
-      <div><ul><a href="hexagonalprism.html">Hexagonal</a> </ul></div>
-		
-      <c href="#">Link 2</c>
-      <c href="#">Link 3</c>
-    </div>
-    </div>
-      <div class="orientationDropdown">
-    <button class="dropbtn" onclick="myFunction()">Orientation
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="orientationDropdown-content" id="myDropdown">
-      <a href="#">Link 4</a>
-      <a href="#">Link 5</a>
-      <a href="#">Link 6</a>
-      </div>      
-  </div> 
-    
-        <div class="crystalSign">
-            <button class="newdropbut" onclick="aNewFunction()">Crystal Sign
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="crystalSign-content" id="newDropdown">
-      <b href="#">Link 7</b>
-      <b href="#">Link 8</b>
-      <b href="#">Link 9</b>
-    </div>
-    </div>
-        
-Crystallographic Axis <input type="checkbox" id="crystallographicCheck">
-    
-Optic Axis <input type="checkbox" id="opticCheck">
-
-
-
-         
-
-</div>
 	   
+	   <!--	Dropdown for selecting crystal structure.-->
+	   <select id="chooseCrystalStructure">
+		   <option value="">Crystal Structure Options</option>
+		   <option value="/hexagonalprism.html">Hexagonal Prism</option>
+	   <!--	   <option value="Insert html link">Insert name of crystal structure</option>-->
+	   </select>
 	   
-<div > Click crystal structure dropdown to select your desired crystal structure.  </div>
-       
-  
-
-       
-
-<script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the orientationDropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-    
-function aNewFunction(){
-    document.getElementById("newDropdown").classList.toggle("show");
-}
-    
-    
-function crystalStructureFunction(){
-    document.getElementById("crystalStructureDropdown").classList.toggle("show");
-}
-
-// Close the orientationDropdown if the user clicks outside of it
-window.onclick = function(e) {
-  if (!e.target.matches('.dropbtn')) {
-    var myDropdown = document.getElementById("myDropdown");
-      if (myDropdown.classList.contains('show')) {
-        myDropdown.classList.remove('show');
-      }
-  }
-}
-
-window.onclick = function(e) {
-  if (!e.target.matches('.newdropbut')) {
-    var newDropdown = document.getElementById("newDropdown");
-      if (newDropdown.classList.contains('show')) {
-        newDropdown.classList.remove('show');
-      }
-  }
-}
+	   <!--	Loads the needed crystal structure file when clicked. -->
+	  	<button onClick="loadFiles()">Choose Crystal Structure</button>
+	   
+	   <!--	Crystal axesis. -->
+	   Crystallographic Axis <input type="checkbox" id="crystallographicCheck">
+	   Optic Axis <input type="checkbox" id="opticCheck">
+	   
+	   <!--	On screen prompt. -->
+	   <p>Please select from the <b>Crystal Structure Options </b>and click <b>Choose Crystal Structure</b>. </p>
+	   
+	   <!--	This line sets up the iframe that where each crystal structure will be displayed. -->
+	   <div class=cIF><iframe id="myFrame" type="text/html" frameborder="0" height="500" width="100%" src=""> </iframe></div>
 
 
-window.onclick = function(e) {
-  if (!e.target.matches('.crystalStructureButton')) {
-    var crystalStructureDropdown = document.getElementById("crystalStructureDropdown");
-      if (crystalStructureDropdown.classList.contains('show')) {
-        crystalStructureDropdown.classList.remove('show');
-      }
-  }
-}
-
-
-//        function check() {
-//            document.getElementById("crystallographicCheck").checked = true;
-//        }
-//        function uncheck() {
-//            document.getElementById("crystallographicCheck").checked = false;
-//        }
-
-
-       </script>
-       
-    </body>
+	   <!--JavaScript code containing the the initialization of myFrame and javaScriptFileSelect as well as the function loadFiles()  -->
+ 		<script>
+    		var javaScriptFileSelect = document.getElementById('chooseCrystalStructure'),
+    		myFrame = document.getElementById('myFrame');
+    		function loadFiles() {
+    		myFrame.src = "";
+    		setTimeout(function () {
+        	myFrame.src = javaScriptFileSelect.value;
+    		}, 0);
+			}
+ 		</script>	   
+ 	</body>
 </html>
