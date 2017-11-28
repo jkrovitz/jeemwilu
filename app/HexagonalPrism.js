@@ -255,25 +255,26 @@ function rotateCrystal(deltaMove) {
     ellipsoid1.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid1.quaternion);
     ellipsoid2.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoid2.quaternion);
 
-//      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
-//      We Need to get the proper math to move them correctly, now, they just grow for every quarter turn
+    //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
 
-    //This equation needs deltarotationquaternion to add onto the amount already rotated so far.
+    //This equation needs to go twice as fast somehow, but seems to work otherwise. Right now rotating 180 degrees shows a cross section after 90 degrees, etc.
     current_cross_section_height = 75*(Math.sqrt(25*Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2) + 56.25*Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)))/(2*(25*Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2) + 56.25*Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)));
-    x_angle_rotated_from_start = x_angle_rotated_from_start + deltaRotationQuaternion.x;
-    //The next thing is placeholder
+    x_angle_rotated_from_start = (x_angle_rotated_from_start + deltaRotationQuaternion.x) % (2*Math.PI);
+    //The next thing needs to interact with the cross section height somehow.
     current_cross_section_width = 75*(Math.sqrt(25*Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2) + 56.25*Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)))/(2*(25*Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2) + 56.25*Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)));
-    y_angle_rotated_from_start = y_angle_rotated_from_start + deltaRotationQuaternion.y;
+    y_angle_rotated_from_start = (y_angle_rotated_from_start + deltaRotationQuaternion.y) % (2*Math.PI);
     console.log(current_cross_section_height);
-//
-//    widthLine.vertices[1].x = 70+current_cross_section_width;
-//    widthLineRender.geometry.verticesNeedUpdate = true;
-//    heightLine.vertices[1].y = current_cross_section_height;
+    
 	theDimensions(); 
     heightLineRender.geometry.verticesNeedUpdate = true;
+
+    //Now we updatew the cross section to match the axis lines
+    //Note: doesn't yet work
+    //the_cross_section.geometry.applyMatrix( new THREE.Matrix4().makeScale( current_cross_section_width/7.5, current_cross_section_height/7.5, 0 ) ); 
 }
 
 function theDimensions(){
+    //Here we just update the lines drawing positions to match
     widthLine.vertices[1].x = 70+current_cross_section_width;
     widthLineRender.geometry.verticesNeedUpdate = true;
     heightLine.vertices[1].y = current_cross_section_height;
