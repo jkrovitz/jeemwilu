@@ -210,6 +210,10 @@ ellipsoid1.add( wirematerial)
 
 /*Now we regester user input */
 
+var x_angle_rotated_from_start = 0;
+var y_angle_rotated_from_start = 0;
+
+
 var isDragging = false;
 var previousMousePosition = {
     x: 0,
@@ -254,8 +258,13 @@ function rotateCrystal(deltaMove) {
 //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
 //      We Need to get the proper math to move them correctly, now, they just grow for every quarter turn
 
-    current_cross_section_height = (current_cross_section_height + deltaMove.x) % 90;
-    current_cross_section_width = (current_cross_section_width + deltaMove.y) % 90;
+    //This equation needs deltarotationquaternion to add onto the amount already rotated so far.
+    current_cross_section_height = 75*(Math.sqrt(25*Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2) + 56.25*Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)))/(2*(25*Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2) + 56.25*Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)));
+    x_angle_rotated_from_start = x_angle_rotated_from_start + deltaRotationQuaternion.x;
+    //The next thing is placeholder
+    current_cross_section_width = 75*(Math.sqrt(25*Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2) + 56.25*Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)))/(2*(25*Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2) + 56.25*Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)));
+    y_angle_rotated_from_start = y_angle_rotated_from_start + deltaRotationQuaternion.y;
+    console.log(current_cross_section_height);
 //
 //    widthLine.vertices[1].x = 70+current_cross_section_width;
 //    widthLineRender.geometry.verticesNeedUpdate = true;
