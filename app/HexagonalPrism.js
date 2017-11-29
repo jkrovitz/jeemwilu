@@ -43,9 +43,9 @@ scene.add( light );
 
 
 //***Hexagonal Prism***//
-var geometry = new THREE.Geometry();
+var hexagonalPrism = new THREE.Geometry();
 
-geometry.vertices.push( //Make all of the vertices! Triangles from center, with bases rotating counterclockwise
+hexagonalPrism.vertices.push( //Make all of the vertices! Triangles from center, with bases rotating counterclockwise
     new THREE.Vector3( 0, 0, 15 ),
 	new THREE.Vector3( 10,  0, 15 ),
 	new THREE.Vector3( 5, 8.66, 15 ),
@@ -61,7 +61,7 @@ geometry.vertices.push( //Make all of the vertices! Triangles from center, with 
 	new THREE.Vector3( -5, -8.66, -15 ),
 	new THREE.Vector3(  5, -8.66, -15 )  
 );
-geometry.faces.push( 
+hexagonalPrism.faces.push( 
     new THREE.Face3( 0, 1, 2 ), //Top hex
     new THREE.Face3( 0, 2, 3 ),
     new THREE.Face3( 0, 3, 4 ),
@@ -92,9 +92,9 @@ geometry.faces.push(
 
 /* define embedded ellipsoid */
 //normal sphere
-var geometry2 = new THREE.SphereGeometry(5,20,20); 
+var embeddedEllipsoid1 = new THREE.SphereGeometry(5,20,20); 
 
-geometry2.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
+embeddedEllipsoid1.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
 
 //define cross-section within embedded ellipsoid
 var innerCrossSection = new three.CircleGeometry(5,60);
@@ -102,39 +102,41 @@ var innerCrossSection = new three.CircleGeometry(5,60);
 
 /*define freestanding ellipsoid */
 
-var geometry3 = new three.SphereGeometry(5,20,20);
-geometry3.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
+var freeEllipsoid = new three.SphereGeometry(5,20,20);
+freeEllipsoid.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
+
 //define cross-section within freestanding ellipsoid
 var innerCrossSection2 = new three.CircleGeometry(5,60);
 
-//define free-standing cross section
-var geometry4 = new three.CircleGeometry(10, 60);
 
+//***Surface materials for our shapes***
 
-//Surface materials for our shapes
-var material = new three.MeshFaceMaterial([
+//Crystal wireframe material
+var crystalMaterial = new three.MeshFaceMaterial([
     new three.MeshFaceMaterial({
         color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
     }),
 ]);
 
-var material2 = new THREE.MeshBasicMaterial({
+//ellipsoid semi-transparent grey material
+var ellipsoidMaterial = new THREE.MeshBasicMaterial({
     color:0x000000, transparent:true, opacity:0.1, side: THREE.DoubleSide
 });
 
-var material3 = new THREE.MeshBasicMaterial({
+//cross section dark grey material
+var crossSectionMaterial = new THREE.MeshBasicMaterial({
     color:0x333333 
 });
 
-material3.side = THREE.DoubleSide;
+crossSectionMaterial.side = THREE.DoubleSide;
 
 
 
 
 /* Now we draw all of these relevant shapes*/
 
-
-var crystal_shape = new three.Mesh(geometry, material);
+//add crystal
+var crystal_shape = new three.Mesh(hexagonalPrism, crystalMaterial);
 //crystal_shape.rotation.x = 4.36332;
 crystal_shape.rotation.x = Math.PI/2;
 scene.add(crystal_shape);
@@ -187,8 +189,8 @@ addWidthLineToFreeStandingCrossSection();
 
 
 //Declare ellipsoids. 
-var ellipsoidInHexagonalPrism = new THREE.Mesh(geometry2,material2)
-var freeStandingEllipsoid = new three.Mesh(geometry3,material2);
+var ellipsoidInHexagonalPrism = new THREE.Mesh(embeddedEllipsoid1,ellipsoidMaterial)
+var freeStandingEllipsoid = new three.Mesh(freeEllipsoid,ellipsoidMaterial);
 
 function addEllipsoidInHexagonalPrism(){
 scene.add(ellipsoidInHexagonalPrism);
@@ -204,7 +206,7 @@ addFreeStandingEllipsoid();
 
 function crossSectionInEllipHexPrismRender(){
 //add inner-ellipsoid cross section
-var crossSectionInEllipHexPrism = new three.Mesh(innerCrossSection,material3);
+var crossSectionInEllipHexPrism = new three.Mesh(innerCrossSection,crossSectionMaterial);
 scene.add(crossSectionInEllipHexPrism);
 //rotate 250 deg = 4.36332 radians
 crossSectionInEllipHexPrism.rotation.x = 4.36332;
@@ -213,7 +215,7 @@ crossSectionInEllipHexPrismRender();
 
 function crossSectionInEllipsoidRender(){
 //add inner-ellipsoid cross-section for freestanding ellipse
-var crossSectionInEllipsoid = new three.Mesh(innerCrossSection2,material3);
+var crossSectionInEllipsoid = new three.Mesh(innerCrossSection2,crossSectionMaterial);
 crossSectionInEllipsoid.position.set(35,0,0);
 scene.add(crossSectionInEllipsoid);
 //rotate 250 deg = 4.36332 radians
@@ -221,11 +223,14 @@ crossSectionInEllipsoid.rotation.x = 4.36332;
 }
 crossSectionInEllipsoidRender(); 
 
-var wirematerial = new THREE.MeshBasicMaterial( { 
-    color: 0x0000000, wireframe: true, polygonOffset: true,     
-    polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
 
-ellipsoidInHexagonalPrism.add( wirematerial)
+
+//NOTE: note sure what this code is for. Commenting out for now bc it seems useless -Will
+//var wirematerial = new THREE.MeshBasicMaterial( { 
+//    color: 0x0000000, wireframe: true, polygonOffset: true,     
+//    polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
+//
+//ellipsoidInHexagonalPrism.add( wirematerial)
 
 
 
