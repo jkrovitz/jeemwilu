@@ -11,20 +11,25 @@ https://stackoverflow.com/questions/33573703/changing-iframe-src-via-drop-down-m
 		   <option value="trigonalprism.html">Trigonal Prism</option>
 	   <!--	   <option value="Insert html link">Insert name of crystal structure</option>-->
 	   </select>
+       
 	   
 	   <!--	Loads the needed crystal structure file when clicked. -->
 	  	<button onClick="loadFiles()">Choose Crystal Structure</button>
 	   
 	   <!--	On screen prompt. -->
 	   <p>Please select from the <b>Crystal Structure Options </b>and click <b>Choose Crystal Structure</b>. </p>
+       
+       <img src=https://lh5.googleusercontent.com/C5BtbSw1LQyQWn9zjhIylJAnoCC3F74JG5pUCzADXY7oH80E39JBggwXpGIV3LTiN8IX7uONiQSrJmbFc3vY=w1920-h917 alt="Crystal Background" width="89.33333333333333333" height="131">
 	   
 	   <!--	This line sets up the iframe that where each crystal structure will be displayed. -->
 	   <div class=cIF><iframe id="myFrame" type="text/html" frameborder="0" height="100%" width="100%" src=""> </iframe></div>
-
+       
+       
+       
 	   <!--JavaScript code containing the the initialization of myFrame and javaScriptFileSelect as well as the function loadFiles()  -->
  		<script>
     		var javaScriptFileSelect = document.getElementById('chooseCrystalStructure'),
-    		myFrame = document.getElementById('myFrame');
+    		myFrame = document.getElementById('myFrame');            
     		function loadFiles() {
     		myFrame.src = "";
     		setTimeout(function () {
