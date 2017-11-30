@@ -10,17 +10,25 @@ var three = THREE;
 //***Camera Settings
 var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
-//Aspect Ratio can be resised, this ratio or objects will look strange
-var canvasWidth = 1700; 
-var canvasHeight = 900;
 var viewSize = 100;
-var aspectRatio=canvasWidth/canvasHeight;
-var camera = new THREE.OrthographicCamera(-aspectRatio*viewSize / 2, aspectRatio*viewSize / 2, viewSize / 2, -viewSize / 2, -1000, 1000);
+var aspect=window.innerWidth*2/window.innerHeight;
+var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize / 2, viewSize / - 2 , -1000, 1000);
 scene.add( camera );
 
+window.addEventListener( 'resize', onWindowResize, false );
 
-
-
+function onWindowResize( event ) {
+    SCREEN_WIDTH = window.innerWidth;
+    SCREEN_HEIGHT = window.innerHeight;
+    aspect = SCREEN_WIDTH / SCREEN_HEIGHT * 2;
+    renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+    camera.aspect =  aspect;
+    camera.left   = - 0.5 * viewSize * aspect / 2;
+    camera.right  =   0.5 * viewSize * aspect / 2;
+    camera.top    =   viewSize / 2;
+    camera.bottom = - viewSize / 2;
+    camera.updateProjectionMatrix();
+    }
 
 //distance zoomed out/in
 camera.position.z = 50;
