@@ -136,17 +136,17 @@ crossSectionMaterial.side = THREE.DoubleSide;
 /* Now we draw all of these relevant shapes*/
 
 //add crystal
-var crystal_shape = new three.Mesh(hexagonalPrism, crystalMaterial);
+var hexagonalPrismShape = new three.Mesh(hexagonalPrism, crystalMaterial);
 //crystal_shape.rotation.x = 4.36332;
-crystal_shape.rotation.x = Math.PI/2;
-scene.add(crystal_shape);
+hexagonalPrismShape.rotation.x = Math.PI/2;
+scene.add(hexagonalPrismShape);
 
-var geo = new THREE.EdgesGeometry( crystal_shape.geometry );
+var geo = new THREE.EdgesGeometry( hexagonalPrismShape.geometry );
 var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 4 } );
 var wireframe = new THREE.LineSegments( geo, mat );
 wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
 
-crystal_shape.add( wireframe );
+hexagonalPrismShape.add( wireframe );
 
 
 //add free-standing cross section
@@ -155,15 +155,15 @@ var ellipse = new THREE.EllipseCurve(0, 0, 10, 10, 0, 2.0 * Math.PI, false);
 var ellipsePath = new THREE.CurvePath();
 ellipsePath.add(ellipse);
 var ellipseGeometry = ellipsePath.createPointsGeometry(100);
-ellipseGeometry.computeTangents();
-var the_cross_section = new THREE.Line(ellipseGeometry, ellipse_material);
-the_cross_section.position.set(70,0,0);
+var theFreeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
+
 
 function addTheFreeStandingCrossSection(){
-scene.add(the_cross_section);
+ellipseGeometry.computeTangents();
+theFreeStandingCrossSection.position.set(70,0,0);
+scene.add(theFreeStandingCrossSection);
 }
-addTheFreeStandingCrossSection(); 
-
+ 
 
 //Declare variables for free standing cross section height line
 var current_cross_section_height = 10;
@@ -175,8 +175,8 @@ function addHeightLineToFreeStandingCrossSection(){
 heightLine.vertices.push(new THREE.Vector3(70, 0, 0));
 heightLine.vertices.push(new THREE.Vector3(70, current_cross_section_height, 0));
 scene.add(heightLineRender);
-}
-addHeightLineToFreeStandingCrossSection(); 
+} 
+
 
 //Declare variables for free standing cross section width line
 var current_cross_section_width = 10;
@@ -188,8 +188,15 @@ function addWidthLineToFreeStandingCrossSection(){
 widthLine.vertices.push(new three.Vector3(70,0,0));
 widthLine.vertices.push(new three.Vector3(70+current_cross_section_height,0,0));
 scene.add(widthLineRender);
+} 
+
+function renderFreeStandingCrossSection(){
+	addTheFreeStandingCrossSection(); 
+	addHeightLineToFreeStandingCrossSection(); 
+	addWidthLineToFreeStandingCrossSection(); 
 }
-addWidthLineToFreeStandingCrossSection(); 
+
+renderFreeStandingCrossSection(); 
 
 
 //Declare ellipsoids. 
@@ -226,6 +233,7 @@ scene.add(crossSectionInEllipsoidWMesh);
 crossSectionInEllipsoidWMesh.rotation.x = 4.36332;
 }
 crossSectionInEllipsoidRender(); 
+
 
 
 
@@ -272,6 +280,9 @@ $(renderer.domElement).on('mousemove', function(e) {
     }
 });
 
+var current_cross_section_height; 
+var current_cross_section_width; 
+
 function rotateCrystal(deltaMove) {
     var deltaRotationQuaternion = new three.Quaternion()
         .setFromEuler(new three.Euler(
@@ -281,7 +292,7 @@ function rotateCrystal(deltaMove) {
             'XYZ'
         ));
     //And now we tell the shapes which things move        
-    crystal_shape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystal_shape.quaternion);
+    hexagonalPrismShape.quaternion.multiplyQuaternions(deltaRotationQuaternion, hexagonalPrismShape.quaternion);
     ellipsoidInHexagonalPrismWMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoidInHexagonalPrismWMesh.quaternion);
     freeStandingEllipsoid.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoid.quaternion);
 
@@ -294,31 +305,56 @@ function rotateCrystal(deltaMove) {
     current_cross_section_width = 75*(Math.sqrt(25*Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2) + 56.25*Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)))/(2*(25*Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2) + 56.25*Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)));
     y_angle_rotated_from_start = (y_angle_rotated_from_start + deltaRotationQuaternion.y) % (2*Math.PI);
     
-	CrossSectionAxisUpdates(); 
+	crossSectionAxisUpdates(); 
     
 
     //Now we update the cross section to match the axis lines
     //Note: This works but warrants a look later to see how well coded it is. It could be prettier;
     
-    scene.remove(the_cross_section);
+    scene.remove(theFreeStandingCrossSection);
     ellipse = new THREE.EllipseCurve(0, 0, current_cross_section_width, current_cross_section_height, 0, 2.0 * Math.PI, false); 
     ellipsePath = new THREE.CurvePath();
     ellipsePath.add(ellipse);
     ellipseGeometry = ellipsePath.createPointsGeometry(100);
     ellipseGeometry.computeTangents();
-    the_cross_section = new THREE.Line(ellipseGeometry, ellipse_material);
-    the_cross_section.position.set(70,0,0);
-    scene.add(the_cross_section);
+    theFreeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
+   theFreeStandingCrossSection.position.set(70,0,0);
+    
+	
+	scene.add(theFreeStandingCrossSection);
 
     
 }
 
-function CrossSectionAxisUpdates(){
+function crossSectionAxisUpdates(){
     //Here we just update the lines drawing positions to match
     widthLine.vertices[1].x = 70+current_cross_section_width;
     widthLineRender.geometry.verticesNeedUpdate = true;
     heightLine.vertices[1].y = current_cross_section_height;
 	heightLineRender.geometry.verticesNeedUpdate = true;
+}
+
+
+function crossSectionAxisUpdatesOff(){
+    //Here we just update the lines drawing positions to match
+    widthLine.vertices[1].x = 70+current_cross_section_width;
+    widthLineRender.geometry.verticesNeedUpdate = false;
+    heightLine.vertices[1].y = current_cross_section_height;
+	heightLineRender.geometry.verticesNeedUpdate = false;
+}
+
+
+function doNotRotateFreeStandingCrossSection(){
+	current_cross_section_height=0; 
+	current_cross_section_width=0; 
+}
+
+function removeFreeStandingCrossSection(){
+scene.remove(widthLineRender); 
+scene.remove(heightLineRender); 
+scene.remove(theFreeStandingCrossSection); 
+	crossSectionAxisUpdatesOff(); 
+doNotRotateFreeStandingCrossSection(); 
 }
 
 // shim layer with setTimeout fallback
