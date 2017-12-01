@@ -296,7 +296,7 @@ function rotateCrystal(deltaMove) {
     //Now we update the cross section to match the axis lines
     //Note: This works but warrants a look later to see how well coded it is. It could be prettier;
     
-    scene.remove(the_cross_section);
+   scene.remove(the_cross_section);
     ellipse = new THREE.EllipseCurve(0, 0, current_cross_section_width, current_cross_section_height, 0, 2.0 * Math.PI, false); 
     ellipsePath = new THREE.CurvePath();
     ellipsePath.add(ellipse);
