@@ -1,13 +1,8 @@
 /*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/ and https://codepen.io/jonnyboniface/pen/ALoPbL***/
-
-//*******COMMENT INFO*********
-// // + *** = section heading
-// // = explanation of subsection code line
-
-
 var three = THREE;
 
-//***Camera Settings
+
+//--------------------Camera Settings--------------------
 var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
 var viewSize = 100;
@@ -47,7 +42,7 @@ scene.add( light );
 
 
 
-//***Object Declarations***//
+//--------------------Object Declarations--------------------//
 
 
 //***Hexagonal Prism***//
@@ -97,42 +92,28 @@ hexagonalPrism.faces.push(
 );
 
 
-
-/* define embedded ellipsoid */
-//normal sphere
-var ellipsoidInHexagonalPrism = new THREE.SphereGeometry(5,20,20); 
-
-ellipsoidInHexagonalPrism.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
-
-//define cross-section within embedded ellipsoid
-var crossSectionInEllipHexPrism = new three.CircleGeometry(5,60);
-
-
-/*define freestanding ellipsoid */
-
-var freeEllipsoid = new three.SphereGeometry(5,20,20);
-freeEllipsoid.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
+//***ellipsoids***//
+var ellipsoid = new THREE.SphereGeometry(5,20,20); 
+ellipsoid.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
 
 //define cross-section within freestanding ellipsoid
 var crossSectionInEllipsoid = new three.CircleGeometry(5,60);
 
 
-//***Surface materials for our shapes***
+//***shape materials definitions***//
 
-//Crystal wireframe material
 var crystalMaterial = new three.MeshFaceMaterial([
-    new three.MeshFaceMaterial({
+    new three.MeshFaceMaterial({//Crystal wireframe material
         color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
     }),
 ]);
 
-//ellipsoid semi-transparent grey material
-var ellipsoidMaterial = new THREE.MeshBasicMaterial({
+
+var ellipsoidMaterial = new THREE.MeshBasicMaterial({//ellipsoid semi-transparent grey material
     color:0x000000, transparent:true, opacity:0.1, side: THREE.DoubleSide
 });
 
-//cross section dark grey material
-var crossSectionMaterial = new THREE.MeshBasicMaterial({
+var crossSectionMaterial = new THREE.MeshBasicMaterial({//cross section dark grey material
     color:0x333333 
 });
 
@@ -140,12 +121,10 @@ crossSectionMaterial.side = THREE.DoubleSide;
 
 
 
+//--------------------Adding shapes to the scene --------------------//
 
-/* Now we draw all of these relevant shapes*/
-
-//add crystal
+/***add crystal***/
 var hexagonalPrismShape = new three.Mesh(hexagonalPrism, crystalMaterial);
-//crystal_shape.rotation.x = 4.36332;
 hexagonalPrismShape.rotation.x = Math.PI/2;
 scene.add(hexagonalPrismShape);
 
@@ -157,7 +136,7 @@ wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
 hexagonalPrismShape.add( wireframe );
 
 
-//add free-standing cross section
+/***add free-standing cross section***/
 var ellipse_material = new THREE.LineBasicMaterial({color:0x000000, opacity:1});
 var ellipse = new THREE.EllipseCurve(0, 0, 10, 10, 0, 2.0 * Math.PI, false);
 var ellipsePath = new THREE.CurvePath();
@@ -165,74 +144,45 @@ ellipsePath.add(ellipse);
 var ellipseGeometry = ellipsePath.createPointsGeometry(100);
 var theFreeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
 
-
-function addTheFreeStandingCrossSection(){
 ellipseGeometry.computeTangents();
 theFreeStandingCrossSection.position.set(70,0,0);
 scene.add(theFreeStandingCrossSection);
-}
  
+/*Add Cross Section Axes*/
 
-//Declare variables for free standing cross section height line
+//Declare variables for height axis
 var current_cross_section_height = 10;
 var heightColor = new three.LineBasicMaterial({color: 0x00FF00});
 var heightLine = new three.Geometry();
 var heightLineRender = new THREE.Line(heightLine, heightColor);
 
-function addHeightLineToFreeStandingCrossSection(){
-heightLine.vertices.push(new THREE.Vector3(70, 0, 0));
-heightLine.vertices.push(new THREE.Vector3(70, current_cross_section_height, 0));
-scene.add(heightLineRender);
-} 
-
-
-//Declare variables for free standing cross section width line
+//Declare variables for width axis
 var current_cross_section_width = 10;
 var widthColor = new three.LineBasicMaterial({color: 0xff0000});
 var widthLine = new three.Geometry();
 var widthLineRender = new three.Line(widthLine, widthColor);
 
-function addWidthLineToFreeStandingCrossSection(){
+function addCrossSectionAxes(){
+heightLine.vertices.push(new THREE.Vector3(70, 0, 0));
+heightLine.vertices.push(new THREE.Vector3(70, current_cross_section_height, 0));
+scene.add(heightLineRender);
 widthLine.vertices.push(new three.Vector3(70,0,0));
 widthLine.vertices.push(new three.Vector3(70+current_cross_section_height,0,0));
 scene.add(widthLineRender);
 } 
-
-function renderFreeStandingCrossSection(){
-	addTheFreeStandingCrossSection(); 
-	addHeightLineToFreeStandingCrossSection(); 
-	addWidthLineToFreeStandingCrossSection(); 
-}
-
-renderFreeStandingCrossSection(); 
+ 
+addCrossSectionAxes(); 
 
 
-//Declare ellipsoids. 
-var ellipsoidInHexagonalPrismWMesh = new THREE.Mesh(ellipsoidInHexagonalPrism,ellipsoidMaterial)
-var freeStandingEllipsoid = new three.Mesh(freeEllipsoid,ellipsoidMaterial);
+/***Add ellipsoids. ***/
+var ellipsoidMesh = new THREE.Mesh(ellipsoid,ellipsoidMaterial)
+var freeStandingEllipsoid = new three.Mesh(ellipsoid,ellipsoidMaterial);
+scene.add(ellipsoidMesh); 
 
-function addellipsoidInHexagonalPrismWMesh(){
-scene.add(ellipsoidInHexagonalPrismWMesh);
-}
-addellipsoidInHexagonalPrismWMesh(); 
-
-
-function addFreeStandingEllipsoid(){
 freeStandingEllipsoid.position.set(35,0,0);
 scene.add(freeStandingEllipsoid);
-}
-addFreeStandingEllipsoid(); 
 
-function crossSectionInEllipHexPrismRender(){
-//add inner-ellipsoid cross section
-var crossSectionInEllipHexPrismWMesh = new three.Mesh(crossSectionInEllipHexPrism,crossSectionMaterial);
-scene.add(crossSectionInEllipHexPrismWMesh);
-//rotate 250 deg = 4.36332 radians
-crossSectionInEllipHexPrismWMesh.rotation.x = 4.36332;
-}
-crossSectionInEllipHexPrismRender(); 
-
-function crossSectionInEllipsoidRender(){
+function AddEmbededCrossSection(){
 //add inner-ellipsoid cross-section for freestanding ellipse
 var crossSectionInEllipsoidWMesh = new three.Mesh(crossSectionInEllipsoid,crossSectionMaterial);
 crossSectionInEllipsoidWMesh.position.set(35,0,0);
@@ -240,21 +190,19 @@ scene.add(crossSectionInEllipsoidWMesh);
 //rotate 250 deg = 4.36332 radians
 crossSectionInEllipsoidWMesh.rotation.x = 4.36332;
 }
-crossSectionInEllipsoidRender(); 
+AddEmbededCrossSection(); 
 
 
-
-
-//NOTE: note sure what this code is for. Commenting out for now bc it seems useless -Will
+//NOTE: not sure what this code is for. Commenting out for now bc it seems useless -Will
 //var wirematerial = new THREE.MeshBasicMaterial( { 
 //    color: 0x0000000, wireframe: true, polygonOffset: true,     
 //    polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
 //
-//ellipsoidInHexagonalPrismWMesh.add( wirematerial)
+//ellipsoidMesh.add( wirematerial)
 
 
 
-/*Now we regester user input */
+//--------------------Updating and User Interface--------------------//
 
 var x_angle_rotated_from_start = 0;
 var y_angle_rotated_from_start = 0;
@@ -290,6 +238,7 @@ $(renderer.domElement).on('mousemove', function(e) {
 
 var current_cross_section_height; 
 var current_cross_section_width; 
+var current_cross_section_depth;//imaginary value for calculating
 
 function rotateCrystal(deltaMove) {
     var deltaRotationQuaternion = new three.Quaternion()
@@ -301,7 +250,7 @@ function rotateCrystal(deltaMove) {
         ));
     //And now we tell the shapes which things move        
     hexagonalPrismShape.quaternion.multiplyQuaternions(deltaRotationQuaternion, hexagonalPrismShape.quaternion);
-    ellipsoidInHexagonalPrismWMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoidInHexagonalPrismWMesh.quaternion);
+    ellipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoidMesh.quaternion);
     freeStandingEllipsoid.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoid.quaternion);
 
     //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves. I think up/down needs work but side/side is ok.
@@ -311,6 +260,7 @@ function rotateCrystal(deltaMove) {
 //    console.log("");
     
     //This section deals with an up/down drag
+    
     if (deltaRotationQuaternion.x != 0){//BROKEN!!! I THINK. Add cross section depth variable and recalc new cross section?
         current_cross_section_height = 75*(Math.sqrt(25*Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2) + 56.25*Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)))/(2*(25*Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2) + 56.25*Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)));
         x_angle_rotated_from_start = (x_angle_rotated_from_start + deltaRotationQuaternion.x*2) % (2*Math.PI); // The delta quaternion needs multiplied by 2 for some reason and I don't know why but it works so don't question it.
