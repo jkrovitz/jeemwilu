@@ -236,9 +236,7 @@ $(renderer.domElement).on('mousemove', function(e) {
     }
 });
 
-var current_cross_section_height; 
-var current_cross_section_width; 
-var current_cross_section_depth;//imaginary value for calculating
+var current_cross_section_depth = 15;//imaginary value for calculating
 
 function rotateCrystal(deltaMove) {
     var deltaRotationQuaternion = new three.Quaternion()
@@ -255,22 +253,30 @@ function rotateCrystal(deltaMove) {
 
     //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves. I think up/down needs work but side/side is ok.
 
-//    console.log(deltaRotationQuaternion.x);
-//    console.log(deltaRotationQuaternion.y);
-//    console.log("");
+    console.log("height: "+ current_cross_section_height);
+    console.log("width: " + current_cross_section_width);
+    console.log("depth: " + current_cross_section_depth);
+    console.log(deltaRotationQuaternion.x);
+    console.log(deltaRotationQuaternion.y);
+    console.log();
     
     //This section deals with an up/down drag
     
-    if (deltaRotationQuaternion.x != 0){//BROKEN!!! I THINK. Add cross section depth variable and recalc new cross section?
-        current_cross_section_height = 75*(Math.sqrt(25*Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2) + 56.25*Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)))/(2*(25*Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2) + 56.25*Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)));
+    if (deltaRotationQuaternion.x != 0){//BROKEN!!! somehow when depth and height near the same value these equations stop producing change and just spit out the same results. 
+        var old_cc_height = current_cross_section_height;
+        current_cross_section_depth = ((current_cross_section_height*current_cross_section_depth)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))+Math.pow(current_cross_section_depth,2)*(Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))+Math.pow(current_cross_section_depth,2)*(Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)));
+        
+       current_cross_section_height = ((old_cc_height*current_cross_section_depth)* Math.sqrt(Math.pow(current_cross_section_depth,2)*(Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_depth,2)*(Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)));
+        
         x_angle_rotated_from_start = (x_angle_rotated_from_start + deltaRotationQuaternion.x*2) % (2*Math.PI); // The delta quaternion needs multiplied by 2 for some reason and I don't know why but it works so don't question it.
     }
     //This deals with a side/side drag
     if (deltaRotationQuaternion.y != 0){//Calc new width axis
+        var old_cc_height = current_cross_section_height;
         current_cross_section_width = ((current_cross_section_width*current_cross_section_height)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(current_cross_section_width,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(current_cross_section_width,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)));
         
         //next, calc new height axis
-        current_cross_section_height = ((current_cross_section_width*current_cross_section_height)* Math.sqrt(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(current_cross_section_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(current_cross_section_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)));
+        current_cross_section_height = ((current_cross_section_width*old_cc_height)* Math.sqrt(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)));
         
         y_angle_rotated_from_start = (y_angle_rotated_from_start + deltaRotationQuaternion.y*2) % (2*Math.PI);
     }
