@@ -134,29 +134,6 @@ crossSectionMaterial.side = THREE.DoubleSide;
 
 
 //--------------------Adding shapes to the scene --------------------//
-
-/***add crystal***/
-var crystalShape;
-
-function changeShape(shape) {
-    if(crystalShape)
-        scene.remove(crystalShape);
-
-    crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
-    crystalShape.rotation.x = Math.PI/2;
-    scene.add(crystalShape);
-
-    var geo = new THREE.EdgesGeometry( crystalShape.geometry );
-    var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 4 } );
-    var wireframe = new THREE.LineSegments( geo, mat );
-    wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
-
-    crystalShape.add( wireframe );
-}
-
-changeShape(crystalShapes.hexagonalPrism);
-
-
 /***add free-standing cross section***/
 var ellipse_material = new THREE.LineBasicMaterial({color:0x000000, opacity:1});
 var ellipse = new THREE.EllipseCurve(0, 0, 10, 10, 0, 2.0 * Math.PI, false);
@@ -196,12 +173,12 @@ addCrossSectionAxes();
 
 
 /***Add ellipsoids. ***/
-var ellipsoidMesh = new THREE.Mesh(ellipsoid,ellipsoidMaterial)
-var freeStandingEllipsoid = new three.Mesh(ellipsoid,ellipsoidMaterial);
-scene.add(ellipsoidMesh); 
+var embeddedEllipsoidMesh = new THREE.Mesh(ellipsoid,ellipsoidMaterial)
+var freeStandingEllipsoidMesh = new three.Mesh(ellipsoid,ellipsoidMaterial);
+scene.add(embeddedEllipsoidMesh); 
 
-freeStandingEllipsoid.position.set(35,0,0);
-scene.add(freeStandingEllipsoid);
+freeStandingEllipsoidMesh.position.set(35,0,0);
+scene.add(freeStandingEllipsoidMesh);
 
 function AddEmbededCrossSection(){
 //add inner-ellipsoid cross-section for freestanding ellipse
@@ -213,13 +190,43 @@ crossSectionInEllipsoidWMesh.rotation.x = 4.36332;
 }
 AddEmbededCrossSection(); 
 
+/***add crystal***/
+var crystalShape;
+
+function changeShape(shape) {
+    if(crystalShape)
+        scene.remove(crystalShape);
+    if(embeddedEllipsoidMesh)
+        scene.remove(embeddedEllipsoidMesh);
+    if(freeStandingEllipsoidMesh)
+        scene.remove(freeStandingEllipsoidMesh);
+
+    crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
+    crystalShape.rotation.x = Math.PI/2;
+//    ellipsoid.rotation.x = Math.PI/2;
+    freeStandingEllipsoidMesh.rotation.set(0,0,0);
+    embeddedEllipsoidMesh.rotation.set(0,0,0);
+    scene.add(crystalShape);
+    scene.add(embeddedEllipsoidMesh);
+    scene.add(freeStandingEllipsoidMesh);
+
+    var geo = new THREE.EdgesGeometry( crystalShape.geometry );
+    var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 4 } );
+    var wireframe = new THREE.LineSegments( geo, mat );
+    wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
+
+    
+    crystalShape.add( wireframe );
+}
+
+changeShape(crystalShapes.hexagonalPrism);
 
 //NOTE: not sure what this code is for. Commenting out for now bc it seems useless -Will
 //var wirematerial = new THREE.MeshBasicMaterial( { 
 //    color: 0x0000000, wireframe: true, polygonOffset: true,     
 //    polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
 //
-//ellipsoidMesh.add( wirematerial)
+//embeddedEllipsoidMesh.add( wirematerial)
 
 
 
@@ -273,8 +280,8 @@ function rotateCrystal(deltaMove) {
         ));
     //And now we tell the shapes which things move        
     crystalShape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystalShape.quaternion);
-    ellipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoidMesh.quaternion);
-    freeStandingEllipsoid.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoid.quaternion);
+    embeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, embeddedEllipsoidMesh.quaternion);
+    freeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoidMesh.quaternion);
 
     //----------------------------------------------------------------------------------------------------------------------------------------
     //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
