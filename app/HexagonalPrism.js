@@ -251,38 +251,37 @@ function rotateCrystal(deltaMove) {
     ellipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, ellipsoidMesh.quaternion);
     freeStandingEllipsoid.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoid.quaternion);
 
-    //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves. I think up/down needs work but side/side is ok.
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
+    //   There is still some sort of bug in here, where occasionally the cross section isn't lining up with what it should be. Needs more work.
 
     console.log("height: "+ current_cross_section_height);
     console.log("width: " + current_cross_section_width);
     console.log("depth: " + current_cross_section_depth);
-    console.log(deltaRotationQuaternion.x);
-    console.log(deltaRotationQuaternion.y);
+    //Print out the rotation from start in degrees.
+    console.log(x_angle_rotated_from_start*360/(2*Math.PI));
+    console.log(y_angle_rotated_from_start*360/(2*Math.PI));
     console.log();
     
     //This section deals with an up/down drag
-    
-    if (deltaRotationQuaternion.x != 0){//BROKEN!!! somehow when depth and height near the same value these equations stop producing change and just spit out the same results. 
         x_angle_rotated_from_start = (x_angle_rotated_from_start + deltaRotationQuaternion.x*2) % (2*Math.PI); // The delta quaternion needs multiplied by 2 for some reason and I don't know why but it works so don't question it.
+        if (x_angle_rotated_from_start<0) x_angle_rotated_from_start = x_angle_rotated_from_start + (2*Math.PI);
+        current_cross_section_depth = ((10*30)* Math.sqrt(Math.pow(10,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(30,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2))))/(Math.pow(10,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(30,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2)));
         
-        var old_cc_height = current_cross_section_height;
-        current_cross_section_depth = ((current_cross_section_height*current_cross_section_depth)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(current_cross_section_depth,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(current_cross_section_depth,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2)));
-        
-       current_cross_section_height = ((old_cc_height*current_cross_section_depth)* Math.sqrt(Math.pow(current_cross_section_depth,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_depth,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2)));
-    }
-    //This deals with a side/side drag
-    if (deltaRotationQuaternion.y != 0){//Calc new width axis
-        y_angle_rotated_from_start = (y_angle_rotated_from_start + deltaRotationQuaternion.y*2) % (2*Math.PI);
-        
-        var old_cc_height = current_cross_section_height;
-        current_cross_section_width = ((current_cross_section_width*current_cross_section_height)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(current_cross_section_width,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(current_cross_section_width,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
-        
-        //next, calc new height axis
-        current_cross_section_height = ((current_cross_section_width*old_cc_height)* Math.sqrt(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
-    }
-	crossSectionAxisUpdates(); 
-    
+       current_cross_section_height = ((10*30)* Math.sqrt(Math.pow(30,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2))))/(Math.pow(30,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2)));
 
+    //This deals with a side/side drag
+        y_angle_rotated_from_start = (y_angle_rotated_from_start + deltaRotationQuaternion.y*2) % (2*Math.PI);
+        if (y_angle_rotated_from_start<0) y_angle_rotated_from_start = y_angle_rotated_from_start + (2*Math.PI);
+    
+        current_cross_section_width = ((10*current_cross_section_height)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
+        
+        current_cross_section_height = ((10*current_cross_section_height)* Math.sqrt(Math.pow(10,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(current_cross_section_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(10,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(current_cross_section_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
+	
+    crossSectionAxisUpdates(); 
+    
+    //-----------------------------------------------------------------------------------------------------------------------------------------------
+    
     //Now we update the cross section to match the axis lines
     //Note: This works but warrants a look later to see how well coded it is. It could be prettier;
     
