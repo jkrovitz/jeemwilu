@@ -263,22 +263,22 @@ function rotateCrystal(deltaMove) {
     //This section deals with an up/down drag
     
     if (deltaRotationQuaternion.x != 0){//BROKEN!!! somehow when depth and height near the same value these equations stop producing change and just spit out the same results. 
+        x_angle_rotated_from_start = (x_angle_rotated_from_start + deltaRotationQuaternion.x*2) % (2*Math.PI); // The delta quaternion needs multiplied by 2 for some reason and I don't know why but it works so don't question it.
+        
         var old_cc_height = current_cross_section_height;
         current_cross_section_depth = ((current_cross_section_height*current_cross_section_depth)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))+Math.pow(current_cross_section_depth,2)*(Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))+Math.pow(current_cross_section_depth,2)*(Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)));
         
        current_cross_section_height = ((old_cc_height*current_cross_section_depth)* Math.sqrt(Math.pow(current_cross_section_depth,2)*(Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_depth,2)*(Math.pow(Math.cos(deltaRotationQuaternion.x+x_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.x+x_angle_rotated_from_start),2)));
-        
-        x_angle_rotated_from_start = (x_angle_rotated_from_start + deltaRotationQuaternion.x*2) % (2*Math.PI); // The delta quaternion needs multiplied by 2 for some reason and I don't know why but it works so don't question it.
     }
     //This deals with a side/side drag
     if (deltaRotationQuaternion.y != 0){//Calc new width axis
+        y_angle_rotated_from_start = (y_angle_rotated_from_start + deltaRotationQuaternion.y*2) % (2*Math.PI);
+        
         var old_cc_height = current_cross_section_height;
-        current_cross_section_width = ((current_cross_section_width*current_cross_section_height)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(current_cross_section_width,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(current_cross_section_width,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)));
+        current_cross_section_width = ((current_cross_section_width*current_cross_section_height)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(current_cross_section_width,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(current_cross_section_width,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
         
         //next, calc new height axis
-        current_cross_section_height = ((current_cross_section_width*old_cc_height)* Math.sqrt(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(deltaRotationQuaternion.y+y_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(deltaRotationQuaternion.y+y_angle_rotated_from_start),2)));
-        
-        y_angle_rotated_from_start = (y_angle_rotated_from_start + deltaRotationQuaternion.y*2) % (2*Math.PI);
+        current_cross_section_height = ((current_cross_section_width*old_cc_height)* Math.sqrt(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_width,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(old_cc_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
     }
 	crossSectionAxisUpdates(); 
     
