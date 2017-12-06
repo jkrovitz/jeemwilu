@@ -2,42 +2,38 @@
 https://stackoverflow.com/questions/33573703/changing-iframe-src-via-drop-down-menu-doesnt-load-new-iframe-->
       
 <html>
-   <body>
-	   
-	   <!--	Dropdown for selecting crystal structure.-->
-	   <select id="chooseCrystalStructure">
-		   <option value="">Crystal Structure Options</option>
-		   <option value="hexagonalprism.html">Hexagonal Prism</option>
-		   <option value="trigonalprism.html">Trigonal Prism</option>
-           <option value="cubicprism.html">Cubic Prism</option>
-	   <!--	   <option value="Insert html link">Insert name of crystal structure</option>-->
-	   </select>
-       
-	   
-	   <!--	Loads the needed crystal structure file when clicked. -->
-	  	<button onClick="loadFiles()">Choose Crystal Structure</button>
-	   
-	   <!--	On screen prompt. -->
-	   <p>Please select from the <b>Crystal Structure Options </b>and click <b>Choose Crystal Structure</b>. </p>
-       
-	   <!-- Commenting out image for now since it looks weird with only one crystal structure.-->
-    <!-- <img src=/hexagonalPrismImage.png alt="Crystal Background" width="89.33333333333333333" height="131">
-	   
-	   <!--	This line sets up the iframe that where each crystal structure will be displayed. -->
-	   <div class=cIF><iframe id="myFrame" type="text/html" frameborder="0" height="100%" width="100%" src=""> </iframe></div>
-       
-       
-       
-	   <!--JavaScript code containing the the initialization of myFrame and javaScriptFileSelect as well as the function loadFiles()  -->
- 		<script>
-    		var javaScriptFileSelect = document.getElementById('chooseCrystalStructure'),
-    		myFrame = document.getElementById('myFrame');            
-    		function loadFiles() {
-    		myFrame.src = "";
-    		setTimeout(function () {
-        	myFrame.src = javaScriptFileSelect.value;
-    		}, 0);
-			}
- 		</script>	   
- 	</body>
+<head>
+    <title>Crystal</title>
+    <script src="lib/three.js"></script>
+    <script src="lib/jquery.slim.js"></script>
+</head>
+
+<body>
+    <!-- Dropdown for selecting crystal structure.-->
+    <select id="chooseCrystalStructure">
+        <option value="">Crystal Structure Options</option>
+        <option value="hexagonalPrism">Hexagonal Prism</option>
+        <option value="trigonalPrism">Trigonal Prism</option>
+        <option value="cubicPrism">Cubic Prism</option>
+    </select>
+
+    <!-- Loads the needed crystal structure file when clicked. -->
+    <button onClick="loadFiles()">Choose Crystal Structure</button>
+
+    <!-- On screen prompt. -->
+    <p>Please select from the <b>Crystal Structure Options </b>and click <b>Choose Crystal Structure</b>. </p>
+
+    <!-- Commenting out image for now since it looks weird with only one crystal structure.-->
+    <!-- <img src=/hexagonalPrismImage.png alt="Crystal Background" width="89.33333333333333333" height="131"> -->
+
+    <!-- This line sets up the iframe that where each crystal structure will be displayed. -->
+    <div class="cIF">
+        <!-- Crystal axes. -->
+        Crystallographic Axis <input type="checkbox" id="crystallographicCheck">
+        Optic Axis <input type="checkbox" id="opticCheck">
+        Light Switch <input type="checkbox" id="lightSwitchCheck">
+    </div>
+
+    <script src="app/crystal.js"></script>
+</body>
 </html>
