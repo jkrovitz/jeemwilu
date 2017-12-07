@@ -149,23 +149,23 @@ scene.add(theFreeStandingCrossSection);
 /*Add Cross Section Axes*/
 
 //Declare variables for height axis
-var current_cross_section_height = 10;
+var cross_section_height = 10;
 var heightColor = new three.LineBasicMaterial({color: 0x00FF00});
 var heightLine = new three.Geometry();
 var heightLineRender = new THREE.Line(heightLine, heightColor);
 
 //Declare variables for width axis
-var current_cross_section_width = 10;
+var cross_section_width = 10;
 var widthColor = new three.LineBasicMaterial({color: 0xff0000});
 var widthLine = new three.Geometry();
 var widthLineRender = new three.Line(widthLine, widthColor);
 
 function addCrossSectionAxes(){
 heightLine.vertices.push(new THREE.Vector3(70, 0, 0));
-heightLine.vertices.push(new THREE.Vector3(70, current_cross_section_height, 0));
+heightLine.vertices.push(new THREE.Vector3(70, cross_section_height, 0));
 scene.add(heightLineRender);
 widthLine.vertices.push(new three.Vector3(70,0,0));
-widthLine.vertices.push(new three.Vector3(70+current_cross_section_height,0,0));
+widthLine.vertices.push(new three.Vector3(70+cross_section_width,0,0));
 scene.add(widthLineRender);
 } 
  
@@ -192,6 +192,8 @@ AddEmbededCrossSection();
 
 /***add crystal***/
 var crystalShape;
+var x_angle_rotated_from_start = 0;
+var y_angle_rotated_from_start = 0;
 
 function changeShape(shape) {
     if(crystalShape)
@@ -217,6 +219,14 @@ function changeShape(shape) {
 
     
     crystalShape.add( wireframe );
+    
+    //cross Section Reset
+    cross_section_width = 10;
+    cross_section_height = 10;
+    x_angle_rotated_from_start = 0;
+    y_angle_rotated_from_start = 0;
+    crossSectionAxisUpdates();
+    redraw_cross_section();
 }
 
 changeShape(crystalShapes.hexagonalPrism);
@@ -228,9 +238,6 @@ var crystalSelect = document.getElementById('chooseCrystalStructure');
 crystalSelect.onchange = function() {
     changeShape(crystalShapes[crystalSelect.value]);
 }
-
-var x_angle_rotated_from_start = 0;
-var y_angle_rotated_from_start = 0;
 
 var isDragging = false;
 var previousMousePosition = {
@@ -279,8 +286,8 @@ function rotateCrystal(deltaMove) {
     //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
     //   There is still some sort of bug in here, where occasionally the cross section isn't lining up with what it should be. Needs more work.
 
-    console.log("height: "+ current_cross_section_height);
-    console.log("width: " + current_cross_section_width);
+    console.log("height: "+ cross_section_height);
+    console.log("width: " + cross_section_width);
     console.log("depth: " + current_cross_section_depth);
     //Print out the rotation from start in degrees.
     console.log(x_angle_rotated_from_start*360/(2*Math.PI));
@@ -292,59 +299,56 @@ function rotateCrystal(deltaMove) {
         if (x_angle_rotated_from_start<0) x_angle_rotated_from_start = x_angle_rotated_from_start + (2*Math.PI);
         current_cross_section_depth = ((10*30)* Math.sqrt(Math.pow(10,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(30,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2))))/(Math.pow(10,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(30,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2)));
         
-       current_cross_section_height = ((10*30)* Math.sqrt(Math.pow(30,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2))))/(Math.pow(30,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2)));
+       cross_section_height = ((10*30)* Math.sqrt(Math.pow(30,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2))))/(Math.pow(30,2)*(Math.pow(Math.cos(x_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(x_angle_rotated_from_start),2)));
 
     //This deals with a side/side drag
         y_angle_rotated_from_start = (y_angle_rotated_from_start + deltaRotationQuaternion.y*2) % (2*Math.PI);
         if (y_angle_rotated_from_start<0) y_angle_rotated_from_start = y_angle_rotated_from_start + (2*Math.PI);
     
-        current_cross_section_width = ((10*current_cross_section_height)* Math.sqrt(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(current_cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
+        cross_section_width = ((10*cross_section_height)* Math.sqrt(Math.pow(cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(cross_section_height,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(10,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
         
-        current_cross_section_height = ((10*current_cross_section_height)* Math.sqrt(Math.pow(10,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(current_cross_section_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(10,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(current_cross_section_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
+        cross_section_height = ((10*cross_section_height)* Math.sqrt(Math.pow(10,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(cross_section_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2))))/(Math.pow(10,2)*(Math.pow(Math.cos(y_angle_rotated_from_start),2))+Math.pow(cross_section_height,2)*(Math.pow(Math.sin(y_angle_rotated_from_start),2)));
 	
     crossSectionAxisUpdates(); 
-    
+    redraw_cross_section();
     //-----------------------------------------------------------------------------------------------------------------------------------------------
-    
-    //Now we update the cross section to match the axis lines
-    //Note: This works but warrants a look later to see how well coded it is. It could be prettier;
-    
+}
+
+//Now we update the cross section to match the axis lines
+//Note: This works but warrants a look later to see how well coded it is. It could be prettier;
+function redraw_cross_section(){
     scene.remove(theFreeStandingCrossSection);
-    ellipse = new THREE.EllipseCurve(0, 0, current_cross_section_width, current_cross_section_height, 0, 2.0 * Math.PI, false); 
+    ellipse = new THREE.EllipseCurve(0, 0, cross_section_width, cross_section_height, 0, 2.0 * Math.PI, false); 
     ellipsePath = new THREE.CurvePath();
     ellipsePath.add(ellipse);
     ellipseGeometry = ellipsePath.createPointsGeometry(100);
     ellipseGeometry.computeTangents();
     theFreeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
-   theFreeStandingCrossSection.position.set(70,0,0);
-    
-	
+    theFreeStandingCrossSection.position.set(70,0,0);
 	scene.add(theFreeStandingCrossSection);
-
-    
 }
 
 function crossSectionAxisUpdates(){
     //Here we just update the lines drawing positions to match
-    widthLine.vertices[1].x = 70+current_cross_section_width;
+    widthLine.vertices[1].x = 70+cross_section_width;
     widthLineRender.geometry.verticesNeedUpdate = true;
-    heightLine.vertices[1].y = current_cross_section_height;
+    heightLine.vertices[1].y = cross_section_height;
 	heightLineRender.geometry.verticesNeedUpdate = true;
 }
 
 
 function crossSectionAxisUpdatesOff(){
     //Here we just update the lines drawing positions to match
-    widthLine.vertices[1].x = 70+current_cross_section_width;
+    widthLine.vertices[1].x = 70+cross_section_width;
     widthLineRender.geometry.verticesNeedUpdate = false;
-    heightLine.vertices[1].y = current_cross_section_height;
+    heightLine.vertices[1].y = cross_section_height;
 	heightLineRender.geometry.verticesNeedUpdate = false;
 }
 
 
 function doNotRotateFreeStandingCrossSection(){
-	current_cross_section_height=0; 
-	current_cross_section_width=0; 
+	cross_section_height=0; 
+	cross_section_width=0; 
 }
 
 function removeFreeStandingCrossSection(){
