@@ -221,14 +221,6 @@ function changeShape(shape) {
 
 changeShape(crystalShapes.hexagonalPrism);
 
-//NOTE: not sure what this code is for. Commenting out for now bc it seems useless -Will
-//var wirematerial = new THREE.MeshBasicMaterial( { 
-//    color: 0x0000000, wireframe: true, polygonOffset: true,     
-//    polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 } ) ;
-//
-//embeddedEllipsoidMesh.add( wirematerial)
-
-
 
 //--------------------Updating and User Interface--------------------//
 
