@@ -186,13 +186,19 @@ function changeShape(shape) {
         scene.remove(freeStandingEllipsoidMesh);
 	if(theFreeStandingCrossSection & crossSectionInEllipsoidWMesh)
 		removeCrossSections(); 
+    
 	if(lightSwitchCheck.checked)
-	document.getElementById("lightSwitchCheck").checked = false; 
+	document.getElementById("lightSwitchCheck").checked = false;
+    
+    if(shape == "cubicPrism") {
+        var ellipsoid = new THREE.SphereGeometry(5,20,20); 
+    }
+    
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
-//    ellipsoid.rotation.x = Math.PI/2;
     freeStandingEllipsoidMesh.rotation.set(0,0,0);
     embeddedEllipsoidMesh.rotation.set(0,0,0);
+    
     scene.add(crystalShape);
     scene.add(embeddedEllipsoidMesh);
     scene.add(freeStandingEllipsoidMesh);
