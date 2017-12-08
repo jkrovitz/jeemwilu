@@ -17,23 +17,11 @@ https://stackoverflow.com/questions/33573703/changing-iframe-src-via-drop-down-m
         <option value="cubicPrism">Cubic Prism</option>
     </select>
 
-    <!-- Loads the needed crystal structure file when clicked. -->
-    <button onClick="loadFiles()">Choose Crystal Structure</button>
-
-    <!-- On screen prompt. -->
-    <p>Please select from the <b>Crystal Structure Options </b>and click <b>Choose Crystal Structure</b>. </p>
-
-    <!-- Commenting out image for now since it looks weird with only one crystal structure.-->
-    <!-- <img src=/hexagonalPrismImage.png alt="Crystal Background" width="89.33333333333333333" height="131"> -->
-
-    <!-- This line sets up the iframe that where each crystal structure will be displayed. -->
-    <div class="cIF">
-        <!-- Crystal axes. -->
-        Crystallographic Axis <input type="checkbox" id="crystallographicCheck">
-        Optic Axis <input type="checkbox" id="opticCheck">
-        Light Switch <input type="checkbox" id="lightSwitchCheck">
-    </div>
-
-    <script src="app/crystal.js"></script>
+	<p>
+		Crystallographic Axis <input type="checkbox" id="crystallographicCheck">
+		Optic Axis <input type="checkbox" id="opticCheck">
+		Light Switch <input type="checkbox" id="lightSwitchCheck">
+	</p>
+	<script src="app/crystal.js"></script>
 </body>
 </html>
