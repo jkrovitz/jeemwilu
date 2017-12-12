@@ -160,13 +160,19 @@ var ellipseGeometry = ellipsePath.createPointsGeometry(100);
 var FreeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
 
 /***Add ellipsoids. ***/
+
 var embeddedEllipsoidMesh = new THREE.Mesh(ellipsoid,ellipsoidMaterial);
 var freeStandingEllipsoidMesh = new three.Mesh(ellipsoid,ellipsoidMaterial);
 scene.add(embeddedEllipsoidMesh); 
 freeStandingEllipsoidMesh.position.set(35,0,0);
 scene.add(freeStandingEllipsoidMesh);
 
-var embededCrossSectionWMesh = new three.Mesh(ellipsoid,crossSectionMaterial);//THIS NEEDS TO HAVE THE ellipse GEOMETRY, NOT ELLIPSOID. Still trying to figure it out though.
+/***Add embeded cross-section***/
+var Embededellipse = new THREE.EllipseCurve(0, 0, 5, 5, 0, 2.0 * Math.PI, false);
+var EmbededellipsePath = new THREE.CurvePath();
+EmbededellipsePath.add(Embededellipse);
+var EmbededellipseGeometry = EmbededellipsePath.createPointsGeometry(100);
+var embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);//THIS NEEDS TO HAVE THE ellipse GEOMETRY, NOT ELLIPSOID. Still trying to figure it out though.
 embededCrossSectionWMesh.position.set(35,0,0);
 
 
@@ -207,8 +213,8 @@ function changeShape(shape) {
     crystalShape.add( wireframe );
     
     //cross Section Reset
-    cross_section_width = 0;
-    cross_section_height = 0;
+    cross_section_width = 10;
+    cross_section_height = 10;
 //    crossSectionAxisUpdates();
 //    redraw_cross_section();
 }
@@ -217,7 +223,6 @@ changeShape(crystalShapes.hexagonalPrism);
 
 
 //--------------------Updating and User Interface--------------------//
-
 
 var crystalSelect = document.getElementById('chooseCrystalStructure');
 crystalSelect.onchange = function() {
@@ -324,8 +329,7 @@ if(lightSwitchCheck.checked){
 function addCrossSections(){
 	//add inner-ellipsoid cross-section for freestanding ellipse
 	scene.add(embededCrossSectionWMesh);
-	//rotate 250 deg = 4.36332 radians
-	embededCrossSectionWMesh.rotation.x = 4.36332;
+	embededCrossSectionWMesh.rotation.x = Math.PI/2;
 	
 	//Add FreeStandingCrossSection. 
 	scene.add(heightLineRender);
