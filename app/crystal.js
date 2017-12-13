@@ -202,8 +202,8 @@ function changeShape(shape) {
     
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
-    //freeStandingEllipsoidMesh.rotation.set(0,0,0);
-    //embeddedEllipsoidMesh.rotation.set(0,0,0);
+    freeStandingEllipsoidMesh.rotation.set(0,0,0);
+    embeddedEllipsoidMesh.rotation.set(0,0,0);
     
     scene.add(crystalShape);
     scene.add(embeddedEllipsoidMesh);
