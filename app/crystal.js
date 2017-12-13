@@ -2,7 +2,7 @@
 var three = THREE;
 
 
-//--------------------Camera Settings--------------------
+//--------------------Camera Settings--------------------//
 var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
 var viewSize = 100;
@@ -172,7 +172,7 @@ var Embededellipse = new THREE.EllipseCurve(0, 0, 5, 5, 0, 2.0 * Math.PI, false)
 var EmbededellipsePath = new THREE.CurvePath();
 EmbededellipsePath.add(Embededellipse);
 var EmbededellipseGeometry = EmbededellipsePath.createPointsGeometry(100);
-var embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);//THIS NEEDS TO HAVE THE ellipse GEOMETRY, NOT ELLIPSOID. Still trying to figure it out though.
+var embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);
 embededCrossSectionWMesh.position.set(35,0,0);
 
 
@@ -230,10 +230,7 @@ changeShape(crystalShapes.hexagonalPrism);
 
 //--------------------Updating and User Interface--------------------//
 
-//var crystalSelect = document.getElementById('chooseCrystalStructure');
-//crystalSelect.onchange = function() {
-//    changeShape(crystalShapes[crystalSelect.value]);
-//}
+var crystal_lateral_offest_from_start = 0;
 
 var hexagonalSelect = document.getElementById('hexagonalPrism');
 var cubicSelect = document.getElementById('cubicPrism');
@@ -282,6 +279,7 @@ $(renderer.domElement).on('mousemove', function(e) {
 });
 
 
+    /***Function to update the cross sections***/
 function rotateCrystal(deltaMove) {
 
     var deltaRotationQuaternion = new three.Quaternion()
@@ -297,56 +295,53 @@ function rotateCrystal(deltaMove) {
     embeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, embeddedEllipsoidMesh.quaternion);
 	freeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoidMesh.quaternion);
 
-    //----------------------------------------------------------------------------------------------------------------------------------------
-    //      This next section, UNFINISHED, changes the x and y axes of the cross section as the mouse moves.
-if(lightSwitchCheck.checked){
-	addCrossSections(); 
-	cross_section_width=cross_section_width+10;
-    cross_section_height=cross_section_height+10;
-    
-   var sqr = (x) => x * x;
+    if(lightSwitchCheck.checked){
+        addCrossSections(); 
+        cross_section_width=cross_section_width+10;
+        cross_section_height=cross_section_height+10;
 
-// (xu,yu,zu): basis of ellipsoid’s local coordinate space
-// (Note: it’s possible that I have the rotation backwards here; you
-// may need to invert the rotation to get the orientation right.)
+        var sqr = (x) => x * x;
 
-    var rotation = crystalShape.quaternion,
-        xu = (new three.Vector3(1, 0, 0)).applyQuaternion(rotation),
-        yu = (new three.Vector3(0, 1, 0)).applyQuaternion(rotation),
-        zu = (new three.Vector3(0, 0, 1)).applyQuaternion(rotation);
+        // (xu,yu,zu): basis of ellipsoid’s local coordinate space
+        // (Note: it’s possible that I have the rotation backwards here; you
+        // may need to invert the rotation to get the orientation right.)
 
-    // ellipsoid shape
-    var A = sqr(1 / 5),
-        B = sqr(1 / 5),
-        C = sqr(1 / 7.5);
+        var rotation = crystalShape.quaternion,
+            xu = (new three.Vector3(1, 0, 0)).applyQuaternion(rotation),
+            yu = (new three.Vector3(0, 1, 0)).applyQuaternion(rotation),
+            zu = (new three.Vector3(0, 0, 1)).applyQuaternion(rotation);
 
-    // cross section ellipse
+        // ellipsoid shape
+        var A = sqr(1 / 5),
+            B = sqr(1 / 5),
+            C = sqr(1 / 7.5);
 
-    // These are the coeffecients of the equation that describes
-    // the cross section ellipse, a x^2 + b z^2 + c xz = 1.
+        // cross section ellipse
 
-    var a = A * sqr(xu.x) + B * sqr(yu.x) + C * sqr(zu.x),
-        b = A * sqr(xu.z) + B * sqr(yu.z) + C * sqr(zu.z),
-        c = A * xu.x * xu.z + B * yu.x * yu.z + C * zu.x * zu.z;
+        // These are the coeffecients of the equation that describes
+        // the cross section ellipse, a x^2 + b z^2 + c xz = 1.
 
-    cross_section_width  = 2 * Math.sqrt(2 / (a + b + Math.sqrt(sqr(a-b) + sqr(2*c))));
-    cross_section_height = 2 * Math.sqrt(2 / (a + b - Math.sqrt(sqr(a-b) + sqr(2*c))));
+        var a = A * sqr(xu.x) + B * sqr(yu.x) + C * sqr(zu.x),
+            b = A * sqr(xu.z) + B * sqr(yu.z) + C * sqr(zu.z),
+            c = A * xu.x * xu.z + B * yu.x * yu.z + C * zu.x * zu.z;
+
+        cross_section_width  = 2 * Math.sqrt(2 / (a + b + Math.sqrt(sqr(a-b) + sqr(2*c))));
+        cross_section_height = 2 * Math.sqrt(2 / (a + b - Math.sqrt(sqr(a-b) + sqr(2*c))));
 
 
-    // You should be able to compute the rotation of the cross section
-    // from (a,b,c), possibly from c alone, but my investigations stopped here.
-    // That equation is the normal quadratic form for an ellipse, so Google
-    // should be able to help. (Beware: sometimes that eq has b & c swapped.)
-    
-    redraw_cross_section();	
+        // You should be able to compute the rotation of the cross section
+        // from (a,b,c), possibly from c alone, but my investigations stopped here.
+        // That equation is the normal quadratic form for an ellipse, so Google
+        // should be able to help. (Beware: sometimes that eq has b & c swapped.)
+        
+        crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+deltaRotationQuaternion.y) % (2*Math.PI);
+        redraw_cross_section();	
 	}
 
     else{
 		removeCrossSections(); 
-		crossSectionAxisUpdatesOff(); 
-		
+		crossSectionAxisUpdatesOff(); 	
 	}
-    //-----------------------------------------------------------------------------------------------------------------------------------------------
 }
 
 
@@ -373,8 +368,7 @@ function removeCrossSections(){
 	crossSectionAxisUpdatesOff(); 
 }
 
-//Now we update the cross section to match the axis lines
-//Note: This works but warrants a look later to see how well coded it is. It could be prettier;
+/*** update the cross sections to match the axis lines***/
 function redraw_cross_section(){
 	crossSectionAxisUpdates(); 
     scene.remove(freeStandingCrossSection);
@@ -385,6 +379,19 @@ function redraw_cross_section(){
     freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
     freeStandingCrossSection.position.set(70,0,0);
 	scene.add(freeStandingCrossSection);
+    
+    scene.remove(embededCrossSectionWMesh);
+    Embededellipse = new THREE.EllipseCurve(0, 0, cross_section_width/2, cross_section_height/2, 0, 2.0 * Math.PI, false);
+    EmbededellipsePath = new THREE.CurvePath();
+    EmbededellipsePath.add(Embededellipse);
+    EmbededellipseGeometry = EmbededellipsePath.createPointsGeometry(100);
+    embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);
+    embededCrossSectionWMesh.position.set(35,0,0);
+    
+    //THIS ISN'T RIGHT BUT I WILL MAKE IT BETTER SOON
+    embededCrossSectionWMesh.rotation.x = Math.PI/2;
+    embededCrossSectionWMesh.rotation.y = crystal_lateral_offest_from_start;
+    scene.add(embededCrossSectionWMesh)
 }
 
 
