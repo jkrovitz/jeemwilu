@@ -186,13 +186,14 @@ function changeShape(shape) {
         scene.remove(embeddedEllipsoidMesh);
     if(freeStandingEllipsoidMesh)
         scene.remove(freeStandingEllipsoidMesh);
-	if(freeStandingCrossSection)
-		scene.remove(freeStandingCrossSection);
-	if(embededCrossSectionWMesh)
-		scene.remove(embededCrossSectionWMesh); 
+	
     
-	if(lightSwitchCheck.checked)
-	document.getElementById("lightSwitchCheck").checked = false;
+	if(myonoffswitch.checked)
+	document.getElementById("myonoffswitch").checked = false;
+	removeWidthAndHeightLineRender(); 
+	scene.remove(freeStandingCrossSection);
+	scene.remove(embededCrossSectionWMesh); 
+	
 	
     
 //    if(shape == "cubicPrism") {
@@ -201,8 +202,8 @@ function changeShape(shape) {
     
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
-    freeStandingEllipsoidMesh.rotation.set(0,0,0);
-    embeddedEllipsoidMesh.rotation.set(0,0,0);
+    //freeStandingEllipsoidMesh.rotation.set(0,0,0);
+    //embeddedEllipsoidMesh.rotation.set(0,0,0);
     
     scene.add(crystalShape);
     scene.add(embeddedEllipsoidMesh);
@@ -228,6 +229,7 @@ function changeShape(shape) {
 changeShape(crystalShapes.hexagonalPrism);
 
 
+
 //--------------------Updating and User Interface--------------------//
 
 var crystal_lateral_offest_from_start = 0;
@@ -235,17 +237,26 @@ var crystal_lateral_offest_from_start = 0;
 var hexagonalSelect = document.getElementById('hexagonalPrism');
 var cubicSelect = document.getElementById('cubicPrism');
 
+function addWidthAndHeightLineRender(){
+	scene.add(widthLineRender); 
+	scene.add(heightLineRender); 
+}
 
-hexagonalSelect.onclick = function() {
-    changeShape(crystalShapes.hexagonalPrism);
+
+	
+function removeWidthAndHeightLineRender(){
 	scene.remove(widthLineRender); 
 	scene.remove(heightLineRender); 
 }
 
+hexagonalSelect.onclick = function() {
+    changeShape(crystalShapes.hexagonalPrism);
+//	removeWidthAndHeightLineRender();  
+}
+
 cubicSelect.onclick = function() {
     changeShape(crystalShapes.cubicPrism);
-	scene.remove(widthLineRender); 
-	scene.remove(heightLineRender); 
+//	removeWidthAndHeightLineRender(); 
 }
 
 
@@ -295,7 +306,9 @@ function rotateCrystal(deltaMove) {
     embeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, embeddedEllipsoidMesh.quaternion);
 	freeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoidMesh.quaternion);
 
-    if(lightSwitchCheck.checked){
+   if(myonoffswitch.checked){
+		document.getElementById("myonoffswitch").checked = true;
+		scene.add(freeStandingCrossSection); 
         addCrossSections(); 
         cross_section_width=cross_section_width+10;
         cross_section_height=cross_section_height+10;
@@ -351,8 +364,7 @@ function addCrossSections(){
 	embededCrossSectionWMesh.rotation.x = Math.PI/2;
 	
 	//Add freeStandingCrossSection. 
-	scene.add(heightLineRender);
-	scene.add(widthLineRender);
+	addWidthAndHeightLineRender(); 
 	freeStandingCrossSection.position.set(70,0,0);
 	scene.add(freeStandingCrossSection);	
 }
@@ -362,8 +374,7 @@ function removeCrossSections(){
 	scene.remove(embededCrossSectionWMesh); 
 	
 	//Removes the free standing cross section
-	scene.remove(widthLineRender); 
-	scene.remove(heightLineRender); 
+	removeWidthAndHeightLineRender(); 
 	scene.remove(freeStandingCrossSection); 
 	crossSectionAxisUpdatesOff(); 
 }
