@@ -280,6 +280,9 @@ $(document).on('click', '.crystalStructure', function() {
     $(this).addClass('selected');
 });
 
+$(myonoffswitch).on('change', function() {
+    rotateCrystal({x: 0, y: 0});
+});
 
 
 var isDragging = false;
@@ -328,7 +331,6 @@ function rotateCrystal(deltaMove) {
 	freeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoidMesh.quaternion);
 
    if(myonoffswitch.checked){
-		document.getElementById("myonoffswitch").checked = true;
 		scene.add(freeStandingCrossSection); 
         addCrossSections(); 
         cross_section_width=cross_section_width+10;
