@@ -208,11 +208,12 @@ function changeShape(shape) {
         scene.remove(freeStandingEllipsoidMesh);
 	
     
-	if(myonoffswitch.checked)
+	if(myonoffswitch.checked){
 	document.getElementById("myonoffswitch").checked = false;
 	removeWidthAndHeightLineRender(); 
 	scene.remove(freeStandingCrossSection);
 	scene.remove(embededCrossSectionWMesh); 
+	} 
 	
 	
     
@@ -246,7 +247,7 @@ function changeShape(shape) {
     //redraw_cross_section();
 }
 
-changeShape(crystalShapes.trigonalPrism);
+changeShape(crystalShapes.hexagonalPrism);
 
 
 
@@ -256,6 +257,8 @@ var crystal_lateral_offest_from_start = 0;
 
 var hexagonalSelect = document.getElementById('hexagonalPrism');
 var cubicSelect = document.getElementById('cubicPrism');
+var trigonalSelect = document.getElementById('trigonalPrism');
+
 
 function addWidthAndHeightLineRender(){
 	scene.add(widthLineRender); 
@@ -270,13 +273,16 @@ function removeWidthAndHeightLineRender(){
 }
 
 hexagonalSelect.onclick = function() {
-    changeShape(crystalShapes.hexagonalPrism);
-//	removeWidthAndHeightLineRender();  
+    changeShape(crystalShapes.hexagonalPrism); 
 }
 
 cubicSelect.onclick = function() {
     changeShape(crystalShapes.cubicPrism);
-//	removeWidthAndHeightLineRender(); 
+}
+
+
+trigonalSelect.onclick = function() {
+    changeShape(crystalShapes.trigonalPrism);
 }
 
 
