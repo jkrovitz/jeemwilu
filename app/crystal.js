@@ -347,7 +347,8 @@ function rotateCrystal(deltaMove) {
         // That equation is the normal quadratic form for an ellipse, so Google
         // should be able to help. (Beware: sometimes that eq has b & c swapped.)
         
-        crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+deltaRotationQuaternion.y) % (2*Math.PI);
+       //Spin embedded cross section
+        crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI);
         redraw_cross_section();	
 	}
 
@@ -399,9 +400,9 @@ function redraw_cross_section(){
     embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);
     embededCrossSectionWMesh.position.set(35,0,0);
     
-    //THIS ISN'T RIGHT BUT I WILL MAKE IT BETTER SOON
+    //rotate embeded cross section
     embededCrossSectionWMesh.rotation.x = Math.PI/2;
-    embededCrossSectionWMesh.rotation.y = crystal_lateral_offest_from_start;
+    embededCrossSectionWMesh.rotation.z = crystal_lateral_offest_from_start;
     scene.add(embededCrossSectionWMesh)
 }
 
