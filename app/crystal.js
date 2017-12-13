@@ -157,7 +157,7 @@ var ellipse = new THREE.EllipseCurve(0, 0, 10, 10, 0, 2.0 * Math.PI, false);
 var ellipsePath = new THREE.CurvePath();
 ellipsePath.add(ellipse);
 var ellipseGeometry = ellipsePath.createPointsGeometry(100);
-var FreeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
+var freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
 
 /***Add ellipsoids. ***/
 
@@ -186,15 +186,18 @@ function changeShape(shape) {
         scene.remove(embeddedEllipsoidMesh);
     if(freeStandingEllipsoidMesh)
         scene.remove(freeStandingEllipsoidMesh);
-	if(FreeStandingCrossSection & embededCrossSectionWMesh)
-		removeCrossSections(); 
+	if(freeStandingCrossSection)
+		scene.remove(freeStandingCrossSection);
+	if(embededCrossSectionWMesh)
+		scene.remove(embededCrossSectionWMesh); 
     
 	if(lightSwitchCheck.checked)
 	document.getElementById("lightSwitchCheck").checked = false;
+	
     
-    if(shape == "cubicPrism") {
-        var ellipsoid = new THREE.SphereGeometry(5,20,20); 
-    }
+//    if(shape == "cubicPrism") {
+//        var ellipsoid = new THREE.SphereGeometry(5,20,20); 
+//    }
     
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
@@ -212,11 +215,14 @@ function changeShape(shape) {
     
     crystalShape.add( wireframe );
     
+	
+	
+	//********I don't think we need this code chunk anymore.********
     //cross Section Reset
-    cross_section_width = 10;
-    cross_section_height = 10;
-//    crossSectionAxisUpdates();
-//    redraw_cross_section();
+//    cross_section_width = 10;
+//    cross_section_height = 10;
+//    crossSectionAxisUpdatesOff();
+    //redraw_cross_section();
 }
 
 changeShape(crystalShapes.hexagonalPrism);
@@ -224,10 +230,28 @@ changeShape(crystalShapes.hexagonalPrism);
 
 //--------------------Updating and User Interface--------------------//
 
-var crystalSelect = document.getElementById('chooseCrystalStructure');
-crystalSelect.onchange = function() {
-    changeShape(crystalShapes[crystalSelect.value]);
+//var crystalSelect = document.getElementById('chooseCrystalStructure');
+//crystalSelect.onchange = function() {
+//    changeShape(crystalShapes[crystalSelect.value]);
+//}
+
+var hexagonalSelect = document.getElementById('hexagonalPrism');
+var cubicSelect = document.getElementById('cubicPrism');
+
+
+hexagonalSelect.onclick = function() {
+    changeShape(crystalShapes.hexagonalPrism);
+	scene.remove(widthLineRender); 
+	scene.remove(heightLineRender); 
 }
+
+cubicSelect.onclick = function() {
+    changeShape(crystalShapes.cubicPrism);
+	scene.remove(widthLineRender); 
+	scene.remove(heightLineRender); 
+}
+
+
 
 var isDragging = false;
 var previousMousePosition = {
@@ -331,11 +355,11 @@ function addCrossSections(){
 	scene.add(embededCrossSectionWMesh);
 	embededCrossSectionWMesh.rotation.x = Math.PI/2;
 	
-	//Add FreeStandingCrossSection. 
+	//Add freeStandingCrossSection. 
 	scene.add(heightLineRender);
 	scene.add(widthLineRender);
-	FreeStandingCrossSection.position.set(70,0,0);
-	scene.add(FreeStandingCrossSection);	
+	freeStandingCrossSection.position.set(70,0,0);
+	scene.add(freeStandingCrossSection);	
 }
 
 function removeCrossSections(){
@@ -345,7 +369,7 @@ function removeCrossSections(){
 	//Removes the free standing cross section
 	scene.remove(widthLineRender); 
 	scene.remove(heightLineRender); 
-	scene.remove(FreeStandingCrossSection); 
+	scene.remove(freeStandingCrossSection); 
 	crossSectionAxisUpdatesOff(); 
 }
 
@@ -353,14 +377,14 @@ function removeCrossSections(){
 //Note: This works but warrants a look later to see how well coded it is. It could be prettier;
 function redraw_cross_section(){
 	crossSectionAxisUpdates(); 
-    scene.remove(FreeStandingCrossSection);
+    scene.remove(freeStandingCrossSection);
     ellipse = new THREE.EllipseCurve(0, 0, cross_section_width, cross_section_height, 0, 2.0 * Math.PI, false); 
     ellipsePath = new THREE.CurvePath();
     ellipsePath.add(ellipse);
     ellipseGeometry = ellipsePath.createPointsGeometry(100);
-    FreeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
-    FreeStandingCrossSection.position.set(70,0,0);
-	scene.add(FreeStandingCrossSection);
+    freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
+    freeStandingCrossSection.position.set(70,0,0);
+	scene.add(freeStandingCrossSection);
 }
 
 
