@@ -272,18 +272,13 @@ function removeWidthAndHeightLineRender(){
 	scene.remove(heightLineRender); 
 }
 
-hexagonalSelect.onclick = function() {
-    changeShape(crystalShapes.hexagonalPrism); 
-}
 
-cubicSelect.onclick = function() {
-    changeShape(crystalShapes.cubicPrism);
-}
+$(document).on('click', '.crystalStructure', function() {
+    changeShape(crystalShapes[this.id]);
 
-
-trigonalSelect.onclick = function() {
-    changeShape(crystalShapes.trigonalPrism);
-}
+    $('.crystalStructure').removeClass('selected');
+    $(this).addClass('selected');
+});
 
 
 

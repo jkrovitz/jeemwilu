@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 
+.crystalStructure.selected {
+    /* Jeremy: put your selected button style here */
+}
+
 #menu {
     float: left;
 }
