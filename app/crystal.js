@@ -10,6 +10,7 @@ var aspect=window.innerWidth*2/window.innerHeight;
 var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize / 2, viewSize / - 2 , -1000, 1000);
 scene.add( camera );
 
+
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize( event ) {
@@ -89,12 +90,31 @@ hexagonalPrismGeometry.faces.push(
     new THREE.Face3(8,13,6),
 );
 
+var trigonalPrismGeometry = new THREE.Geometry();
+trigonalPrismGeometry.vertices.push( 
+    new THREE.Vector3( -20, -10, -15 ),
+    new THREE.Vector3( 20, -10, -15 ),
+    new THREE.Vector3( 0, 20, -15 ),
+    new THREE.Vector3( -20, -10, 15 ),
+    new THREE.Vector3( 20, -10, 15 ),
+    new THREE.Vector3( 0, 20, 15 )
+);
+trigonalPrismGeometry.faces.push( 
+    new THREE.Face3( 0, 1, 2 ), //top triangle
+    new THREE.Face3( 3, 4, 5 ), //bottom triangle
+    
+    new THREE.Face3( 1, 2, 5 ), //siding
+    new THREE.Face3( 5, 4, 1),
+    new THREE.Face3( 2, 0, 3),
+    new THREE.Face3( 3, 5, 2)
+);
+
 var crystalShapes = {
     hexagonalPrism: {
         geometry: hexagonalPrismGeometry
     },
     trigonalPrism: {
-        geometry: new three.BoxGeometry(15,15,15)  // fake for now
+        geometry: trigonalPrismGeometry 
     },
     cubicPrism: {
         geometry: new three.BoxGeometry(15,15,15)
@@ -226,7 +246,7 @@ function changeShape(shape) {
     //redraw_cross_section();
 }
 
-changeShape(crystalShapes.hexagonalPrism);
+changeShape(crystalShapes.trigonalPrism);
 
 
 
