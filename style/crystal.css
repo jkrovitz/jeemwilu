@@ -12,7 +12,8 @@
 }
 
 .crystalStructure.selected {
-    /* Jeremy: put your selected button style here */
+    border-width: medium; 
+	border-color: #ff0000; 
 }
 
 #menu {
