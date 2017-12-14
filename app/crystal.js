@@ -93,21 +93,28 @@ hexagonalPrismGeometry.faces.push(
 
 var trigonalPrismGeometry = new THREE.Geometry();
 trigonalPrismGeometry.vertices.push( 
-    new THREE.Vector3( -20, -10, -15 ),
-    new THREE.Vector3( 20, -10, -15 ),
-    new THREE.Vector3( 0, 20, -15 ),
-    new THREE.Vector3( -20, -10, 15 ),
-    new THREE.Vector3( 20, -10, 15 ),
-    new THREE.Vector3( 0, 20, 15 )
+    new THREE.Vector3( -11.5, -6, -15 ),
+    new THREE.Vector3( -3.5, 6, -15 ),
+    new THREE.Vector3( 11.5, 6, -15 ),
+    new THREE.Vector3( 3.5, -6, -15 ),
+    
+    new THREE.Vector3( -11.5, -6, 15 ),
+    new THREE.Vector3( -3.5, 6, 15 ),
+    new THREE.Vector3( 11.5, 6, 15 ),
+    new THREE.Vector3( 3.5, -6, 15 )
 );
 trigonalPrismGeometry.faces.push( 
     new THREE.Face3( 0, 1, 2 ), //top triangle
-    new THREE.Face3( 3, 4, 5 ), //bottom triangle
+    new THREE.Face3( 3, 0, 2 ),
+    new THREE.Face3( 4, 5, 6 ), //bottom triangle
+    new THREE.Face3( 7, 4, 6 ),
     
-    new THREE.Face3( 1, 2, 5 ), //siding
-    new THREE.Face3( 5, 4, 1),
-    new THREE.Face3( 2, 0, 3),
-    new THREE.Face3( 3, 5, 2)
+    new THREE.Face3( 0, 1, 4 ), //siding
+    new THREE.Face3( 4, 1, 5),
+    new THREE.Face3( 1, 2, 5),
+    new THREE.Face3( 5, 2, 6),
+    new THREE.Face3( 2, 3, 6),
+    new THREE.Face3( 6, 3, 7),
 );
 
 var crystalShapes = {
@@ -422,6 +429,8 @@ function rotateCrystal(deltaMove) {
            cross_section_width=10;
            cross_section_height = 10;
            crossSectionAxisUpdates();
+           addWidthAndHeightLineRender(); 
+
            
    }
        redraw_cross_section();	
