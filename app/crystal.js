@@ -447,6 +447,7 @@ function addCrossSections(){
 	//add inner-ellipsoid cross-section for freestanding ellipse
 	scene.add(embededCrossSectionWMesh);
 	embededCrossSectionWMesh.rotation.x = Math.PI/2;
+    embededCrossSectionWMesh.rotation.z = Math.PI/2;
 	
 	//Add freeStandingCrossSection. 
 	addWidthAndHeightLineRender(); 
@@ -488,7 +489,7 @@ function redraw_cross_section(){
     
     //rotate embeded cross section
     embededCrossSectionWMesh.rotation.x = Math.PI/2;
-    embededCrossSectionWMesh.rotation.z = crystal_lateral_offest_from_start;
+    embededCrossSectionWMesh.rotation.z = crystal_lateral_offest_from_start + (2*Math.PI);
     scene.add(embededCrossSectionWMesh)
 }
 
