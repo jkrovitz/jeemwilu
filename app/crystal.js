@@ -125,8 +125,10 @@ var crystalShapes = {
 
 
 //***ellipsoids***//
-var ellipsoid = new THREE.SphereGeometry(5,20,20); 
-ellipsoid.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
+var nonCubicEllipsoid = new THREE.SphereGeometry(5,20,20);
+nonCubicEllipsoid.applyMatrix( new THREE.Matrix4().makeScale( 1.0, 1.5, 1.0 ) );
+
+var cubicEllipsoid = new THREE.SphereGeometry(5,20,20);
 
 //***shape materials definitions***//
 
@@ -181,11 +183,17 @@ var freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material)
 
 /***Add ellipsoids. ***/
 
-var embeddedEllipsoidMesh = new THREE.Mesh(ellipsoid,ellipsoidMaterial);
-var freeStandingEllipsoidMesh = new three.Mesh(ellipsoid,ellipsoidMaterial);
-scene.add(embeddedEllipsoidMesh); 
-freeStandingEllipsoidMesh.position.set(35,0,0);
-scene.add(freeStandingEllipsoidMesh);
+var nonCubicEmbeddedEllipsoidMesh = new THREE.Mesh(nonCubicEllipsoid,ellipsoidMaterial);
+var nonCubicFreeStandingEllipsoidMesh = new three.Mesh(nonCubicEllipsoid,ellipsoidMaterial);
+scene.add(nonCubicEmbeddedEllipsoidMesh); 
+nonCubicFreeStandingEllipsoidMesh.position.set(35,0,0);
+scene.add(nonCubicFreeStandingEllipsoidMesh);
+
+var cubicEmbeddedEllipsoidMesh = new THREE.Mesh(cubicEllipsoid,ellipsoidMaterial);
+var cubicFreeStandingEllipsoidMesh = new three.Mesh(cubicEllipsoid,ellipsoidMaterial);
+scene.add(cubicEmbeddedEllipsoidMesh); 
+cubicFreeStandingEllipsoidMesh.position.set(35,0,0);
+scene.add(cubicFreeStandingEllipsoidMesh);
 
 /***Add embeded cross-section***/
 var Embededellipse = new THREE.EllipseCurve(0, 0, 5, 5, 0, 2.0 * Math.PI, false);
@@ -202,11 +210,19 @@ var crystalShape;
 function changeShape(shape) {
     if(crystalShape)
         scene.remove(crystalShape);
-    if(embeddedEllipsoidMesh)
-        scene.remove(embeddedEllipsoidMesh);
-    if(freeStandingEllipsoidMesh)
-        scene.remove(freeStandingEllipsoidMesh);
-	
+    
+    if(nonCubicEmbeddedEllipsoidMesh) {
+        scene.remove(nonCubicEmbeddedEllipsoidMesh);
+    }
+    if(cubicEmbeddedEllipsoidMesh) {
+        scene.remove(cubicEmbeddedEllipsoidMesh);
+    }
+    if(nonCubicFreeStandingEllipsoidMesh) {
+        scene.remove(nonCubicFreeStandingEllipsoidMesh);
+    }
+    if(cubicFreeStandingEllipsoidMesh) {
+        scene.remove(cubicFreeStandingEllipsoidMesh);
+    }
     
 	if(myonoffswitch.checked){
 	document.getElementById("myonoffswitch").checked = false;
@@ -217,18 +233,37 @@ function changeShape(shape) {
 	
 	
     
-//    if(shape == "cubicPrism") {
-//        var ellipsoid = new THREE.SphereGeometry(5,20,20); 
+//    if(shape == crystalShapes.cubicPrism) {
+//        ellipsoid.updateMatrix(cubicMatrix);
+//        console.log("hi");
+//    } else if (shape == crystalShapes.hexagonalPrism || shape == crystalShapes.trigonalPrism) {
+//        ellipsoid.updaMatrix(nonCubicMatrix);
 //    }
+    
     
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
-    freeStandingEllipsoidMesh.rotation.set(0,0,0);
-    embeddedEllipsoidMesh.rotation.set(0,0,0);
     
     scene.add(crystalShape);
-    scene.add(embeddedEllipsoidMesh);
-    scene.add(freeStandingEllipsoidMesh);
+
+    
+    if (shape == crystalShapes.cubicPrism) {
+        cubicFreeStandingEllipsoidMesh.rotation.set(0,0,0);
+        cubicEmbeddedEllipsoidMesh.rotation.set(0,0,0);
+        scene.add(cubicEmbeddedEllipsoidMesh);
+        scene.add(cubicFreeStandingEllipsoidMesh);
+    } else if (shape == crystalShapes.hexagonalPrism || shape == crystalShapes.trigonalPrism) {
+        nonCubicFreeStandingEllipsoidMesh.rotation.set(0,0,0);
+        nonCubicEmbeddedEllipsoidMesh.rotation.set(0,0,0);
+        scene.add(nonCubicEmbeddedEllipsoidMesh);
+        scene.add(nonCubicFreeStandingEllipsoidMesh);
+    }
+    
+//    freeStandingEllipsoidMesh.rotation.set(0,0,0);
+//    embeddedEllipsoidMesh.rotation.set(0,0,0);
+    
+//    scene.add(embeddedEllipsoidMesh);
+//    scene.add(freeStandingEllipsoidMesh);
     var geo = new THREE.EdgesGeometry( crystalShape.geometry );
     var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 4 } );
     var wireframe = new THREE.LineSegments( geo, mat );
@@ -327,8 +362,11 @@ function rotateCrystal(deltaMove) {
     
     //And now we tell the shapes which things move        
     crystalShape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystalShape.quaternion);
-    embeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, embeddedEllipsoidMesh.quaternion);
-	freeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, freeStandingEllipsoidMesh.quaternion);
+    nonCubicEmbeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, nonCubicEmbeddedEllipsoidMesh.quaternion);
+	nonCubicFreeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, nonCubicFreeStandingEllipsoidMesh.quaternion);
+    
+    cubicEmbeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, cubicEmbeddedEllipsoidMesh.quaternion);
+	cubicFreeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, cubicFreeStandingEllipsoidMesh.quaternion);
 
    if(myonoffswitch.checked){
 		scene.add(freeStandingCrossSection); 
