@@ -10,7 +10,6 @@ var aspect=window.innerWidth*2/window.innerHeight;
 var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize / 2, viewSize / - 2 , -1000, 1000);
 scene.add( camera );
 
-
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize( event ) {
@@ -27,8 +26,10 @@ function onWindowResize( event ) {
 }
 
 //distance zoomed out/in
-camera.position.z = 50;
 camera.position.x = 35;
+camera.position.y = -32;
+camera.position.z = 50;
+camera.rotateX(.25);
 
 //rendering
 var renderer = new three.WebGLRenderer();
@@ -173,6 +174,9 @@ heightLine.vertices.push(new THREE.Vector3(70, cross_section_height, 0));
 widthLine.vertices.push(new three.Vector3(70,0,0));
 widthLine.vertices.push(new three.Vector3(70+cross_section_width,0,0));
 
+widthLine.rotateX(.17);
+heightLine.rotateX(.17);
+
 /***add free-standing cross section***/
 var ellipse_material = new THREE.LineBasicMaterial({color:0x000000, opacity:1});
 var ellipse = new THREE.EllipseCurve(0, 0, 10, 10, 0, 2.0 * Math.PI, false);
@@ -296,7 +300,7 @@ var trigonalSelect = document.getElementById('trigonalPrism');
 
 
 function addWidthAndHeightLineRender(){
-	scene.add(widthLineRender); 
+	scene.add(widthLineRender);
 	scene.add(heightLineRender); 
 }
 
@@ -370,6 +374,7 @@ function rotateCrystal(deltaMove) {
 
    if(myonoffswitch.checked){
 		scene.add(freeStandingCrossSection); 
+        freeStandingCrossSection.rotateX(.25);
         addCrossSections(); 
         cross_section_width=cross_section_width+10;
         cross_section_height=cross_section_height+10;
@@ -429,6 +434,7 @@ function addCrossSections(){
 	addWidthAndHeightLineRender(); 
 	freeStandingCrossSection.position.set(70,0,0);
 	scene.add(freeStandingCrossSection);	
+    freeStandingCrossSection.rotateX(.25);
 }
 
 function removeCrossSections(){
@@ -452,6 +458,7 @@ function redraw_cross_section(){
     freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
     freeStandingCrossSection.position.set(70,0,0);
 	scene.add(freeStandingCrossSection);
+    freeStandingCrossSection.rotateX(.25);
     
     scene.remove(embededCrossSectionWMesh);
     Embededellipse = new THREE.EllipseCurve(0, 0, cross_section_width/2, cross_section_height/2, 0, 2.0 * Math.PI, false);
