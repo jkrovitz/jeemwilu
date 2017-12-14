@@ -210,6 +210,7 @@ embededCrossSectionWMesh.position.set(35,0,0);
 
 /***add crystal***/
 var crystalShape;
+var ActiveShape;
 
 function changeShape(shape) {
     if(crystalShape)
@@ -243,7 +244,7 @@ function changeShape(shape) {
 //    } else if (shape == crystalShapes.hexagonalPrism || shape == crystalShapes.trigonalPrism) {
 //        ellipsoid.updaMatrix(nonCubicMatrix);
 //    }
-    
+    ActiveShape = shape;
     
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
@@ -373,49 +374,57 @@ function rotateCrystal(deltaMove) {
 	cubicFreeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, cubicFreeStandingEllipsoidMesh.quaternion);
 
    if(myonoffswitch.checked){
-		scene.add(freeStandingCrossSection); 
-        freeStandingCrossSection.rotateX(.25);
-        addCrossSections(); 
-        cross_section_width=cross_section_width+10;
-        cross_section_height=cross_section_height+10;
+       if (ActiveShape != crystalShapes.cubicPrism){
+       scene.add(freeStandingCrossSection); 
+           freeStandingCrossSection.rotateX(.25);
+           addCrossSections(); 
+           cross_section_width=cross_section_width+10;
+           cross_section_height=cross_section_height+10;
 
-        var sqr = (x) => x * x;
+           var sqr = (x) => x * x;
 
-        // (xu,yu,zu): basis of ellipsoid’s local coordinate space
-        // (Note: it’s possible that I have the rotation backwards here; you
-        // may need to invert the rotation to get the orientation right.)
+           // (xu,yu,zu): basis of ellipsoid’s local coordinate space
+           // (Note: it’s possible that I have the rotation backwards here; you
+           // may need to invert the rotation to get the orientation right.)
 
-        var rotation = crystalShape.quaternion,
-            xu = (new three.Vector3(1, 0, 0)).applyQuaternion(rotation),
-            yu = (new three.Vector3(0, 1, 0)).applyQuaternion(rotation),
-            zu = (new three.Vector3(0, 0, 1)).applyQuaternion(rotation);
+           var rotation = crystalShape.quaternion,
+               xu = (new three.Vector3(1, 0, 0)).applyQuaternion(rotation),
+               yu = (new three.Vector3(0, 1, 0)).applyQuaternion(rotation),
+               zu = (new three.Vector3(0, 0, 1)).applyQuaternion(rotation);
 
-        // ellipsoid shape
-        var A = sqr(1 / 5),
-            B = sqr(1 / 5),
-            C = sqr(1 / 7.5);
+           // ellipsoid shape
+           var A = sqr(1 / 5),
+               B = sqr(1 / 5),
+               C = sqr(1 / 7.5);
 
-        // cross section ellipse
+           // cross section ellipse
 
-        // These are the coeffecients of the equation that describes
-        // the cross section ellipse, a x^2 + b z^2 + c xz = 1.
+           // These are the coeffecients of the equation that describes
+           // the cross section ellipse, a x^2 + b z^2 + c xz = 1.
 
-        var a = A * sqr(xu.x) + B * sqr(yu.x) + C * sqr(zu.x),
-            b = A * sqr(xu.z) + B * sqr(yu.z) + C * sqr(zu.z),
-            c = A * xu.x * xu.z + B * yu.x * yu.z + C * zu.x * zu.z;
+           var a = A * sqr(xu.x) + B * sqr(yu.x) + C * sqr(zu.x),
+               b = A * sqr(xu.z) + B * sqr(yu.z) + C * sqr(zu.z),
+               c = A * xu.x * xu.z + B * yu.x * yu.z + C * zu.x * zu.z;
 
-        cross_section_width  = 2 * Math.sqrt(2 / (a + b + Math.sqrt(sqr(a-b) + sqr(2*c))));
-        cross_section_height = 2 * Math.sqrt(2 / (a + b - Math.sqrt(sqr(a-b) + sqr(2*c))));
+           cross_section_width  = 2 * Math.sqrt(2 / (a + b + Math.sqrt(sqr(a-b) + sqr(2*c))));
+           cross_section_height = 2 * Math.sqrt(2 / (a + b - Math.sqrt(sqr(a-b) + sqr(2*c))));
 
 
-        // You should be able to compute the rotation of the cross section
-        // from (a,b,c), possibly from c alone, but my investigations stopped here.
-        // That equation is the normal quadratic form for an ellipse, so Google
-        // should be able to help. (Beware: sometimes that eq has b & c swapped.)
-        
-       //Spin embedded cross section
-        crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI);
-        redraw_cross_section();	
+           // You should be able to compute the rotation of the cross section
+           // from (a,b,c), possibly from c alone, but my investigations stopped here.
+           // That equation is the normal quadratic form for an ellipse, so Google
+           // should be able to help. (Beware: sometimes that eq has b & c swapped.)
+
+           //Spin embedded cross section
+           crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI); 
+   }
+       else{
+           cross_section_width=10;
+           cross_section_height = 10;
+           crossSectionAxisUpdates();
+           
+   }
+       redraw_cross_section();	
 	}
 
     else{
