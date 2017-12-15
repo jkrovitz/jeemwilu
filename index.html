@@ -2,6 +2,7 @@
     https://stackoverflow.com/questions/33573703/changing-iframe-src-via-drop-down-menu-doesnt-load-new-iframe-->
 <html>
     <head>
+		
         <title>Crystal</title>
         <script src="lib/three.js"></script>
         <script src="lib/jquery.slim.js"></script>
@@ -10,19 +11,24 @@
     </head>
 
     <body>
+        
+        
+		<div clas="container"> 
         <div class="header">
             <h1>Optical Crystallography</h1>
         </div>
-        <div id="optionsLabel">Crystal Structure Options</div>
+			
+		
+			
         <div id="my_centered_buttons">
             <button class="crystalStructure" id="hexagonalPrism">
-                <img alt="hexagonal prism" src="images/hexagonalPrismImage.png" width="100" height="100">
+                <img alt="hexagonal prism" src="images/hexagonalPrismImage.png" width="70" height="70">
             </button>
             <button class="crystalStructure" id="cubicPrism">
-                <img alt="cubic prism" src="images/cubicImage.png" width="100" height="100">
+                <img alt="cubic prism" src="images/cubicImage.png" width="70" height="70">
             </button>
             <button class="crystalStructure" id="trigonalPrism">
-                <img alt="trigonal prism" src="images/trigonalImage.png" width="100" height="100">
+                <img alt="trigonal prism" src="images/trigonalImage.png" width="70" height="70">
             </button>
         </div>
         <!--
@@ -36,9 +42,11 @@
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>
             </label>
-        </div>
-
+            </div>
+            <div id="crystalScreen"> 
         <script src="app/crystal.js"></script>
+                </div>
+			</div>
     </body>
 
 </html>
