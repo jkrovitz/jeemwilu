@@ -13,8 +13,8 @@ scene.add( camera );
 //window.open("", "", "width=100, height=100");
 // add listener to disable scroll
 
-innerWidth = 650; 
-innerHeight = 350; 
+innerWidth = 1700; 
+innerHeight = 900; 
 // Returns height of HTML document
 $( document ).height();
 window.addEventListener( 'resize', onWindowResize, true );
@@ -44,6 +44,7 @@ camera.rotateX(.25);
 //rendering
 var renderer = new three.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+
 
 console.log(document, document.body)
 document.body.appendChild(renderer.domElement);
