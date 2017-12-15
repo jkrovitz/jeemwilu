@@ -114,9 +114,35 @@ trigonalPrismGeometry.vertices.push(
     new THREE.Vector3( 3.5, -6, 15 )
 );
 trigonalPrismGeometry.faces.push( 
-    new THREE.Face3( 0, 1, 2 ), //top triangle
+    new THREE.Face3( 0, 1, 2 ), //top 
     new THREE.Face3( 3, 0, 2 ),
-    new THREE.Face3( 4, 5, 6 ), //bottom triangle
+    new THREE.Face3( 4, 5, 6 ), //bottom
+    new THREE.Face3( 7, 4, 6 ),
+    
+    new THREE.Face3( 0, 1, 4 ), //siding
+    new THREE.Face3( 4, 1, 5),
+    new THREE.Face3( 1, 2, 5),
+    new THREE.Face3( 5, 2, 6),
+    new THREE.Face3( 2, 3, 6),
+    new THREE.Face3( 6, 3, 7),
+);
+
+var tetragonalPrismGeometry = new THREE.Geometry();
+tetragonalPrismGeometry.vertices.push( 
+    new THREE.Vector3( 5, 5, -15 ),
+    new THREE.Vector3( 5, -5, -15 ),
+    new THREE.Vector3( -5, -5, -15 ),
+    new THREE.Vector3( -5, 5, -15 ),
+    
+    new THREE.Vector3( 5, 5, 15 ),
+    new THREE.Vector3( 5, -5, 15 ),
+    new THREE.Vector3( -5, -5, 15 ),
+    new THREE.Vector3( -5, 5, 15 )
+);
+tetragonalPrismGeometry.faces.push( 
+    new THREE.Face3( 0, 1, 2 ), //top 
+    new THREE.Face3( 3, 0, 2 ),
+    new THREE.Face3( 4, 5, 6 ), //bottom 
     new THREE.Face3( 7, 4, 6 ),
     
     new THREE.Face3( 0, 1, 4 ), //siding
@@ -136,6 +162,9 @@ var crystalShapes = {
     },
     cubicPrism: {
         geometry: new three.BoxGeometry(15,15,15)
+    },
+    tetragonalPrism: {
+        geometry: tetragonalPrismGeometry 
     }
 };
 
@@ -275,7 +304,7 @@ function changeShape(shape) {
         cubicEmbeddedEllipsoidMesh.rotation.set(0,0,0);
         scene.add(cubicEmbeddedEllipsoidMesh);
         scene.add(cubicFreeStandingEllipsoidMesh);
-    } else if (shape == crystalShapes.hexagonalPrism || shape == crystalShapes.trigonalPrism) {
+    } else {
         nonCubicFreeStandingEllipsoidMesh.rotation.set(0,0,0);
         nonCubicEmbeddedEllipsoidMesh.rotation.set(0,0,0);
         scene.add(nonCubicEmbeddedEllipsoidMesh);
