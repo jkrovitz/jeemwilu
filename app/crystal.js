@@ -15,8 +15,6 @@ scene.add( camera );
 //window.open("", "", "width=100, height=100");
 // add listener to disable scroll
 
-innerWidth = 1200; 
-innerHeight = 500; 
 // Returns height of HTML document
 $( document ).height();
 window.addEventListener( 'resize', onWindowResize, true );
@@ -260,6 +258,8 @@ embededCrossSectionWMesh.position.set(50,0,0);
 /***add crystal***/
 var crystalShape;
 var ActiveShape;
+var crossSectionLabel = document.getElementById("crossSectionLabelDivId"); 
+
 
 function changeShape(shape) {
     if(crystalShape)
@@ -279,7 +279,7 @@ function changeShape(shape) {
     }
     
 	if(myonoffswitch.checked){
-		document.getElementById("myonoffswitch").checked = false;
+        document.getElementById("myonoffswitch").checked = false;
 		removeWidthAndHeightLineRender(); 
 		scene.remove(freeStandingCrossSection);
 		scene.remove(embededCrossSectionWMesh); 
@@ -425,7 +425,7 @@ function rotateCrystal(deltaMove) {
 
    if(myonoffswitch.checked){
        if (ActiveShape != crystalShapes.cubicPrism){
-       scene.add(freeStandingCrossSection); 
+           scene.add(freeStandingCrossSection); 
            freeStandingCrossSection.rotateX(.25);
            addCrossSections(); 
            cross_section_width=cross_section_width+10;
@@ -466,14 +466,15 @@ function rotateCrystal(deltaMove) {
            // should be able to help. (Beware: sometimes that eq has b & c swapped.)
 
            //Spin embedded cross section
-           crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI); 
-   }
+          crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI); 
+           crossSectionLabel.innerHTML = "Cross-section";
+       }
        else{
            cross_section_width=10;
            cross_section_height = 10;
            crossSectionAxisUpdates();
            addWidthAndHeightLineRender(); 
-
+           crossSectionLabel.innerHTML = "Cross-section";
            
    }
        redraw_cross_section();	
@@ -482,6 +483,7 @@ function rotateCrystal(deltaMove) {
     else{
 		removeCrossSections(); 
 		crossSectionAxisUpdatesOff(); 	
+        crossSectionLabel.innerHTML = " ";
 	}
 }
 
