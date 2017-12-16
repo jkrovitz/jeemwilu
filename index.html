@@ -6,17 +6,23 @@
         <title>Crystal</title>
         <script src="lib/three.js"></script>
         <script src="lib/jquery.slim.js"></script>
-
+        <style type="text/css">
+        html {
+                overflow: hidden;
+        }
+        </style>
         <link rel="stylesheet" type="text/css" href="style/crystal.css">
     </head>
 
     <body>
-        
-        
-		<div clas="container"> 
-        <div class="header">
+        <div class="WebContainer">
+        <div class = "container">
+                <div class ="headerContainer"> 
+            <div class="header">
             <h1>Optical Crystallography</h1>
         </div>
+            
+            </div>
 			
 		
 			
@@ -38,7 +44,12 @@
         Crystallographic Axis <input type="checkbox" id="crystallographicCheck">
         Optic Axis <input type="checkbox" id="opticCheck">
         -->
-        <h3> Turn Cross Sections On/Off </h3>
+<!--
+                 <link rel="stylesheet" type="text/css" href="style/crystal.css">
+            <link rel="stylesheet" type="text/css" href="style/onOffSwitch.css">
+-->
+<!--        <h3> Turn Cross Sections On/Off </h3>-->
+        
         <div class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
             <label class="onoffswitch-label" for="myonoffswitch">
@@ -46,10 +57,11 @@
                 <span class="onoffswitch-switch"></span>
             </label>
             </div>
-            <div id="crystalScreen"> 
+            <div id="crystalScreen" class="crystalScreenClass"> 
         <script src="app/crystal.js"></script>
                 </div>
-			</div>
+            </div>
+            </div>
     </body>
 
 </html>
