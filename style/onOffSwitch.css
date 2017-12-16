@@ -52,7 +52,7 @@
 .onoffswitch-inner:before {
     content: "ON";
     padding-left: 10px;
-    background-color: #ff0000;
+    background-color: #4090FF;
     color: #FFFFFF;
 }
 

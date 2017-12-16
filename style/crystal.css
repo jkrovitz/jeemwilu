@@ -3,6 +3,7 @@
 .WebContainer{
     width: 100%;
     height: 35%;
+    fill: #DDDDDD;
 }
 
 /*
@@ -16,12 +17,12 @@ html, body {
  margin: 0;
 }
 
-.header {
+/*.header {
     position: absolute;
     width: 100%; 
     display: flex;
     justify-content: center;
-/*     width: 1200px;*/
+
     text-align: center;
     left: 0px;
     top: 1px;
@@ -29,7 +30,7 @@ html, body {
     overflow: hidden; 
     background-color: #ff0000;
     padding: 0px;*
-} 
+} */
 
 #my_centered_buttons {
     display: flex;
@@ -37,7 +38,6 @@ html, body {
 }
 
 .crystalStructure {
-/*    background-color: #ffffff;*/
     border: solid;
     border-width: thin;
     display: inline-block;
@@ -46,19 +46,17 @@ html, body {
 
 .crystalStructure.selected {
     border-width: medium; 
-    border-color: #ff0000; 
+    border-color: #4090FF; 
 }
 
 .crystalScreen{
      left: 200px; 
     width: 100%; 
     display: flex;
-   margin:300px 50px;
-    
-/*    height: "auto"; */
+   margin:300px 50px;   
 }
 
-
+/*
   div.crystalLabelClass {
     left:  290px; 
 } 
@@ -69,11 +67,11 @@ div.indicatrixLabelClass {
 
 div.crossSectionLabelClass {
     left:  700px; 
-} 
+}
 
 div.crossSectionLabelClass, div.indicatrixLabelClass, div.crystalLabelClass{
     position: absolute;
     width: 200px;
     height: 15px; 
-}
+}*/
 

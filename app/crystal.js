@@ -6,7 +6,7 @@ var three = THREE;
 
 //--------------------Camera Settings--------------------//
 var scene = new three.Scene();
-scene.background = new THREE.Color( 0xFFFFFF );
+scene.background = new THREE.Color( 0xEEEEEE );
 var viewSize = 120;
 var aspect=window.innerWidth*2/window.innerHeight;
 var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize / 2, viewSize / - 2 , -1000, 1000);
@@ -181,18 +181,18 @@ var cubicEllipsoid = new THREE.SphereGeometry(5,20,20);
 //***shape materials definitions***//
 
 var crystalMaterial = new three.MeshFaceMaterial([
-    new three.MeshFaceMaterial({//Crystal wireframe material
-        color:0x00ffff, transparent:true, opacity:0.8, side: THREE.DoubleSide
+    new three.MeshFaceMaterial({ //Crystal wireframe material
+        color:0xFFFFFF, transparent:true, opacity:0.8, side: THREE.DoubleSide
     }),
 ]);
 
 
 var ellipsoidMaterial = new THREE.MeshBasicMaterial({//ellipsoid semi-transparent grey material
-    color:0x000000, transparent:true, opacity:0.1, side: THREE.DoubleSide
+    color:0x4090FF, transparent:true, opacity:0.4, side: THREE.BackSide
 });
 
 var crossSectionMaterial = new THREE.MeshBasicMaterial({//cross section dark grey material
-    color:0x333333 
+    color:0x000000,
 });
 
 crossSectionMaterial.side = THREE.DoubleSide;
@@ -206,13 +206,13 @@ crossSectionMaterial.side = THREE.DoubleSide;
 
 //Declare variables for height axis
 var cross_section_height = 10;
-var heightColor = new three.LineBasicMaterial({color: 0x00FF00});
+var heightColor = new three.LineBasicMaterial({color: 0x4090FF});
 var heightLine = new three.Geometry();
 var heightLineRender = new THREE.Line(heightLine, heightColor);
 
 //Declare variables for width axis
 var cross_section_width = 10;
-var widthColor = new three.LineBasicMaterial({color: 0xff0000});
+var widthColor = new three.LineBasicMaterial({color: 0xFF7010});
 var widthLine = new three.Geometry();
 var widthLineRender = new three.Line(widthLine, widthColor);
 
