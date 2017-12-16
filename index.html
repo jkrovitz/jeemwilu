@@ -12,6 +12,7 @@
         }
         </style>
         <link rel="stylesheet" type="text/css" href="style/crystal.css">
+  <link rel="import" href="/path/to/imports/stuff.html">
     </head>
 
     <body>
@@ -48,8 +49,7 @@
                  <link rel="stylesheet" type="text/css" href="style/crystal.css">
             <link rel="stylesheet" type="text/css" href="style/onOffSwitch.css">
 -->
-<!--        <h3> Turn Cross Sections On/Off </h3>-->
-        
+        <div class="onOffSwitchLabel"> Enable Cross Sections </div>
         <div class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
             <label class="onoffswitch-label" for="myonoffswitch">
@@ -58,6 +58,16 @@
             </label>
             </div>
             <div id="crystalScreen" class="crystalScreenClass"> 
+                
+                  <div class="crystalLabelClass">Crystal <p id="crystalLabelDivId"></p>
+            </div>
+                
+                <div class="indicatrixLabelClass">Indicatrix <p id="indicatrixLabelDivId"></p>
+            </div>
+                
+                <div class="crossSectionLabelClass">Cross-Section <p id="crossSectionLabelDivId"></p>
+            </div>
+
         <script src="app/crystal.js"></script>
                 </div>
             </div>

@@ -1,3 +1,5 @@
+
+
 /*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/ and https://codepen.io/jonnyboniface/pen/ALoPbL***/
 var three = THREE;
 
@@ -13,7 +15,7 @@ scene.add( camera );
 //window.open("", "", "width=100, height=100");
 // add listener to disable scroll
 
-innerWidth = 1250; 
+innerWidth = 1200; 
 innerHeight = 500; 
 // Returns height of HTML document
 $( document ).height();
@@ -169,6 +171,7 @@ var crystalShapes = {
 };
 
 //--------------------Shared Objects--------------------//
+
 
 
 //***ellipsoids***//
@@ -583,7 +586,15 @@ function render() {
     requestAnimFrame(render);
 }
 
+
+//Labels 
+document.getElementById("crystalLabelDivId").innerHTML = "";
+
 render();
+
+
+
+
 
 //Cute lil helper function
 function toRadians(angle) {
