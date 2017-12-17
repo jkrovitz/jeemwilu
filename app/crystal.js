@@ -53,6 +53,10 @@ var light = new THREE.PointLight( 0xff0000, 1, 100 );
 light.position.set( 0, -500, 0 );
 scene.add( light );
 
+var crystal_center_coordinates = 0;
+var indicatrix_center_coordinates = 50;
+var crossSection_center_coordinates = 100;
+
 
 
 //--------------------Crystal Shapes--------------------//
@@ -216,10 +220,10 @@ var widthColor = new three.LineBasicMaterial({color: 0xFF7010});
 var widthLine = new three.Geometry();
 var widthLineRender = new three.Line(widthLine, widthColor);
 
-heightLine.vertices.push(new THREE.Vector3(100, 0, 0));
-heightLine.vertices.push(new THREE.Vector3(100, cross_section_height, 0));
-widthLine.vertices.push(new three.Vector3(100,0,0));
-widthLine.vertices.push(new three.Vector3(100+cross_section_width,0,0));
+heightLine.vertices.push(new THREE.Vector3(crossSection_center_coordinates, 0, 0));
+heightLine.vertices.push(new THREE.Vector3(crossSection_center_coordinates, cross_section_height, 0));
+widthLine.vertices.push(new three.Vector3(crossSection_center_coordinates,0,0));
+widthLine.vertices.push(new three.Vector3(crossSection_center_coordinates+cross_section_width,0,0));
 
 widthLine.rotateX(.17);
 heightLine.rotateX(.17);
@@ -237,13 +241,13 @@ var freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material)
 var nonCubicEmbeddedEllipsoidMesh = new THREE.Mesh(nonCubicEllipsoid,ellipsoidMaterial);
 var nonCubicFreeStandingEllipsoidMesh = new three.Mesh(nonCubicEllipsoid,ellipsoidMaterial);
 scene.add(nonCubicEmbeddedEllipsoidMesh); 
-nonCubicFreeStandingEllipsoidMesh.position.set(50,0,0);
+nonCubicFreeStandingEllipsoidMesh.position.set(indicatrix_center_coordinates,0,0);
 scene.add(nonCubicFreeStandingEllipsoidMesh);
 
 var cubicEmbeddedEllipsoidMesh = new THREE.Mesh(cubicEllipsoid,ellipsoidMaterial);
 var cubicFreeStandingEllipsoidMesh = new three.Mesh(cubicEllipsoid,ellipsoidMaterial);
 scene.add(cubicEmbeddedEllipsoidMesh); 
-cubicFreeStandingEllipsoidMesh.position.set(50,0,0);
+cubicFreeStandingEllipsoidMesh.position.set(indicatrix_center_coordinates,0,0);
 scene.add(cubicFreeStandingEllipsoidMesh);
 
 /***Add embeded cross-section***/
@@ -252,7 +256,7 @@ var EmbededellipsePath = new THREE.CurvePath();
 EmbededellipsePath.add(Embededellipse);
 var EmbededellipseGeometry = EmbededellipsePath.createPointsGeometry(100);
 var embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);
-embededCrossSectionWMesh.position.set(50,0,0);
+embededCrossSectionWMesh.position.set(indicatrix_center_coordinates,0,0);
 
 
 /***add crystal***/
@@ -285,20 +289,10 @@ function changeShape(shape) {
 	}
 	
 	
-	
-    
-//    if(shape == crystalShapes.cubicPrism) {
-//        ellipsoid.updateMatrix(cubicMatrix);
-//        console.log("hi");
-//    } else if (shape == crystalShapes.hexagonalPrism || shape == crystalShapes.trigonalPrism) {
-//        ellipsoid.updaMatrix(nonCubicMatrix);
-//    }
     ActiveShape = shape;
     
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
-
-    
     
     
     scene.add(crystalShape);
@@ -315,18 +309,13 @@ function changeShape(shape) {
         scene.add(nonCubicEmbeddedEllipsoidMesh);
         scene.add(nonCubicFreeStandingEllipsoidMesh);
     }
+;
     
-//    freeStandingEllipsoidMesh.rotation.set(0,0,0);
-//    embeddedEllipsoidMesh.rotation.set(0,0,0);
-    
-//    scene.add(embeddedEllipsoidMesh);
-//    scene.add(freeStandingEllipsoidMesh);
     var geo = new THREE.EdgesGeometry( crystalShape.geometry );
     var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 4 } );
     var wireframe = new THREE.LineSegments( geo, mat );
     wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
 
-    
     crystalShape.add( wireframe );
 }
 
@@ -486,7 +475,7 @@ function addCrossSections(){
 	
 	//Add freeStandingCrossSection. 
 	addWidthAndHeightLineRender(); 
-	freeStandingCrossSection.position.set(100,0,0);
+	freeStandingCrossSection.position.set(crossSection_center_coordinates,0,0);
 	scene.add(freeStandingCrossSection);	
     freeStandingCrossSection.rotateX(.25);
 }
@@ -510,7 +499,7 @@ function redraw_cross_section(){
     ellipsePath.add(ellipse);
     ellipseGeometry = ellipsePath.createPointsGeometry(100);
     freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
-    freeStandingCrossSection.position.set(100,0,0);
+    freeStandingCrossSection.position.set(crossSection_center_coordinates,0,0);
 	scene.add(freeStandingCrossSection);
     freeStandingCrossSection.rotateX(.25);
     
@@ -520,7 +509,7 @@ function redraw_cross_section(){
     EmbededellipsePath.add(Embededellipse);
     EmbededellipseGeometry = EmbededellipsePath.createPointsGeometry(100);
     embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);
-    embededCrossSectionWMesh.position.set(50,0,0);
+    embededCrossSectionWMesh.position.set(indicatrix_center_coordinates,0,0);
     
     //rotate embeded cross section
     embededCrossSectionWMesh.rotation.x = Math.PI/2;
@@ -531,7 +520,7 @@ function redraw_cross_section(){
 
 function crossSectionAxisUpdates(){
     //Here we just update the lines drawing positions to match
-    widthLine.vertices[1].x = 100+cross_section_width;
+    widthLine.vertices[1].x = crossSection_center_coordinates+cross_section_width;
     widthLineRender.geometry.verticesNeedUpdate = true;
     heightLine.vertices[1].y = cross_section_height;
 	heightLineRender.geometry.verticesNeedUpdate = true;
