@@ -15,17 +15,17 @@
   <link rel="import" href="/path/to/imports/stuff.html">
     </head>
 
-    <body>
-        <!-- <div class="WebContainer">
+    <body bgcolor="#FFFFFF">
+         <div class="WebContainer">
         <div class = "container">
                 <div class ="headerContainer"> 
             <div class="header">
-            <h1>Optical Crystallography</h1>
+                <h1><font face="Arial" color="#FFB500">Optical Crystallography</font></h1>
         </div>
             
-            </div> -->
+            </div> 
 			
-		
+	
 			
         <div id="my_centered_buttons">
             <button class="crystalStructure" id="cubicPrism">
@@ -49,7 +49,7 @@
                  <link rel="stylesheet" type="text/css" href="style/crystal.css">
             <link rel="stylesheet" type="text/css" href="style/onOffSwitch.css">
 -->
-        <div class="onOffSwitchLabel"> Enable Cross Sections </div>
+        <div class="onOffSwitchLabel"> </div>
         <div class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
             <label class="onoffswitch-label" for="myonoffswitch">
@@ -57,7 +57,7 @@
                 <span class="onoffswitch-switch"></span>
             </label>
             </div>
-            <div id="crystalScreen" class="crystalScreenClass"> 
+           
                 
                   <div class="crystalLabelClass">Crystal <p id="crystalLabelDivId"></p>
             </div>
@@ -67,9 +67,22 @@
                 
                 <div class="crossSectionLabelClass"> <p id="crossSectionLabelDivId"></p>
             </div>
+                
+             
+                <img class="crystalLabel" id="crystalLabelId" src="images/crystalLabel.png">
+	
+           
+                <img class="indicatrixLabel" id="indicatrixLabelId" src="images/indicatrixLabel.png">
+            
+            
+               <img class="crossSectionLabel" id="crossSectionLabelId" src="images/crossSectionLabel.png">
 
+       
+            
+                <img class="enableCrossSectionsLabel" id="enableCrossSectionsLabelId" src="images/EnableCrossSectionsLabel.png">
+            
         <script src="app/crystal.js"></script>
-                </div>
+               
             </div>
             </div>
     </body>

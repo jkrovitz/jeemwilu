@@ -1,7 +1,9 @@
 .onOffSwitchLabel{
     position: absolute; 
-    top: 90px;
+    top: 200px;
     left: 30px; 
+    height: 13%;
+    width: 22%;
 }
 
 
@@ -23,8 +25,10 @@
     display: block;
     overflow: hidden;
     cursor: pointer;
-    border: 2px solid #999999;
+/*
+    border: 2px solid #5B6770;
     border-radius: 20px;
+*/
 }
 
 .onoffswitch-inner {
@@ -52,16 +56,26 @@
 .onoffswitch-inner:before {
     content: "ON";
     padding-left: 10px;
-    background-color: #4090FF;
-    color: #FFFFFF;
+    background-color: #01426A;
+    color: #FFB500;
+    border: 2px solid #FB6770;
+    border-radius: 20px;
+/*
+    border-color: #"FFB500";
+    border-radius: 20px;
+*/
 }
 
 .onoffswitch-inner:after {
     content: "OFF";
     padding-right: 10px;
     background-color: #EEEEEE;
-    color: #999999;
+    color: #5B6770;
     text-align: right;
+    border: 2px solid #5B6770;
+    border-radius: 20px;
+    
+    
 }
 
 .onoffswitch-switch {
@@ -73,9 +87,12 @@
     top: 0;
     bottom: 0;
     right: 56px;
-    border: 2px solid #999999;
+    border: 2px solid #5B6770;
     border-radius: 20px;
     transition: all 0.3s ease-in 0s;
+    
+    overflow: hidden; 
+    
 }
 
 .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {

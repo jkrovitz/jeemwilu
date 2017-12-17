@@ -6,7 +6,7 @@ var three = THREE;
 
 //--------------------Camera Settings--------------------//
 var scene = new three.Scene();
-scene.background = new THREE.Color( 0xEEEEEE );
+scene.background = new THREE.Color( 0xFFFFFF );
 var viewSize = 120;
 var aspect=window.innerWidth*2/window.innerHeight;
 var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize / 2, viewSize / - 2 , -1000, 1000);
@@ -188,7 +188,7 @@ var crystalMaterial = new three.MeshFaceMaterial([
 
 
 var ellipsoidMaterial = new THREE.MeshBasicMaterial({//ellipsoid semi-transparent grey material
-    color:0x4090FF, transparent:true, opacity:0.4, side: THREE.BackSide
+   color:0x000000, transparent:true, opacity:0.1, side: THREE.DoubleSide
 });
 
 var crossSectionMaterial = new THREE.MeshBasicMaterial({//cross section dark grey material

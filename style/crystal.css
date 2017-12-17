@@ -3,7 +3,6 @@
 .WebContainer{
     width: 100%;
     height: 35%;
-    fill: #DDDDDD;
 }
 
 /*
@@ -17,7 +16,7 @@ html, body {
  margin: 0;
 }
 
-/*.header {
+.header {
     position: absolute;
     width: 100%; 
     display: flex;
@@ -28,9 +27,9 @@ html, body {
     top: 1px;
     
     overflow: hidden; 
-    background-color: #ff0000;
+    background-color: #01426A;
     padding: 0px;*
-} */
+} 
 
 #my_centered_buttons {
     display: flex;
@@ -38,7 +37,7 @@ html, body {
 }
 
 .crystalStructure {
-    border: solid;
+    border:  solid #01426A;
     border-width: thin;
     display: inline-block;
     margin: 100px 14px;
@@ -46,20 +45,23 @@ html, body {
 
 .crystalStructure.selected {
     border-width: medium; 
-    border-color: #4090FF; 
+    border-color: #FFB500; 
 }
 
+/*
 .crystalScreen{
-     left: 200px; 
-    width: 100%; 
+    left: 200px; 
+    width:20%; 
     display: flex;
-   margin:300px 50px;   
 }
+*/
+
 
 /*
   div.crystalLabelClass {
     left:  290px; 
 } 
+*/
 
 div.indicatrixLabelClass {
     left:  560px; 
@@ -69,9 +71,77 @@ div.crossSectionLabelClass {
     left:  700px; 
 }
 
+/*
 div.crossSectionLabelClass, div.indicatrixLabelClass, div.crystalLabelClass{
     position: absolute;
     width: 200px;
     height: 15px; 
-}*/
+}
+*/
+
+img.crystalLabel {
+    position: absolute;
+    left: "100px";
+    height: 13%;
+    width: 22%;
+    top: 270px;
+    left:200px;
+    width: 13%;
+    height: 13%;
+    position: fixed;
+
+}
+
+img.crossSectionLabel {
+    position: absolute;
+    left: "100px";
+    height: 13%;
+    width: 22%;
+    top: 270px;
+    left:720px;
+    width: 13%;
+    height: 13%;
+    position: fixed;
+}
+
+/*
+img.crossSectionLabelCover {
+    position: absolute;
+    left: "100px";
+    height: 13%;
+    width: 22%;
+    top: 270px;
+    left:720px;
+    width: 13%;
+    height: 13%;
+    position: fixed;
+}
+*/
+
+img.indicatrixLabel {
+    position: absolute;
+    left: "100px";
+    height: 13%;
+    width: 22%;
+    top: 270px;
+    left:480px;
+    width: 13%;
+    height: 13%;
+    position: fixed;
+    
+}
+
+img.enableCrossSectionsLabel {
+    position: absolute;
+    left: "100px";
+    top: 60px;
+    left:35px;
+    width: 10%;
+    height: 10%;
+    position: fixed;
+}
+
+
+
+
 
