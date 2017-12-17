@@ -188,7 +188,7 @@ var crystalMaterial = new three.MeshFaceMaterial([
 
 
 var ellipsoidMaterial = new THREE.MeshBasicMaterial({//ellipsoid semi-transparent grey material
-   color:0x000000, transparent:true, opacity:0.1, side: THREE.DoubleSide
+   color:0x000000, transparent:true, opacity:0.1, side: THREE.BackSide
 });
 
 var crossSectionMaterial = new THREE.MeshBasicMaterial({//cross section dark grey material
@@ -328,15 +328,6 @@ function changeShape(shape) {
 
     
     crystalShape.add( wireframe );
-    
-	
-	
-	//********I don't think we need this code chunk anymore.********
-    //cross Section Reset
-//    cross_section_width = 10;
-//    cross_section_height = 10;
-//    crossSectionAxisUpdatesOff();
-    //redraw_cross_section();
 }
 
 changeShape(crystalShapes.hexagonalPrism);
@@ -358,7 +349,6 @@ function addWidthAndHeightLineRender(){
 }
 
 
-	
 function removeWidthAndHeightLineRender(){
 	scene.remove(widthLineRender); 
 	scene.remove(heightLineRender); 
@@ -476,8 +466,6 @@ function rotateCrystal(deltaMove) {
            cross_section_height = 10;
            crossSectionAxisUpdates();
            addWidthAndHeightLineRender(); 
-           
-           
    }
        redraw_cross_section();	
 	}
