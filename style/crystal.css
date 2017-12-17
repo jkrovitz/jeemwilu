@@ -1,17 +1,14 @@
  @import url('onOffSwitch.css');
 
-
-
-.headerContainer {
+/*.headerContainer {
     padding-top: 1%;  1:1 Aspect Ratio 
-   
-}
+}*/
 
 html, body {
  margin: 0;
 }
 
-.header {
+/*.header {
     position: absolute;
     width: 100%; 
     display: flex;
@@ -24,7 +21,7 @@ html, body {
     overflow: hidden; 
     background-color: #01426A;
     padding: 10px;*
-} 
+}*/ 
 
 #my_centered_buttons {
     display: flex;
@@ -81,7 +78,7 @@ div.crossSectionLabelClass, div.indicatrixLabelClass, div.crystalLabelClass{
 }
 */
 
-img.crystalLabel {
+/*img.crystalLabel {
     position: absolute;
     left: "100px";
     height: 13%;
@@ -99,8 +96,8 @@ img.crossSectionLabel {
     top: 270px;
     width: 13%;
     height: 13%;
-/*    position: fixed;*/
-}
+    position: fixed;
+} */
 
 /*
 img.crossSectionLabelCover {
@@ -116,10 +113,10 @@ img.crossSectionLabelCover {
 }
 */
 
-img.indicatrixLabel {
+/*img.indicatrixLabel {
     position: absolute;
     top: 270px;
-    left:500px;
+    left:500px;*/
  
 /*
     width: 5%;
@@ -130,14 +127,14 @@ img.indicatrixLabel {
 }
 
 
-crystalLabelDivId{
+/*crystalLabelDivId{
     position: absolute;
     left: 0;
     top: 50%;
     width: 100%;
     text-align: center;
     font-size: 18px;
-}
+}*/
 /*
 img.enableCrossSectionsLabel {
     position: absolute;
