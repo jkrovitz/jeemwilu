@@ -1,16 +1,11 @@
  @import url('onOffSwitch.css');
 
-.WebContainer{
-    width: 100%;
-    height: 35%;
-}
 
-/*
+
 .headerContainer {
     padding-top: 1%;  1:1 Aspect Ratio 
    
 }
-*/
 
 html, body {
  margin: 0;
@@ -28,7 +23,7 @@ html, body {
     
     overflow: hidden; 
     background-color: #01426A;
-    padding: 0px;*
+    padding: 10px;*
 } 
 
 #my_centered_buttons {
@@ -37,16 +32,21 @@ html, body {
 }
 
 .crystalStructure {
+    width: 90px; 
+    height: 90px;
+   
     border:  solid #01426A;
     border-width: thin;
     display: inline-block;
-    margin: 100px 14px;
+    margin: 40px 10px;
 }
 
 .crystalStructure.selected {
     border-width: medium; 
     border-color: #FFB500; 
 }
+
+
 
 /*
 .crystalScreen{
@@ -63,6 +63,7 @@ html, body {
 } 
 */
 
+/*
 div.indicatrixLabelClass {
     left:  560px; 
 } 
@@ -70,6 +71,7 @@ div.indicatrixLabelClass {
 div.crossSectionLabelClass {
     left:  700px; 
 }
+*/
 
 /*
 div.crossSectionLabelClass, div.indicatrixLabelClass, div.crystalLabelClass{
@@ -86,22 +88,18 @@ img.crystalLabel {
     width: 22%;
     top: 270px;
     left:200px;
-    width: 13%;
-    height: 13%;
     position: fixed;
 
 }
 
 img.crossSectionLabel {
     position: absolute;
-    left: "100px";
-    height: 13%;
+    left: 700px;
     width: 22%;
     top: 270px;
-    left:720px;
     width: 13%;
     height: 13%;
-    position: fixed;
+/*    position: fixed;*/
 }
 
 /*
@@ -120,26 +118,36 @@ img.crossSectionLabelCover {
 
 img.indicatrixLabel {
     position: absolute;
-    left: "100px";
-    height: 13%;
-    width: 22%;
     top: 270px;
-    left:480px;
-    width: 13%;
-    height: 13%;
-    position: fixed;
+    left:500px;
+ 
+/*
+    width: 5%;
+    height:5%;
+*/
+/*    position: fixed;*/
     
 }
 
+
+crystalLabelDivId{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+/*
 img.enableCrossSectionsLabel {
     position: absolute;
-    left: "100px";
     top: 60px;
-    left:35px;
+    left: 20px; 
     width: 10%;
     height: 10%;
     position: fixed;
 }
+*/
 
 
 

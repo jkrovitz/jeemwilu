@@ -258,7 +258,6 @@ embededCrossSectionWMesh.position.set(50,0,0);
 /***add crystal***/
 var crystalShape;
 var ActiveShape;
-var crossSectionLabel = document.getElementById("crossSectionLabelDivId"); 
 
 
 function changeShape(shape) {
@@ -298,6 +297,9 @@ function changeShape(shape) {
     
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
+
+    
+    
     
     scene.add(crystalShape);
 
@@ -467,14 +469,14 @@ function rotateCrystal(deltaMove) {
 
            //Spin embedded cross section
           crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI); 
-           crossSectionLabel.innerHTML = "Cross-section";
+           
        }
        else{
            cross_section_width=10;
            cross_section_height = 10;
            crossSectionAxisUpdates();
            addWidthAndHeightLineRender(); 
-           crossSectionLabel.innerHTML = "Cross-section";
+           
            
    }
        redraw_cross_section();	
@@ -590,7 +592,7 @@ function render() {
 
 
 //Labels 
-document.getElementById("crystalLabelDivId").innerHTML = "";
+
 
 render();
 
