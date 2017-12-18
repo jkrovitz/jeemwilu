@@ -23,6 +23,11 @@ html, body {
     border-color: #FFB500; 
 }
 
+
+div {
+    font-size: 150%;
+}
+
 img.crystalLabel {
     top: 270px;
     position: relative;
