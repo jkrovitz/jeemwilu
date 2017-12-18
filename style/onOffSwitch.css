@@ -1,10 +1,10 @@
 .onoffswitch {
     /*position: absolute;*/
-    display: flex;
+    display: flex; 
     justify-content: center; 
-    /*top:10px;
+    top:10px;
     left: 150px;
-    width: 90px;*/
+/*    width: 200px;*/
    
 }
 
@@ -26,7 +26,7 @@
     display: block;
     width: 200%;
     margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
+/*    transition: margin 0.3s ease-in 0s;*/
 }
 
 .onoffswitch-inner:before,

@@ -45,47 +45,16 @@ html, body {
 
 
 
-/*
-.crystalScreen{
-    left: 200px; 
-    width:20%; 
-    display: flex;
-}
-*/
 
+img.crystalLabel {
+    
 
 /*
-  div.crystalLabelClass {
-    left:  290px; 
-} 
-*/
-
-/*
-div.indicatrixLabelClass {
-    left:  560px; 
-} 
-
-div.crossSectionLabelClass {
-    left:  700px; 
-}
-*/
-
-/*
-div.crossSectionLabelClass, div.indicatrixLabelClass, div.crystalLabelClass{
-    position: absolute;
-    width: 200px;
-    height: 15px; 
-}
-*/
-
-/*img.crystalLabel {
-    position: absolute;
-    left: "100px";
     height: 13%;
-    width: 22%;
+    width: 13%;
+*/
     top: 270px;
-    left:200px;
-    position: fixed;
+    position: relative;
 
 }
 
@@ -97,21 +66,9 @@ img.crossSectionLabel {
     width: 13%;
     height: 13%;
     position: fixed;
-} */
+} 
 
 /*
-img.crossSectionLabelCover {
-    position: absolute;
-    left: "100px";
-    height: 13%;
-    width: 22%;
-    top: 270px;
-    left:720px;
-    width: 13%;
-    height: 13%;
-    position: fixed;
-}
-*/
 
 /*img.indicatrixLabel {
     position: absolute;
@@ -147,6 +104,37 @@ img.enableCrossSectionsLabel {
 */
 
 
+.leftLabel{
+    margin-left: calc(45% - 440px);
+}
 
 
+input.aboutButtonDiv, input.homeButtonDiv {
+width: 80px;
+height: 20px;
+margin-left: 24px; 
+margin-top: 24px; 
+padding: 5px;
+cursor: pointer;
+/*
+font-weight: bold;
+font-size: 80%;
+*/
+background: #01426A;
+color: #fff;
+border: 1px solid #3366cc;
+border-radius: 10px;
+}
 
+/*
+.macLogoDivId{
+    right: 0px; 
+    max-width: 90px;
+    height: 1px;
+}
+*/
+
+img.MacLogo{
+    top: 100px; 
+    width: 60%;
+}
