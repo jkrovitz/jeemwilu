@@ -1,19 +1,15 @@
-
-
-/*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/ and https://codepen.io/jonnyboniface/pen/ALoPbL***/
+/*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/ 
+and https://codepen.io/jonnyboniface/pen/ALoPbL***/
 var three = THREE;
-
 
 //--------------------Camera Settings--------------------//
 var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
 var viewSize = 120;
 var aspect=window.innerWidth*2/window.innerHeight;
-var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize / 2, viewSize / - 2 , -1000, 1000);
+var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize 
+                                          / 2, viewSize / - 2 , -1000, 1000);
 scene.add( camera );
-
-//window.open("", "", "width=100, height=100");
-// add listener to disable scroll
 
 // Returns height of HTML document
 $( document ).height();
@@ -57,26 +53,24 @@ var crystal_center_coordinates = 0;
 var indicatrix_center_coordinates = 50;
 var crossSection_center_coordinates = 100;
 
-
-
 //--------------------Crystal Shapes--------------------//
 
 var hexagonalPrismGeometry = new THREE.Geometry();
 hexagonalPrismGeometry.vertices.push( //Make all of the vertices! Triangles from center, with bases rotating counterclockwise
     new THREE.Vector3( 0, 0, 15 ),
-	new THREE.Vector3( 10,  0, 15 ),
-	new THREE.Vector3( 5, 8.66, 15 ),
-	new THREE.Vector3( -5, 8.66, 15 ),
+    new THREE.Vector3( 10,  0, 15 ),
+    new THREE.Vector3( 5, 8.66, 15 ),
+    new THREE.Vector3( -5, 8.66, 15 ),
     new THREE.Vector3( -10, 0, 15 ),
-	new THREE.Vector3( -5, -8.66, 15 ),
-	new THREE.Vector3(  5, -8.66, 15 ),
+    new THREE.Vector3( -5, -8.66, 15 ),
+    new THREE.Vector3(  5, -8.66, 15 ),
     new THREE.Vector3( 0, 0, -15 ),
-	new THREE.Vector3( 10,  0, -15 ),
-	new THREE.Vector3( 5, 8.66, -15 ),
-	new THREE.Vector3( -5, 8.66, -15 ),
+    new THREE.Vector3( 10,  0, -15 ),
+    new THREE.Vector3( 5, 8.66, -15 ),
+    new THREE.Vector3( -5, 8.66, -15 ),
     new THREE.Vector3( -10, 0, -15 ),
-	new THREE.Vector3( -5, -8.66, -15 ),
-	new THREE.Vector3(  5, -8.66, -15 )  
+    new THREE.Vector3( -5, -8.66, -15 ),
+    new THREE.Vector3(  5, -8.66, -15 )  
 );
 hexagonalPrismGeometry.faces.push( 
     new THREE.Face3( 0, 1, 2 ), //Top hex
@@ -111,7 +105,7 @@ trigonalPrismGeometry.vertices.push(
     new THREE.Vector3( -3.5, 6, -15 ),
     new THREE.Vector3( 11.5, 6, -15 ),
     new THREE.Vector3( 3.5, -6, -15 ),
-    
+
     new THREE.Vector3( -11.5, -6, 15 ),
     new THREE.Vector3( -3.5, 6, 15 ),
     new THREE.Vector3( 11.5, 6, 15 ),
@@ -122,7 +116,7 @@ trigonalPrismGeometry.faces.push(
     new THREE.Face3( 3, 0, 2 ),
     new THREE.Face3( 4, 5, 6 ), //bottom
     new THREE.Face3( 7, 4, 6 ),
-    
+
     new THREE.Face3( 0, 1, 4 ), //siding
     new THREE.Face3( 4, 1, 5),
     new THREE.Face3( 1, 2, 5),
@@ -137,7 +131,7 @@ tetragonalPrismGeometry.vertices.push(
     new THREE.Vector3( 5, -5, -15 ),
     new THREE.Vector3( -5, -5, -15 ),
     new THREE.Vector3( -5, 5, -15 ),
-    
+
     new THREE.Vector3( 5, 5, 15 ),
     new THREE.Vector3( 5, -5, 15 ),
     new THREE.Vector3( -5, -5, 15 ),
@@ -148,7 +142,7 @@ tetragonalPrismGeometry.faces.push(
     new THREE.Face3( 3, 0, 2 ),
     new THREE.Face3( 4, 5, 6 ), //bottom 
     new THREE.Face3( 7, 4, 6 ),
-    
+
     new THREE.Face3( 0, 1, 4 ), //siding
     new THREE.Face3( 4, 1, 5),
     new THREE.Face3( 1, 2, 5),
@@ -190,9 +184,8 @@ var crystalMaterial = new three.MeshFaceMaterial([
     }),
 ]);
 
-
 var ellipsoidMaterial = new THREE.MeshBasicMaterial({//ellipsoid semi-transparent grey material
-   color:0x000000, transparent:true, opacity:0.1, side: THREE.BackSide
+    color:0x000000, transparent:true, opacity:0.1, side: THREE.BackSide
 });
 
 var crossSectionMaterial = new THREE.MeshBasicMaterial({//cross section dark grey material
@@ -258,16 +251,14 @@ var EmbededellipseGeometry = EmbededellipsePath.createPointsGeometry(100);
 var embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);
 embededCrossSectionWMesh.position.set(indicatrix_center_coordinates,0,0);
 
-
 /***add crystal***/
 var crystalShape;
 var ActiveShape;
 
-
 function changeShape(shape) {
     if(crystalShape)
         scene.remove(crystalShape);
-    
+
     if(nonCubicEmbeddedEllipsoidMesh) {
         scene.remove(nonCubicEmbeddedEllipsoidMesh);
     }
@@ -280,24 +271,21 @@ function changeShape(shape) {
     if(cubicFreeStandingEllipsoidMesh) {
         scene.remove(cubicFreeStandingEllipsoidMesh);
     }
-    
-	if(myonoffswitch.checked){
+
+    if(myonoffswitch.checked){
         document.getElementById("myonoffswitch").checked = false;
-		removeWidthAndHeightLineRender(); 
-		scene.remove(freeStandingCrossSection);
-		scene.remove(embededCrossSectionWMesh); 
-	}
-	
-	
+        removeWidthAndHeightLineRender(); 
+        scene.remove(freeStandingCrossSection);
+        scene.remove(embededCrossSectionWMesh); 
+    }
+
     ActiveShape = shape;
-    
+
     crystalShape = new three.Mesh(shape.geometry, crystalMaterial);
     crystalShape.rotation.x = Math.PI/2;
-    
-    
+
     scene.add(crystalShape);
 
-    
     if (shape == crystalShapes.cubicPrism) {
         cubicFreeStandingEllipsoidMesh.rotation.set(0,0,0);
         cubicEmbeddedEllipsoidMesh.rotation.set(0,0,0);
@@ -308,9 +296,8 @@ function changeShape(shape) {
         nonCubicEmbeddedEllipsoidMesh.rotation.set(0,0,0);
         scene.add(nonCubicEmbeddedEllipsoidMesh);
         scene.add(nonCubicFreeStandingEllipsoidMesh);
-    }
-;
-    
+    };
+
     var geo = new THREE.EdgesGeometry( crystalShape.geometry );
     var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 4 } );
     var wireframe = new THREE.LineSegments( geo, mat );
@@ -320,8 +307,6 @@ function changeShape(shape) {
 }
 
 changeShape(crystalShapes.hexagonalPrism);
-
-
 
 //--------------------Updating and User Interface--------------------//
 
@@ -333,16 +318,14 @@ var trigonalSelect = document.getElementById('trigonalPrism');
 
 
 function addWidthAndHeightLineRender(){
-	scene.add(widthLineRender);
-	scene.add(heightLineRender); 
+    scene.add(widthLineRender);
+    scene.add(heightLineRender); 
 }
-
 
 function removeWidthAndHeightLineRender(){
-	scene.remove(widthLineRender); 
-	scene.remove(heightLineRender); 
+    scene.remove(widthLineRender); 
+    scene.remove(heightLineRender); 
 }
-
 
 $(document).on('click', '.crystalStructure', function() {
     changeShape(crystalShapes[this.id]);
@@ -354,7 +337,6 @@ $(document).on('click', '.crystalStructure', function() {
 $(myonoffswitch).on('change', function() {
     rotateCrystal({x: 0, y: 0});
 });
-
 
 var isDragging = false;
 var previousMousePosition = {
@@ -384,115 +366,111 @@ $(renderer.domElement).on('mousemove', function(e) {
     }		  
 });
 
-
-    /***Function to update the cross sections***/
+/***Function to update the cross sections***/
 function rotateCrystal(deltaMove) {
 
     var deltaRotationQuaternion = new three.Quaternion()
-        .setFromEuler(new three.Euler(
-            toRadians(deltaMove.y),
-            toRadians(deltaMove.x),
-            0,
-            'XYZ'
-        ));
-    
+    .setFromEuler(new three.Euler(
+        toRadians(deltaMove.y),
+        toRadians(deltaMove.x),
+        0,
+        'XYZ'
+    ));
+
     //And now we tell the shapes which things move        
     crystalShape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystalShape.quaternion);
     nonCubicEmbeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, nonCubicEmbeddedEllipsoidMesh.quaternion);
-	nonCubicFreeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, nonCubicFreeStandingEllipsoidMesh.quaternion);
-    
+    nonCubicFreeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, nonCubicFreeStandingEllipsoidMesh.quaternion);
     cubicEmbeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, cubicEmbeddedEllipsoidMesh.quaternion);
-	cubicFreeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, cubicFreeStandingEllipsoidMesh.quaternion);
+    cubicFreeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, cubicFreeStandingEllipsoidMesh.quaternion);
 
-   if(myonoffswitch.checked){
-       if (ActiveShape != crystalShapes.cubicPrism){
-           scene.add(freeStandingCrossSection); 
-           freeStandingCrossSection.rotateX(.25);
-           addCrossSections(); 
-           cross_section_width=cross_section_width+10;
-           cross_section_height=cross_section_height+10;
+    if(myonoffswitch.checked){
+        if (ActiveShape != crystalShapes.cubicPrism){
+            scene.add(freeStandingCrossSection); 
+            freeStandingCrossSection.rotateX(.25);
+            addCrossSections(); 
+            cross_section_width=cross_section_width+10;
+            cross_section_height=cross_section_height+10;
 
-           var sqr = (x) => x * x;
+            var sqr = (x) => x * x;
 
-           // (xu,yu,zu): basis of ellipsoid’s local coordinate space
-           // (Note: it’s possible that I have the rotation backwards here; you
-           // may need to invert the rotation to get the orientation right.)
+            // (xu,yu,zu): basis of ellipsoid’s local coordinate space
+            // (Note: it’s possible that I have the rotation backwards here; you
+            // may need to invert the rotation to get the orientation right.)
 
-           var rotation = crystalShape.quaternion,
-               xu = (new three.Vector3(1, 0, 0)).applyQuaternion(rotation),
-               yu = (new three.Vector3(0, 1, 0)).applyQuaternion(rotation),
-               zu = (new three.Vector3(0, 0, 1)).applyQuaternion(rotation);
+            var rotation = crystalShape.quaternion,
+                xu = (new three.Vector3(1, 0, 0)).applyQuaternion(rotation),
+                yu = (new three.Vector3(0, 1, 0)).applyQuaternion(rotation),
+                zu = (new three.Vector3(0, 0, 1)).applyQuaternion(rotation);
 
-           // ellipsoid shape
-           var A = sqr(1 / 5),
-               B = sqr(1 / 5),
-               C = sqr(1 / 7.5);
+            // ellipsoid shape
+            var A = sqr(1 / 5),
+                B = sqr(1 / 5),
+                C = sqr(1 / 7.5);
 
-           // cross section ellipse
+            // cross section ellipse
 
-           // These are the coeffecients of the equation that describes
-           // the cross section ellipse, a x^2 + b z^2 + c xz = 1.
+            // These are the coeffecients of the equation that describes
+            // the cross section ellipse, a x^2 + b z^2 + c xz = 1.
 
-           var a = A * sqr(xu.x) + B * sqr(yu.x) + C * sqr(zu.x),
-               b = A * sqr(xu.z) + B * sqr(yu.z) + C * sqr(zu.z),
-               c = A * xu.x * xu.z + B * yu.x * yu.z + C * zu.x * zu.z;
+            var a = A * sqr(xu.x) + B * sqr(yu.x) + C * sqr(zu.x),
+                b = A * sqr(xu.z) + B * sqr(yu.z) + C * sqr(zu.z),
+                c = A * xu.x * xu.z + B * yu.x * yu.z + C * zu.x * zu.z;
 
-           cross_section_width  = 2 * Math.sqrt(2 / (a + b + Math.sqrt(sqr(a-b) + sqr(2*c))));
-           cross_section_height = 2 * Math.sqrt(2 / (a + b - Math.sqrt(sqr(a-b) + sqr(2*c))));
+            cross_section_width  = 2 * Math.sqrt(2 / (a + b + Math.sqrt(sqr(a-b) + sqr(2*c))));
+            cross_section_height = 2 * Math.sqrt(2 / (a + b - Math.sqrt(sqr(a-b) + sqr(2*c))));
 
+            // You should be able to compute the rotation of the cross section
+            // from (a,b,c), possibly from c alone, but my investigations stopped here.
+            // That equation is the normal quadratic form for an ellipse, so Google
+            // should be able to help. (Beware: sometimes that eq has b & c swapped.)
 
-           // You should be able to compute the rotation of the cross section
-           // from (a,b,c), possibly from c alone, but my investigations stopped here.
-           // That equation is the normal quadratic form for an ellipse, so Google
-           // should be able to help. (Beware: sometimes that eq has b & c swapped.)
+            //Spin embedded cross section
+            crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI); 
 
-           //Spin embedded cross section
-          crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI); 
-           
-       }
-       else{
-           cross_section_width=10;
-           cross_section_height = 10;
-           crossSectionAxisUpdates();
-           addWidthAndHeightLineRender(); 
-   }
-       redraw_cross_section();	
-	}
+        }
+        else{
+            cross_section_width=10;
+            cross_section_height = 10;
+            crossSectionAxisUpdates();
+            addWidthAndHeightLineRender(); 
+        }
+        redraw_cross_section();	
+    }
 
     else{
-		removeCrossSections(); 
-		crossSectionAxisUpdatesOff(); 	
+        removeCrossSections(); 
+        crossSectionAxisUpdatesOff(); 	
         crossSectionLabel.innerHTML = " ";
-	}
+    }
 }
 
-
 function addCrossSections(){
-	//add inner-ellipsoid cross-section for freestanding ellipse
-	scene.add(embededCrossSectionWMesh);
-	embededCrossSectionWMesh.rotation.x = Math.PI/2;
+    //add inner-ellipsoid cross-section for freestanding ellipse
+    scene.add(embededCrossSectionWMesh);
+    embededCrossSectionWMesh.rotation.x = Math.PI/2;
     embededCrossSectionWMesh.rotation.z = Math.PI/2;
-	
-	//Add freeStandingCrossSection. 
-	addWidthAndHeightLineRender(); 
-	freeStandingCrossSection.position.set(crossSection_center_coordinates,0,0);
-	scene.add(freeStandingCrossSection);	
+
+    //Add freeStandingCrossSection. 
+    addWidthAndHeightLineRender(); 
+    freeStandingCrossSection.position.set(crossSection_center_coordinates,0,0);
+    scene.add(freeStandingCrossSection);	
     freeStandingCrossSection.rotateX(.25);
 }
 
 function removeCrossSections(){
-	//Removes the cross section embedded in the free standing ellipse 
-	scene.remove(embededCrossSectionWMesh); 
-	
-	//Removes the free standing cross section
-	removeWidthAndHeightLineRender(); 
-	scene.remove(freeStandingCrossSection); 
-	crossSectionAxisUpdatesOff(); 
+    //Removes the cross section embedded in the free standing ellipse 
+    scene.remove(embededCrossSectionWMesh); 
+
+    //Removes the free standing cross section
+    removeWidthAndHeightLineRender(); 
+    scene.remove(freeStandingCrossSection); 
+    crossSectionAxisUpdatesOff(); 
 }
 
 /*** update the cross sections to match the axis lines***/
 function redraw_cross_section(){
-	crossSectionAxisUpdates(); 
+    crossSectionAxisUpdates(); 
     scene.remove(freeStandingCrossSection);
     ellipse = new THREE.EllipseCurve(0, 0, cross_section_width, cross_section_height, 0, 2.0 * Math.PI, false); 
     ellipsePath = new THREE.CurvePath();
@@ -500,9 +478,8 @@ function redraw_cross_section(){
     ellipseGeometry = ellipsePath.createPointsGeometry(100);
     freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material);
     freeStandingCrossSection.position.set(crossSection_center_coordinates,0,0);
-	scene.add(freeStandingCrossSection);
+    scene.add(freeStandingCrossSection);
     freeStandingCrossSection.rotateX(.25);
-    
     scene.remove(embededCrossSectionWMesh);
     Embededellipse = new THREE.EllipseCurve(0, 0, cross_section_width/2, cross_section_height/2, 0, 2.0 * Math.PI, false);
     EmbededellipsePath = new THREE.CurvePath();
@@ -510,41 +487,34 @@ function redraw_cross_section(){
     EmbededellipseGeometry = EmbededellipsePath.createPointsGeometry(100);
     embededCrossSectionWMesh = new three.Line(EmbededellipseGeometry,crossSectionMaterial);
     embededCrossSectionWMesh.position.set(indicatrix_center_coordinates,0,0);
-    
-    //rotate embeded cross section
     embededCrossSectionWMesh.rotation.x = Math.PI/2;
     embededCrossSectionWMesh.rotation.z = crystal_lateral_offest_from_start + (2*Math.PI);
     scene.add(embededCrossSectionWMesh)
 }
-
 
 function crossSectionAxisUpdates(){
     //Here we just update the lines drawing positions to match
     widthLine.vertices[1].x = crossSection_center_coordinates+cross_section_width;
     widthLineRender.geometry.verticesNeedUpdate = true;
     heightLine.vertices[1].y = cross_section_height;
-	heightLineRender.geometry.verticesNeedUpdate = true;
+    heightLineRender.geometry.verticesNeedUpdate = true;
 }
-
 
 function crossSectionAxisUpdatesOff(){
     //Here we just update the lines drawing positions to match
     widthLine.vertices[1].x = 0; 
     widthLineRender.geometry.verticesNeedUpdate = false;
     heightLine.vertices[1].y = 0;
-	heightLineRender.geometry.verticesNeedUpdate = false;
+    heightLineRender.geometry.verticesNeedUpdate = false;
 }
 
-
-
-// shim layer with setTimeout fallback
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         function(callback) {
-            window.setTimeout(callback, 1000 / 60);
-        };
+        window.setTimeout(callback, 1000 / 60);
+    };
 })();
 
 var lastFrameTime = new Date().getTime() / 1000;
@@ -567,17 +537,8 @@ function render() {
     requestAnimFrame(render);
 }
 
-
-//Labels 
-
-
 render();
 
-
-
-
-
-//Cute lil helper function
 function toRadians(angle) {
-	return angle * (Math.PI / 180);
+    return angle * (Math.PI / 180);
 }

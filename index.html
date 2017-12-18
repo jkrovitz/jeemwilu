@@ -1,48 +1,31 @@
 <!--Some of the code for orientationDropdowns was obtainted and modified from 
     https://stackoverflow.com/questions/33573703/changing-iframe-src-via-drop-down-menu-doesnt-load-new-iframe-->
+
 <html>
+    
     <head>
-		
         <title>Crystal</title>
         <script src="lib/three.js"></script>
         <script src="lib/jquery.slim.js"></script>
         <style type="text/css">
-        html {
-                overflow: hidden;
+        }html {
+            overflow: hidden;
         }
         </style>
         <link rel="stylesheet" type="text/css" href="style/crystal.css">
-  <link rel="import" href="/path/to/imports/stuff.html">
+        <link rel="import" href="/path/to/imports/stuff.html">
     </head>
-
+    
     <body bgcolor="#FFFFFF">
-                <form>
-<input class="aboutButtonDiv" type="button" value="About" onclick="window.location.href='about.html'" />
-</form>  
-        
-        
-<!--        <div id=macLogoDivId> <img src="images/macLogo.png" alt="Macalester Logo" width="302.5" height="66"> </div>-->
-         
-<!--
-                <div class ="headerContainer"> 
-            <div class="header">
-                <h1><font face="Arial" color="#FFB500">Optical Crystallography</font></h1>
-        </div>
-            
-            </div> 
--->
-<!--			 <div class="onOffLabelClass" id="onOffLabelId">Enable Cross Sections</div>-->
-	
-			
-        
-     
+    <form>
+    <input class="aboutButtonDiv" type="button" value="About" onclick="window.location.href='about.html'" />
+    </form>  
         <div id="my_centered_buttons">
             <button class="crystalStructure" id="cubicPrism">
                 <img alt="cubic prism" src="images/cubicImage.png" width="70" height="70">
             </button>
             <button class="crystalStructure" id="hexagonalPrism">
-                <img alt="hexagonal prism" src="images/hexagonalPrismImage.png" width="70" height="70">
-            </button>
+                <img alt="hexagonal prism" src="images/hexagonalPrismImage.png" width="70" height="70"></button>
             <button class="crystalStructure" id="tetragonalPrism">
                 <img alt="tetragonal prism" src="images/tetragonalImage.png" width="70" height="70">
             </button>
@@ -50,14 +33,6 @@
                 <img alt="trigonal prism" src="images/trigonalImage.png" width="70" height="70">
             </button>
         </div>
-        <!--
-        Crystallographic Axis <input type="checkbox" id="crystallographicCheck">
-        Optic Axis <input type="checkbox" id="opticCheck">
-        -->
-<!--
-                 <link rel="stylesheet" type="text/css" href="style/crystal.css">
-            <link rel="stylesheet" type="text/css" href="style/onOffSwitch.css">
--->
         <div class="onOffSwitchLabel"> </div>
         <div class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
@@ -65,50 +40,8 @@
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>
             </label>
-            </div>
-           
-                
-<!--
-        <div>
-            <h1 class="leftLabel" >
-                Crystal
-            </h1>
-            
-        </div>
--->
-<!--
-                  <div class="crystalLabelClass" id ="crystalLabelDivID">
-                      Crystal
-        </div>
--->
-       
-       
-<!--
-                <div class="indicatrixLabelClass">Indicatrix <p id="indicatrixLabelDivId"></p>
-            </div>
--->
-                
-                
-            
-                
-             
-<!--                <img class="crystalLabel" id="crystalLabelId" src="images/crystalLabel.png">-->
-	
-           
-<!--                <img class="indicatrixLabel" id="indicatrixLabelId" src="images/indicatrixLabel.png">-->
-            
-            
-<!--               <div class="crossSectionLabelClass" id="crossSectionLabelDivId"> <img class="crossSectionLabel" id="crossSectionLabelId" src="images/crossSectionLabel.png">-->
-
-       
-            
-<!--                <img class="enableCrossSectionsLabel" id="enableCrossSectionsLabelId" src="images/EnableCrossSectionsLabel.png">-->
-            
+        </div>          
         <script src="app/crystal.js"></script>
-        
-
-
-    
     </body>
-
+    
 </html>

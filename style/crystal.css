@@ -1,27 +1,8 @@
- @import url('onOffSwitch.css');
-
-/*.headerContainer {
-    padding-top: 1%;  1:1 Aspect Ratio 
-}*/
+@import url('onOffSwitch.css');
 
 html, body {
- margin: 0;
+    margin: 0;
 }
-
-/*.header {
-    position: absolute;
-    width: 100%; 
-    display: flex;
-    justify-content: center;
-
-    text-align: center;
-    left: 0px;
-    top: 1px;
-    
-    overflow: hidden; 
-    background-color: #01426A;
-    padding: 10px;*
-}*/ 
 
 #my_centered_buttons {
     display: flex;
@@ -31,7 +12,6 @@ html, body {
 .crystalStructure {
     width: 90px; 
     height: 90px;
-   
     border:  solid #01426A;
     border-width: thin;
     display: inline-block;
@@ -43,19 +23,9 @@ html, body {
     border-color: #FFB500; 
 }
 
-
-
-
 img.crystalLabel {
-    
-
-/*
-    height: 13%;
-    width: 13%;
-*/
     top: 270px;
     position: relative;
-
 }
 
 img.crossSectionLabel {
@@ -68,41 +38,6 @@ img.crossSectionLabel {
     position: fixed;
 } 
 
-/*
-
-/*img.indicatrixLabel {
-    position: absolute;
-    top: 270px;
-    left:500px;*/
- 
-/*
-    width: 5%;
-    height:5%;
-*/
-/*    position: fixed;*/
-    
-}
-
-
-/*crystalLabelDivId{
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    text-align: center;
-    font-size: 18px;
-}*/
-/*
-img.enableCrossSectionsLabel {
-    position: absolute;
-    top: 60px;
-    left: 20px; 
-    width: 10%;
-    height: 10%;
-    position: fixed;
-}
-*/
-
 
 .leftLabel{
     margin-left: calc(45% - 440px);
@@ -110,29 +45,17 @@ img.enableCrossSectionsLabel {
 
 
 input.aboutButtonDiv, input.homeButtonDiv {
-width: 80px;
-height: 20px;
-margin-left: 24px; 
-margin-top: 24px; 
-padding: 5px;
-cursor: pointer;
-/*
-font-weight: bold;
-font-size: 80%;
-*/
-background: #01426A;
-color: #fff;
-border: 1px solid #3366cc;
-border-radius: 10px;
+    width: 80px;
+    height: 20px;
+    margin-left: 24px; 
+    margin-top: 24px; 
+    padding: 5px;
+    cursor: pointer;
+    background: #01426A;
+    color: #fff;
+    border: 1px solid #3366cc;
+    border-radius: 10px;
 }
-
-/*
-.macLogoDivId{
-    right: 0px; 
-    max-width: 90px;
-    height: 1px;
-}
-*/
 
 img.MacLogo{
     top: 100px; 
