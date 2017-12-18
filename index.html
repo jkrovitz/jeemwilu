@@ -1,25 +1,25 @@
-<!--Some of the code for orientationDropdowns was obtainted and modified from 
-    https://stackoverflow.com/questions/33573703/changing-iframe-src-via-drop-down-menu-doesnt-load-new-iframe-->
+<!--Some of the code for orientationDropdowns was obtainted and modified from
+https://stackoverflow.com/questions/33573703/changing-iframe-src-via-drop-down-menu-doesnt-load-new-iframe-->
 
 <html>
-    
+
     <head>
         <title>Crystal</title>
         <script src="lib/three.js"></script>
         <script src="lib/jquery.slim.js"></script>
         <style type="text/css">
-        }html {
-            overflow: hidden;
-        }
+            }html {
+                overflow: hidden;
+            }
         </style>
         <link rel="stylesheet" type="text/css" href="style/crystal.css">
         <link rel="import" href="/path/to/imports/stuff.html">
     </head>
-    
+
     <body bgcolor="#FFFFFF">
-    <form>
-    <input class="aboutButtonDiv" type="button" value="About" onclick="window.location.href='about.html'" />
-    </form>  
+        <form>
+            <input class="aboutButtonDiv" type="button" value="About" onclick="window.location.href='about.html'" />
+        </form>
         <div id="my_centered_buttons">
             <button class="crystalStructure" id="cubicPrism">
                 <img alt="cubic prism" src="images/cubicImage.png" width="70" height="70">
@@ -34,14 +34,14 @@
             </button>
         </div>
         <div class="onOffSwitchLabel"> </div>
-        <div class="onoffswitch">Cross Section: 
+        <div class="onoffswitch">Cross Section:
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
             <label class="onoffswitch-label" for="myonoffswitch">
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>
             </label>
-        </div>          
+        </div>
         <script src="app/crystal.js"></script>
     </body>
-    
+
 </html>

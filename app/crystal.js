@@ -1,5 +1,5 @@
-/*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/ 
-and https://codepen.io/jonnyboniface/pen/ALoPbL***/
+/*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/
+    and https://codepen.io/jonnyboniface/pen/ALoPbL***/
 var three = THREE;
 
 //--------------------Camera Settings--------------------//
@@ -7,7 +7,7 @@ var scene = new three.Scene();
 scene.background = new THREE.Color( 0xFFFFFF );
 var viewSize = 120;
 var aspect=window.innerWidth*2/window.innerHeight;
-var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize 
+var camera = new THREE.OrthographicCamera(.5 * viewSize * aspect / - 2, .5 * viewSize * aspect / 2, viewSize
                                           / 2, viewSize / - 2 , -1000, 1000);
 scene.add( camera );
 
@@ -70,16 +70,16 @@ hexagonalPrismGeometry.vertices.push( //Make all of the vertices! Triangles from
     new THREE.Vector3( -5, 8.66, -15 ),
     new THREE.Vector3( -10, 0, -15 ),
     new THREE.Vector3( -5, -8.66, -15 ),
-    new THREE.Vector3(  5, -8.66, -15 )  
+    new THREE.Vector3(  5, -8.66, -15 )
 );
-hexagonalPrismGeometry.faces.push( 
+hexagonalPrismGeometry.faces.push(
     new THREE.Face3( 0, 1, 2 ), //Top hex
     new THREE.Face3( 0, 2, 3 ),
     new THREE.Face3( 0, 3, 4 ),
     new THREE.Face3( 0, 4, 5 ),
     new THREE.Face3( 0, 5, 6 ),
     new THREE.Face3( 0, 6, 1 ),
-    new THREE.Face3( 7, 8, 9 ), //Bottom hex 
+    new THREE.Face3( 7, 8, 9 ), //Bottom hex
     new THREE.Face3( 7, 9, 10 ),
     new THREE.Face3( 7, 10, 11 ),
     new THREE.Face3( 7, 11, 12 ),
@@ -100,7 +100,7 @@ hexagonalPrismGeometry.faces.push(
 );
 
 var trigonalPrismGeometry = new THREE.Geometry();
-trigonalPrismGeometry.vertices.push( 
+trigonalPrismGeometry.vertices.push(
     new THREE.Vector3( -11.5, -6, -15 ),
     new THREE.Vector3( -3.5, 6, -15 ),
     new THREE.Vector3( 11.5, 6, -15 ),
@@ -111,8 +111,8 @@ trigonalPrismGeometry.vertices.push(
     new THREE.Vector3( 11.5, 6, 15 ),
     new THREE.Vector3( 3.5, -6, 15 )
 );
-trigonalPrismGeometry.faces.push( 
-    new THREE.Face3( 0, 1, 2 ), //top 
+trigonalPrismGeometry.faces.push(
+    new THREE.Face3( 0, 1, 2 ), //top
     new THREE.Face3( 3, 0, 2 ),
     new THREE.Face3( 4, 5, 6 ), //bottom
     new THREE.Face3( 7, 4, 6 ),
@@ -126,7 +126,7 @@ trigonalPrismGeometry.faces.push(
 );
 
 var tetragonalPrismGeometry = new THREE.Geometry();
-tetragonalPrismGeometry.vertices.push( 
+tetragonalPrismGeometry.vertices.push(
     new THREE.Vector3( 5, 5, -15 ),
     new THREE.Vector3( 5, -5, -15 ),
     new THREE.Vector3( -5, -5, -15 ),
@@ -137,10 +137,10 @@ tetragonalPrismGeometry.vertices.push(
     new THREE.Vector3( -5, -5, 15 ),
     new THREE.Vector3( -5, 5, 15 )
 );
-tetragonalPrismGeometry.faces.push( 
-    new THREE.Face3( 0, 1, 2 ), //top 
+tetragonalPrismGeometry.faces.push(
+    new THREE.Face3( 0, 1, 2 ), //top
     new THREE.Face3( 3, 0, 2 ),
-    new THREE.Face3( 4, 5, 6 ), //bottom 
+    new THREE.Face3( 4, 5, 6 ), //bottom
     new THREE.Face3( 7, 4, 6 ),
 
     new THREE.Face3( 0, 1, 4 ), //siding
@@ -156,13 +156,13 @@ var crystalShapes = {
         geometry: hexagonalPrismGeometry
     },
     trigonalPrism: {
-        geometry: trigonalPrismGeometry 
+        geometry: trigonalPrismGeometry
     },
     cubicPrism: {
         geometry: new three.BoxGeometry(15,15,15)
     },
     tetragonalPrism: {
-        geometry: tetragonalPrismGeometry 
+        geometry: tetragonalPrismGeometry
     }
 };
 
@@ -233,13 +233,13 @@ var freeStandingCrossSection = new THREE.Line(ellipseGeometry, ellipse_material)
 
 var nonCubicEmbeddedEllipsoidMesh = new THREE.Mesh(nonCubicEllipsoid,ellipsoidMaterial);
 var nonCubicFreeStandingEllipsoidMesh = new three.Mesh(nonCubicEllipsoid,ellipsoidMaterial);
-scene.add(nonCubicEmbeddedEllipsoidMesh); 
+scene.add(nonCubicEmbeddedEllipsoidMesh);
 nonCubicFreeStandingEllipsoidMesh.position.set(indicatrix_center_coordinates,0,0);
 scene.add(nonCubicFreeStandingEllipsoidMesh);
 
 var cubicEmbeddedEllipsoidMesh = new THREE.Mesh(cubicEllipsoid,ellipsoidMaterial);
 var cubicFreeStandingEllipsoidMesh = new three.Mesh(cubicEllipsoid,ellipsoidMaterial);
-scene.add(cubicEmbeddedEllipsoidMesh); 
+scene.add(cubicEmbeddedEllipsoidMesh);
 cubicFreeStandingEllipsoidMesh.position.set(indicatrix_center_coordinates,0,0);
 scene.add(cubicFreeStandingEllipsoidMesh);
 
@@ -274,9 +274,9 @@ function changeShape(shape) {
 
     if(myonoffswitch.checked){
         document.getElementById("myonoffswitch").checked = false;
-        removeWidthAndHeightLineRender(); 
+        removeWidthAndHeightLineRender();
         scene.remove(freeStandingCrossSection);
-        scene.remove(embededCrossSectionWMesh); 
+        scene.remove(embededCrossSectionWMesh);
     }
 
     ActiveShape = shape;
@@ -319,12 +319,12 @@ var trigonalSelect = document.getElementById('trigonalPrism');
 
 function addWidthAndHeightLineRender(){
     scene.add(widthLineRender);
-    scene.add(heightLineRender); 
+    scene.add(heightLineRender);
 }
 
 function removeWidthAndHeightLineRender(){
-    scene.remove(widthLineRender); 
-    scene.remove(heightLineRender); 
+    scene.remove(widthLineRender);
+    scene.remove(heightLineRender);
 }
 
 $(document).on('click', '.crystalStructure', function() {
@@ -363,7 +363,7 @@ $(renderer.domElement).on('mousemove', function(e) {
 
     if(isDragging) {
         rotateCrystal(deltaMove);
-    }		  
+    }
 });
 
 /***Function to update the cross sections***/
@@ -377,7 +377,7 @@ function rotateCrystal(deltaMove) {
         'XYZ'
     ));
 
-    //And now we tell the shapes which things move        
+    //And now we tell the shapes which things move
     crystalShape.quaternion.multiplyQuaternions(deltaRotationQuaternion, crystalShape.quaternion);
     nonCubicEmbeddedEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, nonCubicEmbeddedEllipsoidMesh.quaternion);
     nonCubicFreeStandingEllipsoidMesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, nonCubicFreeStandingEllipsoidMesh.quaternion);
@@ -386,9 +386,9 @@ function rotateCrystal(deltaMove) {
 
     if(myonoffswitch.checked){
         if (ActiveShape != crystalShapes.cubicPrism){
-            scene.add(freeStandingCrossSection); 
+            scene.add(freeStandingCrossSection);
             freeStandingCrossSection.rotateX(.25);
-            addCrossSections(); 
+            addCrossSections();
             cross_section_width=cross_section_width+10;
             cross_section_height=cross_section_height+10;
 
@@ -426,21 +426,21 @@ function rotateCrystal(deltaMove) {
             // should be able to help. (Beware: sometimes that eq has b & c swapped.)
 
             //Spin embedded cross section
-            crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI); 
+            crystal_lateral_offest_from_start = (crystal_lateral_offest_from_start+2*deltaRotationQuaternion.y) % (2*Math.PI);
 
         }
         else{
             cross_section_width=10;
             cross_section_height = 10;
             crossSectionAxisUpdates();
-            addWidthAndHeightLineRender(); 
+            addWidthAndHeightLineRender();
         }
-        redraw_cross_section();	
+        redraw_cross_section();
     }
 
     else{
-        removeCrossSections(); 
-        crossSectionAxisUpdatesOff(); 	
+        removeCrossSections();
+        crossSectionAxisUpdatesOff();
         crossSectionLabel.innerHTML = " ";
     }
 }
@@ -451,28 +451,28 @@ function addCrossSections(){
     embededCrossSectionWMesh.rotation.x = Math.PI/2;
     embededCrossSectionWMesh.rotation.z = Math.PI/2;
 
-    //Add freeStandingCrossSection. 
-    addWidthAndHeightLineRender(); 
+    //Add freeStandingCrossSection.
+    addWidthAndHeightLineRender();
     freeStandingCrossSection.position.set(crossSection_center_coordinates,0,0);
-    scene.add(freeStandingCrossSection);	
+    scene.add(freeStandingCrossSection);
     freeStandingCrossSection.rotateX(.25);
 }
 
 function removeCrossSections(){
-    //Removes the cross section embedded in the free standing ellipse 
-    scene.remove(embededCrossSectionWMesh); 
+    //Removes the cross section embedded in the free standing ellipse
+    scene.remove(embededCrossSectionWMesh);
 
     //Removes the free standing cross section
-    removeWidthAndHeightLineRender(); 
-    scene.remove(freeStandingCrossSection); 
-    crossSectionAxisUpdatesOff(); 
+    removeWidthAndHeightLineRender();
+    scene.remove(freeStandingCrossSection);
+    crossSectionAxisUpdatesOff();
 }
 
 /*** update the cross sections to match the axis lines***/
 function redraw_cross_section(){
-    crossSectionAxisUpdates(); 
+    crossSectionAxisUpdates();
     scene.remove(freeStandingCrossSection);
-    ellipse = new THREE.EllipseCurve(0, 0, cross_section_width, cross_section_height, 0, 2.0 * Math.PI, false); 
+    ellipse = new THREE.EllipseCurve(0, 0, cross_section_width, cross_section_height, 0, 2.0 * Math.PI, false);
     ellipsePath = new THREE.CurvePath();
     ellipsePath.add(ellipse);
     ellipseGeometry = ellipsePath.createPointsGeometry(100);
@@ -502,7 +502,7 @@ function crossSectionAxisUpdates(){
 
 function crossSectionAxisUpdatesOff(){
     //Here we just update the lines drawing positions to match
-    widthLine.vertices[1].x = 0; 
+    widthLine.vertices[1].x = 0;
     widthLineRender.geometry.verticesNeedUpdate = false;
     heightLine.vertices[1].y = 0;
     heightLineRender.geometry.verticesNeedUpdate = false;
@@ -533,7 +533,7 @@ function update(dt, t) {
 update(0, totalGameTime);
 
 function render() {
-    renderer.render(scene, camera);   
+    renderer.render(scene, camera);
     requestAnimFrame(render);
 }
 
