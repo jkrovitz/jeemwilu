@@ -1,16 +1,20 @@
+/*This file contains the code that has to do with the aesthetic appearance of the software. */
+
 @import url('onOffSwitch.css');
 
 html, body {
     margin: 0;
 }
 
+/*Code chunk centers the the four crystal buttons.*/
 #my_centered_buttons {
     display: flex;
     justify-content: center;
 }
 
+/*Cyrstal buttons.*/
 .crystalStructure {
-    width: 90px; 
+    width: 90px;
     height: 90px;
     border:  solid #01426A;
     border-width: thin;
@@ -18,51 +22,27 @@ html, body {
     margin: 40px 10px;
 }
 
+/*Cyrstal button behavior when selected.*/
 .crystalStructure.selected {
-    border-width: medium; 
-    border-color: #FFB500; 
+    border-width: medium;
+    border-color: #FFB500;
 }
 
-
-div {
-    font-size: 150%;
-}
-
-img.crystalLabel {
-    top: 270px;
-    position: relative;
-}
-
-img.crossSectionLabel {
-    position: absolute;
-    left: 700px;
-    width: 22%;
-    top: 270px;
-    width: 13%;
-    height: 13%;
-    position: fixed;
-} 
-
-
+/*Formatting for "Cross Section" Label*/
 .leftLabel{
     margin-left: calc(45% - 440px);
 }
 
-
+/*Formatting of home and about buttons*/
 input.aboutButtonDiv, input.homeButtonDiv {
     width: 80px;
     height: 20px;
-    margin-left: 24px; 
-    margin-top: 24px; 
+    margin-left: 12px;
+    margin-top: 12px;
     padding: 5px;
     cursor: pointer;
     background: #01426A;
     color: #fff;
     border: 1px solid #3366cc;
     border-radius: 10px;
-}
-
-img.MacLogo{
-    top: 100px; 
-    width: 60%;
 }

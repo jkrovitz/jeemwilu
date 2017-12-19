@@ -1,5 +1,6 @@
 /*** Some of this code has been obtained and modified from https://jsfiddle.net/MadLittleMods/n6u6asza/
     and https://codepen.io/jonnyboniface/pen/ALoPbL***/
+
 var three = THREE;
 
 //--------------------Camera Settings--------------------//
@@ -34,8 +35,6 @@ camera.position.y = -32;
 camera.position.z = 50;
 camera.rotateX(.25);
 
-
-
 //rendering
 var renderer = new three.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -52,6 +51,7 @@ scene.add( light );
 var crystal_center_coordinates = 0;
 var indicatrix_center_coordinates = 50;
 var crossSection_center_coordinates = 100;
+$("body").css("overflow", "hidden");
 
 //--------------------Crystal Shapes--------------------//
 
