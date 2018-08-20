@@ -37,15 +37,15 @@ This app is intended for use by experienced geology students who will have backg
 
  
 
-The Crystal: Represented by the changeable 3D wireframe structure. The crystal is main element that is dragged.
+**The Crystal:** Represented by the changeable 3D wireframe structure. The crystal is main element that is dragged.
 
  
 
-The Optical Indicatrix: Represented by the two ellipsoids (one freestanding and one embedded). The optical indicatrix describes the refractory property of the crystal, it is not an actual feature of it. It rotates along with the crystal and shows how the polarized light is refracted via its cross section.
+**The Optical Indicatrix:** Represented by the two ellipsoids (one freestanding and one embedded). The optical indicatrix describes the refractory property of the crystal, it is not an actual feature of it. It rotates along with the crystal and shows how the polarized light is refracted via its cross section.
 
  
 
-The Cross Section: This is the portion of the indicatrix which is illuminated by the polarized light. It changes size with respect to how the crystal and the indicatrix are rotated.
+**The Cross Section:** This is the portion of the indicatrix which is illuminated by the polarized light. It changes size with respect to how the crystal and the indicatrix are rotated.
 
  
 
