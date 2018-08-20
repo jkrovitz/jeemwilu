@@ -51,37 +51,37 @@ This app is intended for use by experienced geology students who will have backg
 
 ## FAQ/Miscellaneous Help
 
-** How to launch this app:**
+**How to launch this app:**
 
 This app is launched by opening the ‘index.html’ file included in the repository.
 
  
 
-** U/I Overview:**
+**U/I Overview:**
 
 The app launches into a screen with an “About” button at the top left, four crystal buttons below that, the an ON/OFF switch, and then a crystal and ellipsoid shown in the middle. 
 
  
 
-** How to change Crystal Structures:**
+**How to change Crystal Structures:**
 
 Clicking a button will load the crystal structure that it represents. The default is hexagonal.
 
  
 
-** How to move the crystal:**
+**How to move the crystal:**
 
 A crystal can be rotated by holding down the mouse and dragging.
 
  
 
-** How to view the cross section:**
+**How to view the cross section:**
 
 The ON/OFF switch turns the light beam on/off - i.e. it toggles the appearance of the cross section on/off. You’ll have to re-toggle it for each crystal structure.
 
  
 
-** How to view documentation:**
+**How to view documentation:**
 
 The “About” button takes the user to this document
 
@@ -94,30 +94,30 @@ The application is split into five main sections: app, images, lib, style, and t
 
  
 
-** app: **
+**app:**
 
 The app folder contains only the crystal.js file. This is a javascript file which holds all of the three.js code for objects, meshes, canvas dimensioning, rendering, display, and so on. The graphical rendering elements of the project (e.g. the crystal, the ellipsoids, etc.) can all be modified here.
 
  
 
-** images: **
+**images:**
 
 Holds the image files that we use to display the buttons and labels we use. None of the moving graphical elements (i.e. the ones controlled by three.js) are found here. Use this folder to add new non-three.js graphics.
 
  
 
-** lib: **
+**lib:**
 
 Necessary files for three.js. No edits recommended.
 
  
 
-** style:**
+**style:**
 
 Controls the CSS settings. No edits recommended.
 
  
 
-** The html files:**
+**The html files:**
 
 Index.html: Launches the app in browser. This file controls the html elements which we display in the app (the on/off switch, the buttons, etc.). It also controls which crystal structure is being displayed. Edit this file in order to change displayed elements for the whole window.
